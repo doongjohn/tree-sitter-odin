@@ -33,17 +33,22 @@ attribute
     (keyword))
   (attribute_declaration
     (keyword)
+    (operator)
     (interpreted_string_literal))
   (attribute_declaration
     (keyword)
+    (operator)
     (identifier))
   (attribute_declaration
     (keyword)
+    (operator)
     (true))
   (attribute_declaration
     (keyword)
+    (operator)
     (false))
   (attribute_declaration
     (keyword)
+    (operator)
     (type_identifier))
 )

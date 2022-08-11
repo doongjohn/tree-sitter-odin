@@ -83,36 +83,19 @@ module.exports = grammar({
 
   rules: {
     source_file: $ => repeat(
-      seq($._top_level_declaration, optional(terminator))
+      seq($._file_scope, optional(terminator))
     ),
 
-    _top_level_declaration: $ => choice(
+    _file_scope: $ => choice(
       $.package_clause,
       $.import_declaration,
       $.attribute_declaration,
       $.const_declaration,
       $.var_declaration,
+      // TODO: when statement
+      // TODO: foreign block
+      // https://odin-lang.org/docs/overview/#foreign-system
     ),
-
-    // TODO: block
-
-    // https://odin-lang.org/docs/overview/#foreign-system
-    // TODO: foreign block
-
-    // TODO: expression (comma sep)
-    //   - function call
-    // TODO: statement
-    //   - for
-    //   - if
-    //   - switch
-    //   - defer
-    //   - when
-    //   - break, continue, fallthrough
-
-    // https://odin-lang.org/docs/overview/#assignment-statements
-    // TODO: const_declaration (comma sep)
-    // TODO: var_declaration (comma sep)
-    // TODO: var_assignment (comma sep)
 
     package_clause: $ => seq(
       alias('package', $.keyword),
@@ -136,51 +119,63 @@ module.exports = grammar({
     expression_list: $ => commaSep1($._expression),
 
     const_declaration: $ => seq(
-      $.identifier_list,
+      field('name', $.identifier_list),
       ':',
-      optional(field('type', $._type_expression)),
-      ':',
-      $.expression_list,
+      optional(field('type', $._type)),
+      alias(':', $.operator),
+      field('value', $.expression_list),
     ),
 
     var_declaration: $ => seq(
-      $.identifier_list,
+      field('name', $.identifier_list),
       ':',
       choice(
-        $._var_declaration1,
-        $._var_declaration2,
+        field('type', $._type),
+        seq(
+          optional(field('type', $._type)),
+          alias('=', $.operator),
+          field('value', $.expression_list)
+        )
       )
-    ),
-    _var_declaration1: $ => seq(
-      optional(field('type', $._type_expression)),
-      '=',
-      $.expression_list,
-    ),
-    _var_declaration2: $ => seq(
-      field('type', $._type_expression),
     ),
 
     attribute_declaration: $ => seq(
       '@(',
-      alias($.identifier, $.keyword),
+      field('attribute', alias($.identifier, $.keyword)),
       optional(seq(
-        '=',
-        choice(
-          $._type_expression,
+        alias('=', $.operator),
+        field('value', choice(
+          $._type,
           $._expression,
-        )
+        ))
       )),
       ')'
     ),
 
+    // assignment is not allowed in the file scope
+    assignment: $ => seq(
+      field('name', $.identifier_list),
+      alias('=', $.operator),
+      field('value', $.expression_list),
+    ),
+
+    // _statement: $ => choice(
+    //   // TODO: statement
+    //   //   - block
+    //   //   - for
+    //   //   - if
+    //   //   - switch
+    //   //   - defer
+    //   //   - when
+    //   //   - break, continue, fallthrough
+    // ),
+
     _expression: $ => choice(
       $.identifier,
       $._string_literal,
-      $.int_literal,
-      $.float_literal,
+      $._numeric_literal,
       // TODO: array_literal [5]int{1, 2, 3, 4, 5}, Vector3{1, 4, 9}
       // TODO: struct_literal Vector2{1, 2}, Vector2{}
-      // TODO: assignment
       $.call_expression,
       $.nil,
       $.true,
@@ -198,7 +193,7 @@ module.exports = grammar({
     argument_list: $ => seq(
       '(',
       commaSep(choice(
-        $._type_expression,
+        $._type,
         $._expression,
       )),
       ')',
@@ -209,12 +204,8 @@ module.exports = grammar({
       repeat(choice(letter, unicodeDigit))
     )),
 
-    _type_expression: $ => choice(
-      $._type,
-      $.type_of_expression,
-    ),
-
     _type: $ => choice(
+      $.type_of_expression,
       $.type_identifier,
       $._type_pointer,
       $._type_multi_pointer,
@@ -222,8 +213,9 @@ module.exports = grammar({
       $.type_fixed_array,
       $.type_dynamic_array,
       $.type_soa,
-      // TODO: struct
       // TODO: proc
+      // TODO: struct
+      // TODO: union
     ),
 
     type_of_expression: $ => seq(
@@ -308,6 +300,10 @@ module.exports = grammar({
       )
     )),
 
+    _numeric_literal: $ => choice(
+      $.int_literal,
+      $.float_literal
+    ),
     int_literal: $ => token(intLiteral),
     float_literal: $ => token(floatLiteral),
 

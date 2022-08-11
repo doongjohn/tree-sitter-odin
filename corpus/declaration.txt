@@ -16,17 +16,20 @@ n4: type_of(n3)
   (const_declaration
     (identifier_list
       (identifier))
+    (operator)
     (expression_list
       (interpreted_string_literal)))
   (const_declaration
     (identifier_list
       (identifier))
     (type_identifier)
+    (operator)
     (expression_list
       (interpreted_string_literal)))
   (var_declaration
     (identifier_list
       (identifier))
+    (operator)
     (expression_list
       (float_literal)))
   (var_declaration
@@ -37,6 +40,7 @@ n4: type_of(n3)
     (identifier_list
       (identifier))
     (type_identifier)
+    (operator)
     (expression_list
       (float_literal)))
   (var_declaration
@@ -64,6 +68,7 @@ a: [dynamic]int
     (identifier_list
       (identifier))
     (type_identifier)
+    (operator)
     (expression_list
       (nil)))
   (var_declaration
@@ -142,6 +147,7 @@ a, b, c := 1, 2, 3
       (identifier)
       (identifier))
     (type_identifier)
+    (operator)
     (expression_list
       (int_literal)
       (int_literal)))
@@ -150,6 +156,7 @@ a, b, c := 1, 2, 3
       (identifier)
       (identifier)
       (identifier))
+    (operator)
     (expression_list
       (int_literal)
       (int_literal)
@@ -164,6 +171,7 @@ a, b, c := 1, 2, 3
       (identifier)
       (identifier))
     (type_identifier)
+    (operator)
     (expression_list
       (int_literal)
       (int_literal)))
@@ -172,6 +180,7 @@ a, b, c := 1, 2, 3
       (identifier)
       (identifier)
       (identifier))
+    (operator)
     (expression_list
       (int_literal)
       (int_literal)

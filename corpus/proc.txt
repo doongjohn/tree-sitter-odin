@@ -10,6 +10,7 @@ b := swizzle(a, 2, 1, 0)
   (var_declaration
     (identifier_list
       (identifier))
+    (operator)
     (expression_list
       (call_expression
         (builtin_identifier)
@@ -33,6 +34,7 @@ a := some_proc(1, another_proc())
   (var_declaration
     (identifier_list
       (identifier))
+    (operator)
     (expression_list
       (call_expression
         (identifier)
@@ -40,6 +42,7 @@ a := some_proc(1, another_proc())
   (var_declaration
     (identifier_list
       (identifier))
+    (operator)
     (expression_list
       (call_expression
         (identifier)
