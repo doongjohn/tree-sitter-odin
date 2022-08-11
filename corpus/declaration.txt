@@ -14,24 +14,34 @@ n4: type_of(n3)
 
 (source_file
   (const_declaration
-    (identifier)
-    (interpreted_string_literal))
+    (identifier_list
+      (identifier))
+    (expression_list
+      (interpreted_string_literal)))
   (const_declaration
-    (identifier)
+    (identifier_list
+      (identifier))
     (type_identifier)
-    (interpreted_string_literal))
+    (expression_list
+      (interpreted_string_literal)))
   (var_declaration
-    (identifier)
-    (float_literal))
+    (identifier_list
+      (identifier))
+    (expression_list
+      (float_literal)))
   (var_declaration
-    (identifier)
+    (identifier_list
+      (identifier))
     (type_identifier))
   (var_declaration
-    (identifier)
+    (identifier_list
+      (identifier))
     (type_identifier)
-    (float_literal))
+    (expression_list
+      (float_literal)))
   (var_declaration
-    (identifier)
+    (identifier_list
+      (identifier))
     (type_of_expression
       (builtin_identifier)
       (identifier)))
@@ -51,29 +61,35 @@ a: [dynamic]int
 
 (source_file
   (var_declaration
-    (identifier)
+    (identifier_list
+      (identifier))
     (type_identifier)
-    (nil))
+    (expression_list
+      (nil)))
   (var_declaration
-    (identifier)
+    (identifier_list
+      (identifier))
     (type_identifier))
   (var_declaration
-    (identifier)
+    (identifier_list
+      (identifier))
     (type_identifier))
   (var_declaration
-    (identifier)
+    (identifier_list
+      (identifier))
     (type_fixed_array
       (int_literal)
       (type_identifier)))
   (var_declaration
-    (identifier)
+    (identifier_list
+      (identifier))
     (type_dynamic_array
       (keyword)
       (type_identifier)))
 )
 
 ========
-pointer and array
+soa
 ========
 
 a: #soa[]int
@@ -84,19 +100,22 @@ a: #soa[dynamic]int
 
 (source_file
   (var_declaration
-    (identifier)
+    (identifier_list
+      (identifier))
     (type_soa
       (keyword)
       (type_identifier)))
   (var_declaration
-    (identifier)
+    (identifier_list
+      (identifier))
     (type_soa
       (keyword)
       (type_fixed_array
         (int_literal)
         (type_identifier))))
   (var_declaration
-    (identifier)
+    (identifier_list
+      (identifier))
     (type_soa
       (keyword)
       (type_dynamic_array
@@ -119,33 +138,42 @@ a, b, c := 1, 2, 3
 
 (source_file
   (const_declaration
-    (identifier)
-    (identifier)
+    (identifier_list
+      (identifier)
+      (identifier))
     (type_identifier)
-    (int_literal)
-    (int_literal))
+    (expression_list
+      (int_literal)
+      (int_literal)))
   (const_declaration
-    (identifier)
-    (identifier)
-    (identifier)
-    (int_literal)
-    (int_literal)
-    (int_literal))
+    (identifier_list
+      (identifier)
+      (identifier)
+      (identifier))
+    (expression_list
+      (int_literal)
+      (int_literal)
+      (int_literal)))
   (var_declaration
-    (identifier)
-    (identifier)
+    (identifier_list
+      (identifier)
+      (identifier))
     (type_identifier))
   (var_declaration
-    (identifier)
-    (identifier)
+    (identifier_list
+      (identifier)
+      (identifier))
     (type_identifier)
-    (int_literal)
-    (int_literal))
+    (expression_list
+      (int_literal)
+      (int_literal)))
   (var_declaration
-    (identifier)
-    (identifier)
-    (identifier)
-    (int_literal)
-    (int_literal)
-    (int_literal))
+    (identifier_list
+      (identifier)
+      (identifier)
+      (identifier))
+    (expression_list
+      (int_literal)
+      (int_literal)
+      (int_literal)))
 )

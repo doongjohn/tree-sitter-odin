@@ -57,11 +57,10 @@ const
     'any'
   ],
 
-  builtin_functions = [
+  builtin_procs = [
     'len',
     'swizzle',
     'soa_zip', 'soa_unzip',
-    'type_of',
     'typeid_of', 'type_info_of',
   ]
 
@@ -133,16 +132,19 @@ module.exports = grammar({
 
     _package_identifier: $ => alias($.identifier, $.package_identifier),
 
+    identifier_list: $ => commaSep1($.identifier),
+    expression_list: $ => commaSep1($._expression),
+
     const_declaration: $ => seq(
-      commaSep1($.identifier),
+      $.identifier_list,
       ':',
       optional(field('type', $._type_expression)),
       ':',
-      commaSep1(field('value', $._expression)),
+      $.expression_list,
     ),
 
     var_declaration: $ => seq(
-      commaSep1($.identifier),
+      $.identifier_list,
       ':',
       choice(
         $._var_declaration1,
@@ -152,7 +154,7 @@ module.exports = grammar({
     _var_declaration1: $ => seq(
       optional(field('type', $._type_expression)),
       '=',
-      commaSep1(field('value', $._expression)),
+      $.expression_list,
     ),
     _var_declaration2: $ => seq(
       field('type', $._type_expression),
@@ -177,10 +179,29 @@ module.exports = grammar({
       $.int_literal,
       $.float_literal,
       // TODO: array_literal [5]int{1, 2, 3, 4, 5}, Vector3{1, 4, 9}
-      // TODO: struct_literal
+      // TODO: struct_literal Vector2{1, 2}, Vector2{}
+      // TODO: assignment
+      $.call_expression,
       $.nil,
       $.true,
       $.false,
+    ),
+
+    call_expression: $ => seq(
+      field('function_call', choice(
+        alias(choice(...builtin_procs), $.builtin_identifier),
+        $.identifier,
+      )),
+      $.argument_list,
+    ),
+
+    argument_list: $ => seq(
+      '(',
+      commaSep(choice(
+        $._type_expression,
+        $._expression,
+      )),
+      ')',
     ),
 
     identifier: $ => token(seq(

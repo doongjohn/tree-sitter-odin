@@ -1,0 +1,51 @@
+========
+builtin proc
+========
+
+b := swizzle(a, 2, 1, 0)
+
+---
+
+(source_file
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (expression_list
+      (call_expression
+        (builtin_identifier)
+        (argument_list
+          (identifier)
+          (int_literal)
+          (int_literal)
+          (int_literal)))))
+)
+
+========
+proc
+========
+
+a := some_proc()
+a := some_proc(1, another_proc())
+
+---
+
+(source_file
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (expression_list
+      (call_expression
+        (identifier)
+        (argument_list))))
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (expression_list
+      (call_expression
+        (identifier)
+        (argument_list
+          (int_literal)
+          (call_expression
+            (identifier)
+            (argument_list))))))
+)
