@@ -1,0 +1,16 @@
+{
+  "name": "tree-sitter-odin",
+  "version": "0.0.0",
+  "description": "Tree sitter grammar for odin programming language",
+  "main": "bindings/node",
+  "repository": null,
+  "author": "doongjohn",
+  "license": "MIT",
+  "devDependencies": {
+    "nan": "^2.16.0",
+    "tree-sitter-cli": "^0.20.6"
+  },
+  "scripts": {
+    "build": "tree-sitter generate && node-gyp build"
+  }
+}

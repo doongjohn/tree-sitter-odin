@@ -1,0 +1,49 @@
+========
+comment
+========
+
+/*
+hello
+*/
+
+// comment
+
+---
+
+(source_file
+  (comment)
+  (comment)
+)
+
+========
+attribute
+========
+
+@(require)
+@(private="file")
+@(deferred_none = baz)
+@(disabled = true)
+@(disabled = false)
+@(objc_type = Type)
+
+---
+
+(source_file
+  (attribute_declaration
+    (keyword))
+  (attribute_declaration
+    (keyword)
+    (interpreted_string_literal))
+  (attribute_declaration
+    (keyword)
+    (identifier))
+  (attribute_declaration
+    (keyword)
+    (true))
+  (attribute_declaration
+    (keyword)
+    (false))
+  (attribute_declaration
+    (keyword)
+    (type_identifier))
+)

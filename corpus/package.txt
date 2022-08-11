@@ -1,0 +1,55 @@
+========
+package
+========
+
+package main
+
+---
+
+(source_file
+  (package_clause
+    (keyword)
+    (package_identifier))
+)
+
+========
+import
+========
+
+import "asdasd"
+import foo "asdasdasd"
+import _ "asdasdasd"
+
+foreign import "asdasd"
+foreign import foo "asdasdasd"
+foreign import _ "asdasdasd"
+
+---
+
+(source_file
+  (import_declaration
+    (keyword)
+    (interpreted_string_literal))
+  (import_declaration
+    (keyword)
+    (package_identifier)
+    (interpreted_string_literal))
+  (import_declaration
+    (keyword)
+    (blank_identifier)
+    (interpreted_string_literal))
+  (import_declaration
+    (keyword)
+    (keyword)
+    (interpreted_string_literal))
+  (import_declaration
+    (keyword)
+    (keyword)
+    (package_identifier)
+    (interpreted_string_literal))
+  (import_declaration
+    (keyword)
+    (keyword)
+    (blank_identifier)
+    (interpreted_string_literal))
+)
