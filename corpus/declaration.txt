@@ -47,7 +47,7 @@ n4: type_of(n3)
     (identifier_list
       (identifier))
     (type_of_expression
-      (builtin_identifier)
+      (predefined_identifier)
       (identifier)))
 )
 
@@ -67,18 +67,23 @@ a: [dynamic]int
   (var_declaration
     (identifier_list
       (identifier))
-    (type_identifier)
+    (type_pointer
+      (operator)
+      (type_identifier))
     (operator)
     (expression_list
       (nil)))
   (var_declaration
     (identifier_list
       (identifier))
-    (type_identifier))
+    (type_multi_pointer
+      (operator)
+      (type_identifier)))
   (var_declaration
     (identifier_list
       (identifier))
-    (type_identifier))
+    (type_slice
+      (type_identifier)))
   (var_declaration
     (identifier_list
       (identifier))
@@ -109,7 +114,8 @@ a: #soa[dynamic]int
       (identifier))
     (type_soa
       (keyword)
-      (type_identifier)))
+      (type_slice
+        (type_identifier))))
   (var_declaration
     (identifier_list
       (identifier))

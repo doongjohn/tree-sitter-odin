@@ -1,0 +1,14 @@
+========
+block
+========
+
+{}
+{
+
+}
+
+---
+
+(source_file
+  (block_statement)
+  (block_statement))
