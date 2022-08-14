@@ -47,7 +47,7 @@ n4: type_of(n3)
     (identifier_list
       (identifier))
     (type_of_expression
-      (predefined_identifier)
+      (builtin_identifier)
       (identifier)))
 )
 

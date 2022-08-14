@@ -34,7 +34,7 @@ const
 
   floatLiteral = decimalFloatLiteral,
 
-  predefined_type = [
+  builtin_types = [
     'byte',
     'bool', 'b8', 'b16', 'b32', 'b64',
     'u8', 'u16', 'u32', 'u64', 'u128',
@@ -56,17 +56,19 @@ const
     'any'
   ],
 
-  predefined_procs = [
-    'len',
-    'swizzle',
-    'soa_zip', 'soa_unzip',
-    'typeid_of', 'type_info_of',
-  ]
-
   operators = [
     'cast',
     'auto_cast',
     'transmute',
+  ],
+
+  builtin_procs = [
+    'len',
+    'swizzle',
+    'new', 'free',
+    'make', 'delete',
+    'soa_zip', 'soa_unzip',
+    'typeid_of', 'type_info_of',
   ]
 
 module.exports = grammar({
@@ -78,6 +80,7 @@ module.exports = grammar({
   ],
 
   conflicts: $ => [
+    [$._identifier_deref_list, $.identifier_list],
   ],
 
   rules: {
@@ -150,6 +153,7 @@ module.exports = grammar({
     ),
 
     assignment: $ => seq(
+      // field('name', alias($._identifier_deref_list, $.identifier_list)),
       field('name', alias($._identifier_deref_list, $.identifier_list)),
       alias('=', $.operator),
       field('value', $.expression_list)
@@ -183,7 +187,7 @@ module.exports = grammar({
       '}'
     ),
 
-    _identifier_deref_list: $ => commaSep1(seq(
+    _identifier_deref_list: $ => commaSep1(choice(
       $.identifier,
       $.dereference_expression
     )),
@@ -192,47 +196,40 @@ module.exports = grammar({
 
     _expression: $ => choice(
       $.identifier,
+      $.dereference_expression,
+      $.selector_expression,
+      $.call_expression,
       $._string_literal,
       $._numeric_literal,
       // TODO: array_literal [5]int{1, 2, 3, 4, 5}, Vector3{1, 4, 9}
       // TODO: struct_literal Vector2{1, 2}, Vector2{}
       // proc literal
       // union literal
-      $.dereference_expression,
-      $.member_expression,
-      $._call_expression,
       $.nil,
       $.true,
       $.false,
     ),
 
+    identifier: $ => token(seq(
+      /[a-z_]/,
+      repeat(choice(letter, unicodeDigit))
+    )),
+
     dereference_expression: $ => seq(
       $.identifier,
-      token.immediate(alias('^', $.operator)),
+      alias('^', $.operator),
     ),
 
-    member_expression: $ => seq(
-      field('object', choice(
-        $.identifier,
-        $.dereference_expression
-      )),
+    selector_expression: $ => seq(
+      field('operand', $._expression),
       '.',
-      field('property', alias($.identifier, $.property_identifier))
+      field('field', $.identifier)
     ),
 
-    _call_expression: $ => choice(
-      alias($._builtin_call_expression, $.call_expression),
-      alias($._expr_call_expression, $.call_expression),
-    ),
-
-    _builtin_call_expression: $ => seq(
-      field('function_call',
-        alias(choice(...predefined_procs), $.predefined_identifier)),
-      field('arguments', $.arguments)
-    ),
-
-    _expr_call_expression: $ => seq(
-      field('function_call', $._expression),
+    // FIXME: this is not working
+    // it results ERROR
+    call_expression: $ => seq(
+      field('function_call', $.selector_expression),
       field('arguments', $.arguments)
     ),
 
@@ -244,11 +241,6 @@ module.exports = grammar({
       )),
       ')',
     ),
-
-    identifier: $ => token(seq(
-      /[a-z_]/,
-      repeat(choice(letter, unicodeDigit))
-    )),
 
     _type: $ => choice(
       $.type_of_expression,
@@ -265,7 +257,7 @@ module.exports = grammar({
     ),
 
     type_of_expression: $ => seq(
-      alias('type_of', $.predefined_identifier),
+      alias('type_of', $.builtin_identifier),
       '(',
       $._expression,
       ')',
@@ -277,7 +269,7 @@ module.exports = grammar({
     ),
 
     type_identifier: $ => token(choice(
-      choice(...predefined_type),
+      choice(...builtin_types),
       seq(
         /[A-Z]/,
         repeat(choice(letter, unicodeDigit)),

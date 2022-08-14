@@ -11,4 +11,51 @@ block
 
 (source_file
   (block_statement)
-  (block_statement))
+  (block_statement)
+)
+
+========
+assignment
+========
+
+a = 10
+a, b = 10, 20
+a^ = 10
+a, b^ = 10, 20
+
+---
+
+(source_file
+  (assignment
+    (identifier_list
+      (identifier))
+    (operator)
+    (expression_list
+      (int_literal)))
+  (assignment
+    (identifier_list
+      (identifier)
+      (identifier))
+    (operator)
+    (expression_list
+      (int_literal)
+      (int_literal)))
+  (assignment
+    (identifier_list
+      (dereference_expression
+        (identifier)
+        (operator)))
+    (operator)
+    (expression_list
+      (int_literal)))
+  (assignment
+    (identifier_list
+      (identifier)
+      (dereference_expression
+        (identifier)
+        (operator)))
+    (operator)
+    (expression_list
+      (int_literal)
+      (int_literal)))
+)

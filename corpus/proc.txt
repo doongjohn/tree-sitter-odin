@@ -13,7 +13,7 @@ b := swizzle(a, 2, 1, 0)
     (operator)
     (expression_list
       (call_expression
-        (predefined_identifier)
+        (identifier)
         (arguments
           (identifier)
           (int_literal)
@@ -52,3 +52,13 @@ a := some_proc(1, another_proc())
             (identifier)
             (arguments))))))
 )
+
+========
+member proc
+========
+
+a := a.some_proc()
+a := a.b.some_proc()
+a := a.b.c.some_proc(1, another_proc())
+
+---
