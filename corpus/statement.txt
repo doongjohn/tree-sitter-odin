@@ -26,13 +26,13 @@ a, b^ = 10, 20
 ---
 
 (source_file
-  (assignment
+  (assignment_statement
     (identifier_list
       (identifier))
     (operator)
     (expression_list
       (int_literal)))
-  (assignment
+  (assignment_statement
     (identifier_list
       (identifier)
       (identifier))
@@ -40,7 +40,7 @@ a, b^ = 10, 20
     (expression_list
       (int_literal)
       (int_literal)))
-  (assignment
+  (assignment_statement
     (identifier_list
       (dereference_expression
         (identifier)
@@ -48,7 +48,7 @@ a, b^ = 10, 20
     (operator)
     (expression_list
       (int_literal)))
-  (assignment
+  (assignment_statement
     (identifier_list
       (identifier)
       (dereference_expression

@@ -89,15 +89,19 @@ module.exports = grammar({
     ),
 
     _file_scope: $ => choice(
+      $._declaration,
+      $._statement,
+      // TODO: when statement
+      // TODO: foreign block
+      // https://odin-lang.org/docs/overview/#foreign-system
+    ),
+
+    _declaration: $ => choice(
       $.package_clause,
       $.import_declaration,
       $.attribute_declaration,
       $.const_declaration,
       $.var_declaration,
-      $._statement,
-      // TODO: when statement
-      // TODO: foreign block
-      // https://odin-lang.org/docs/overview/#foreign-system
     ),
 
     package_clause: $ => seq(
@@ -152,15 +156,8 @@ module.exports = grammar({
       )
     ),
 
-    assignment: $ => seq(
-      // field('name', alias($._identifier_deref_list, $.identifier_list)),
-      field('name', alias($._identifier_deref_list, $.identifier_list)),
-      alias('=', $.operator),
-      field('value', $.expression_list)
-    ),
-
     _statement: $ => choice(
-      $.assignment,
+      $.assignment_statement,
       $.block_statement,
       // TODO: statement
       //   - for
@@ -172,18 +169,22 @@ module.exports = grammar({
       //   - proc group
     ),
 
+    assignment_statement: $ => seq(
+      field('name', alias($._identifier_deref_list, $.identifier_list)),
+      alias('=', $.operator),
+      field('value', $.expression_list)
+    ),
+
     block_statement: $ => seq(
       '{',
-      choice(
+      seq(choice(
         $.attribute_declaration,
-        seq(choice(
-          $.const_declaration,
-          $.var_declaration,
-          $._statement,
-          $._expression,
-          optional(terminator)
-        )),
-      ),
+        $.const_declaration,
+        $.var_declaration,
+        $._statement,
+        $._expression,
+        optional(terminator)
+      )),
       '}'
     ),
 
@@ -195,6 +196,7 @@ module.exports = grammar({
     expression_list: $ => commaSep1($._expression),
 
     _expression: $ => choice(
+      $.parenthesized_expression,
       $.identifier,
       $.dereference_expression,
       $.selector_expression,
@@ -208,6 +210,12 @@ module.exports = grammar({
       $.nil,
       $.true,
       $.false,
+    ),
+
+    parenthesized_expression: $ => seq(
+      '(',
+      $._expression,
+      ')'
     ),
 
     identifier: $ => token(seq(
@@ -226,10 +234,8 @@ module.exports = grammar({
       field('field', $.identifier)
     ),
 
-    // FIXME: this is not working
-    // it results ERROR
     call_expression: $ => seq(
-      field('function_call', $.selector_expression),
+      field('function_call', $._expression),
       field('arguments', $.arguments)
     ),
 

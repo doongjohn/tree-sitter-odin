@@ -62,3 +62,46 @@ a := a.b.some_proc()
 a := a.b.c.some_proc(1, another_proc())
 
 ---
+
+(source_file
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (expression_list
+      (call_expression
+        (selector_expression
+          (identifier)
+          (identifier))
+        (arguments))))
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (expression_list
+      (call_expression
+        (selector_expression
+          (selector_expression
+            (identifier)
+            (identifier))
+          (identifier))
+        (arguments))))
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (expression_list
+      (call_expression
+        (selector_expression
+          (selector_expression
+            (selector_expression
+              (identifier)
+              (identifier))
+            (identifier))
+          (identifier))
+        (arguments
+          (int_literal)
+          (call_expression
+            (identifier)
+            (arguments))))))
+)
