@@ -1,7 +1,8 @@
 // TODO:
 // test all literals
 // test all types
-// add builtin_procs like #assert
+// add statement that includes operator
+// add expression that includes operator
 
 const
   unicodeLetter = /\p{L}/,
@@ -170,7 +171,7 @@ module.exports = grammar({
     _statement: $ => choice(
       $.assignment_statement,
       $.block_statement,
-      // TODO: statement
+      // TODO: other statements
       //   - for
       //   - if
       //   - switch
@@ -209,8 +210,9 @@ module.exports = grammar({
     _literal: $ => choice(
       $._string_literal,
       $._numeric_literal,
-      // TODO: array_literal [5]int{1, 2, 3, 4, 5}, Vector3{1, 4, 9}
-      // TODO: struct_literal Vector2{1, 2}, Vector2{}
+      // TODO: other literals
+      // array_literal [5]int{1, 2, 3, 4, 5}, Vector3{1, 4, 9}
+      // struct_literal Vector2{1, 2}, Vector2{}
       // proc literal
       // union literal
       $.nil,
@@ -320,8 +322,9 @@ module.exports = grammar({
       $.type_dynamic_array,
       $.type_soa,
       $.type_proc,
-      // TODO: struct
-      // TODO: union
+      // TODO: other types
+      // struct
+      // union
     ),
 
     type_of_expression: $ => seq(
