@@ -80,6 +80,10 @@
           "named": true
         },
         {
+          "type": "type_proc",
+          "named": true
+        },
+        {
           "type": "type_slice",
           "named": true
         },
@@ -217,6 +221,10 @@
             "named": true
           },
           {
+            "type": "type_proc",
+            "named": true
+          },
+          {
             "type": "type_slice",
             "named": true
           },
@@ -332,7 +340,7 @@
         ]
       },
       "function_call": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
           {
@@ -361,6 +369,10 @@
           },
           {
             "type": "interpreted_string_literal",
+            "named": true
+          },
+          {
+            "type": "keyword",
             "named": true
           },
           {
@@ -427,6 +439,10 @@
           },
           {
             "type": "type_pointer",
+            "named": true
+          },
+          {
+            "type": "type_proc",
             "named": true
           },
           {
@@ -1004,6 +1020,57 @@
     }
   },
   {
+    "type": "type_proc",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword",
+          "named": true
+        },
+        {
+          "type": "type_dynamic_array",
+          "named": true
+        },
+        {
+          "type": "type_fixed_array",
+          "named": true
+        },
+        {
+          "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_multi_pointer",
+          "named": true
+        },
+        {
+          "type": "type_of_expression",
+          "named": true
+        },
+        {
+          "type": "type_pointer",
+          "named": true
+        },
+        {
+          "type": "type_proc",
+          "named": true
+        },
+        {
+          "type": "type_slice",
+          "named": true
+        },
+        {
+          "type": "type_soa",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "type_slice",
     "named": true,
     "fields": {},
@@ -1092,6 +1159,10 @@
             "named": true
           },
           {
+            "type": "type_proc",
+            "named": true
+          },
+          {
             "type": "type_slice",
             "named": true
           },
@@ -1141,6 +1212,10 @@
   },
   {
     "type": ",",
+    "named": false
+  },
+  {
+    "type": "->",
     "named": false
   },
   {

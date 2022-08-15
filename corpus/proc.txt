@@ -13,7 +13,7 @@ b := swizzle(a, 2, 1, 0)
     (operator)
     (expression_list
       (call_expression
-        (identifier)
+        (keyword)
         (arguments
           (identifier)
           (int_literal)
@@ -61,6 +61,8 @@ a := a.some_proc()
 a := a.b.some_proc()
 a := a.b.c.some_proc(1, another_proc())
 
+a := a.swizzle(1, another_proc())
+
 ---
 
 (source_file
@@ -98,6 +100,20 @@ a := a.b.c.some_proc(1, another_proc())
               (identifier)
               (identifier))
             (identifier))
+          (identifier))
+        (arguments
+          (int_literal)
+          (call_expression
+            (identifier)
+            (arguments))))))
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (expression_list
+      (call_expression
+        (selector_expression
+          (identifier)
           (identifier))
         (arguments
           (int_literal)

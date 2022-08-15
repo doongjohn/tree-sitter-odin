@@ -1,3 +1,8 @@
+// TODO:
+// test all literals
+// test all types
+// add builtin_procs like #assert
+
 const
   unicodeLetter = /\p{L}/,
   unicodeDigit = /[0-9]/,
@@ -69,6 +74,12 @@ const
     'make', 'delete',
     'soa_zip', 'soa_unzip',
     'typeid_of', 'type_info_of',
+    '#assert', '#panic',
+    '#config',
+    '#defined',
+    '#file', '#line', '#procedure',
+    '#location',
+    '#load', '#load_or', '#load_hash'
   ]
 
 module.exports = grammar({
@@ -195,12 +206,7 @@ module.exports = grammar({
     identifier_list: $ => commaSep1($.identifier),
     expression_list: $ => commaSep1($._expression),
 
-    _expression: $ => choice(
-      $.parenthesized_expression,
-      $.identifier,
-      $.dereference_expression,
-      $.selector_expression,
-      $.call_expression,
+    _literal: $ => choice(
       $._string_literal,
       $._numeric_literal,
       // TODO: array_literal [5]int{1, 2, 3, 4, 5}, Vector3{1, 4, 9}
@@ -210,110 +216,6 @@ module.exports = grammar({
       $.nil,
       $.true,
       $.false,
-    ),
-
-    parenthesized_expression: $ => seq(
-      '(',
-      $._expression,
-      ')'
-    ),
-
-    identifier: $ => token(seq(
-      /[a-z_]/,
-      repeat(choice(letter, unicodeDigit))
-    )),
-
-    dereference_expression: $ => seq(
-      $.identifier,
-      alias('^', $.operator),
-    ),
-
-    selector_expression: $ => seq(
-      field('operand', $._expression),
-      '.',
-      field('field', $.identifier)
-    ),
-
-    call_expression: $ => seq(
-      field('function_call', $._expression),
-      field('arguments', $.arguments)
-    ),
-
-    arguments: $ => seq(
-      '(',
-      commaSep(choice(
-        $._type,
-        $._expression,
-      )),
-      ')',
-    ),
-
-    _type: $ => choice(
-      $.type_of_expression,
-      $.type_identifier,
-      $.type_pointer,
-      $.type_multi_pointer,
-      $.type_slice,
-      $.type_fixed_array,
-      $.type_dynamic_array,
-      $.type_soa,
-      // TODO: proc
-      // TODO: struct
-      // TODO: union
-    ),
-
-    type_of_expression: $ => seq(
-      alias('type_of', $.builtin_identifier),
-      '(',
-      $._expression,
-      ')',
-    ),
-
-    _base_type: $ => choice(
-      $.type_identifier,
-      $.type_of_expression,
-    ),
-
-    type_identifier: $ => token(choice(
-      choice(...builtin_types),
-      seq(
-        /[A-Z]/,
-        repeat(choice(letter, unicodeDigit)),
-      )
-    )),
-    type_pointer: $ => seq(
-      alias('^', $.operator),
-      $._base_type,
-    ),
-    type_multi_pointer: $ => seq(
-      '[',
-      alias('^', $.operator),
-      ']',
-      $._base_type,
-    ),
-    type_slice: $ => seq(
-      '[]',
-      $._base_type,
-    ),
-    type_fixed_array: $ => seq(
-      '[',
-      $._expression,
-      ']',
-      $._base_type,
-    ),
-    type_dynamic_array: $ => seq(
-      '[',
-      alias('dynamic', $.keyword),
-      ']',
-      $._base_type,
-    ),
-    type_soa: $ => seq(
-      alias('#soa', $.keyword),
-      choice(
-        $.type_slice,
-        $.type_fixed_array,
-        $.type_dynamic_array,
-      ),
     ),
 
     _string_literal: $ => choice(
@@ -356,6 +258,128 @@ module.exports = grammar({
     nil: $ => 'nil',
     true: $ => 'true',
     false: $ => 'false',
+
+    _expression: $ => choice(
+      $.parenthesized_expression,
+      $.dereference_expression,
+      $.selector_expression,
+      $.call_expression,
+      $.identifier,
+      $._literal
+    ),
+
+    parenthesized_expression: $ => seq(
+      '(', $._expression, ')'
+    ),
+
+    identifier: $ => token(seq(
+      /[a-z_]/,
+      repeat(choice(letter, unicodeDigit))
+    )),
+
+    dereference_expression: $ => seq(
+      $.identifier,
+      alias('^', $.operator),
+    ),
+
+    selector_expression: $ => seq(
+      field('operand', $._expression),
+      '.',
+      field('field', $.identifier)
+    ),
+
+    call_expression: $ => choice(
+      $._normal_call_expression,
+      $._builtin_call_expression,
+    ),
+    _normal_call_expression: $ => seq(
+      field('function_call', $._expression),
+      field('arguments', $.arguments)
+    ),
+    _builtin_call_expression: $ => seq(
+      field('function_call', alias(choice(...builtin_procs)), $.keyword),
+      field('arguments', $.arguments)
+    ),
+
+    arguments: $ => seq(
+      '(',
+      commaSep(choice(
+        $._type,
+        $._expression,
+      )),
+      ')',
+    ),
+
+    _type: $ => choice(
+      $.type_of_expression,
+      $.type_identifier,
+      $.type_pointer,
+      $.type_multi_pointer,
+      $.type_slice,
+      $.type_fixed_array,
+      $.type_dynamic_array,
+      $.type_soa,
+      $.type_proc,
+      // TODO: struct
+      // TODO: union
+    ),
+
+    type_of_expression: $ => seq(
+      alias('type_of', $.builtin_identifier),
+      '(', $._expression, ')',
+    ),
+
+    _base_type: $ => choice(
+      $.type_identifier,
+      $.type_of_expression,
+    ),
+
+    type_identifier: $ => token(choice(
+      choice(...builtin_types),
+      seq(
+        /[A-Z]/,
+        repeat(choice(letter, unicodeDigit)),
+      )
+    )),
+    type_pointer: $ => seq(
+      alias('^', $.operator),
+      $._base_type,
+    ),
+    type_multi_pointer: $ => seq(
+      '[', alias('^', $.operator), ']',
+      $._base_type,
+    ),
+    type_slice: $ => seq(
+      '[]',
+      $._base_type,
+    ),
+    type_fixed_array: $ => seq(
+      '[', $._expression, ']',
+      $._base_type,
+    ),
+    type_dynamic_array: $ => seq(
+      '[', alias('dynamic', $.keyword), ']',
+      $._base_type,
+    ),
+    type_soa: $ => seq(
+      alias('#soa', $.keyword),
+      choice(
+        $.type_slice,
+        $.type_fixed_array,
+        $.type_dynamic_array,
+      ),
+    ),
+    type_proc: $ => seq(
+      alias('proc', $.keyword),
+      '(', commaSep($._type), ')',
+      optional(seq(
+        '->',
+        choice(
+          $._type,
+          seq('(', commaSep($._type), ')')
+        )
+      ))
+    ),
 
     comment: $ => token(choice(
       seq('//', /.*/),
