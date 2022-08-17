@@ -1,5 +1,129 @@
 [
   {
+    "type": "argument",
+    "named": true,
+    "fields": {
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "call_expression",
+            "named": true
+          },
+          {
+            "type": "context_variable",
+            "named": true
+          },
+          {
+            "type": "dereference_expression",
+            "named": true
+          },
+          {
+            "type": "false",
+            "named": true
+          },
+          {
+            "type": "float_literal",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "int_literal",
+            "named": true
+          },
+          {
+            "type": "interpreted_string_literal",
+            "named": true
+          },
+          {
+            "type": "nil",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "raw_string_literal",
+            "named": true
+          },
+          {
+            "type": "selector_expression",
+            "named": true
+          },
+          {
+            "type": "true",
+            "named": true
+          },
+          {
+            "type": "type_conversion_expression",
+            "named": true
+          },
+          {
+            "type": "type_dynamic_array",
+            "named": true
+          },
+          {
+            "type": "type_fixed_array",
+            "named": true
+          },
+          {
+            "type": "type_identifier",
+            "named": true
+          },
+          {
+            "type": "type_multi_pointer",
+            "named": true
+          },
+          {
+            "type": "type_of_expression",
+            "named": true
+          },
+          {
+            "type": "type_pointer",
+            "named": true
+          },
+          {
+            "type": "type_proc",
+            "named": true
+          },
+          {
+            "type": "type_slice",
+            "named": true
+          },
+          {
+            "type": "type_soa_dynamic_array",
+            "named": true
+          },
+          {
+            "type": "type_soa_fixed_array",
+            "named": true
+          },
+          {
+            "type": "type_soa_slice",
+            "named": true
+          },
+          {
+            "type": "type_struct",
+            "named": true
+          },
+          {
+            "type": "type_union",
+            "named": true
+          },
+          {
+            "type": "undefined_value",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "arguments",
     "named": true,
     "fields": {},
@@ -8,87 +132,11 @@
       "required": false,
       "types": [
         {
-          "type": "call_expression",
+          "type": "argument",
           "named": true
         },
         {
-          "type": "dereference_expression",
-          "named": true
-        },
-        {
-          "type": "false",
-          "named": true
-        },
-        {
-          "type": "float_literal",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "int_literal",
-          "named": true
-        },
-        {
-          "type": "interpreted_string_literal",
-          "named": true
-        },
-        {
-          "type": "nil",
-          "named": true
-        },
-        {
-          "type": "parenthesized_expression",
-          "named": true
-        },
-        {
-          "type": "raw_string_literal",
-          "named": true
-        },
-        {
-          "type": "selector_expression",
-          "named": true
-        },
-        {
-          "type": "true",
-          "named": true
-        },
-        {
-          "type": "type_dynamic_array",
-          "named": true
-        },
-        {
-          "type": "type_fixed_array",
-          "named": true
-        },
-        {
-          "type": "type_identifier",
-          "named": true
-        },
-        {
-          "type": "type_multi_pointer",
-          "named": true
-        },
-        {
-          "type": "type_of_expression",
-          "named": true
-        },
-        {
-          "type": "type_pointer",
-          "named": true
-        },
-        {
-          "type": "type_proc",
-          "named": true
-        },
-        {
-          "type": "type_slice",
-          "named": true
-        },
-        {
-          "type": "type_soa",
+          "type": "named_argument",
           "named": true
         }
       ]
@@ -153,6 +201,10 @@
             "named": true
           },
           {
+            "type": "context_variable",
+            "named": true
+          },
+          {
             "type": "dereference_expression",
             "named": true
           },
@@ -197,6 +249,10 @@
             "named": true
           },
           {
+            "type": "type_conversion_expression",
+            "named": true
+          },
+          {
             "type": "type_dynamic_array",
             "named": true
           },
@@ -229,7 +285,27 @@
             "named": true
           },
           {
-            "type": "type_soa",
+            "type": "type_soa_dynamic_array",
+            "named": true
+          },
+          {
+            "type": "type_soa_fixed_array",
+            "named": true
+          },
+          {
+            "type": "type_soa_slice",
+            "named": true
+          },
+          {
+            "type": "type_struct",
+            "named": true
+          },
+          {
+            "type": "type_union",
+            "named": true
+          },
+          {
+            "type": "undefined_value",
             "named": true
           }
         ]
@@ -272,6 +348,10 @@
         },
         {
           "type": "const_declaration",
+          "named": true
+        },
+        {
+          "type": "context_variable",
           "named": true
         },
         {
@@ -319,6 +399,14 @@
           "named": true
         },
         {
+          "type": "type_conversion_expression",
+          "named": true
+        },
+        {
+          "type": "undefined_value",
+          "named": true
+        },
+        {
           "type": "var_declaration",
           "named": true
         }
@@ -340,11 +428,19 @@
         ]
       },
       "function_call": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
+            "type": "builtin_procedure",
+            "named": true
+          },
+          {
             "type": "call_expression",
+            "named": true
+          },
+          {
+            "type": "context_variable",
             "named": true
           },
           {
@@ -372,10 +468,6 @@
             "named": true
           },
           {
-            "type": "keyword",
-            "named": true
-          },
-          {
             "type": "nil",
             "named": true
           },
@@ -393,6 +485,14 @@
           },
           {
             "type": "true",
+            "named": true
+          },
+          {
+            "type": "type_conversion_expression",
+            "named": true
+          },
+          {
+            "type": "undefined_value",
             "named": true
           }
         ]
@@ -450,7 +550,23 @@
             "named": true
           },
           {
-            "type": "type_soa",
+            "type": "type_soa_dynamic_array",
+            "named": true
+          },
+          {
+            "type": "type_soa_fixed_array",
+            "named": true
+          },
+          {
+            "type": "type_soa_slice",
+            "named": true
+          },
+          {
+            "type": "type_struct",
+            "named": true
+          },
+          {
+            "type": "type_union",
             "named": true
           }
         ]
@@ -467,7 +583,7 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
@@ -506,6 +622,10 @@
       "types": [
         {
           "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "context_variable",
           "named": true
         },
         {
@@ -551,6 +671,66 @@
         {
           "type": "true",
           "named": true
+        },
+        {
+          "type": "type_conversion_expression",
+          "named": true
+        },
+        {
+          "type": "type_dynamic_array",
+          "named": true
+        },
+        {
+          "type": "type_fixed_array",
+          "named": true
+        },
+        {
+          "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_multi_pointer",
+          "named": true
+        },
+        {
+          "type": "type_of_expression",
+          "named": true
+        },
+        {
+          "type": "type_pointer",
+          "named": true
+        },
+        {
+          "type": "type_proc",
+          "named": true
+        },
+        {
+          "type": "type_slice",
+          "named": true
+        },
+        {
+          "type": "type_soa_dynamic_array",
+          "named": true
+        },
+        {
+          "type": "type_soa_fixed_array",
+          "named": true
+        },
+        {
+          "type": "type_soa_slice",
+          "named": true
+        },
+        {
+          "type": "type_struct",
+          "named": true
+        },
+        {
+          "type": "type_union",
+          "named": true
+        },
+        {
+          "type": "undefined_value",
+          "named": true
         }
       ]
     }
@@ -569,6 +749,10 @@
         },
         {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "type_identifier",
           "named": true
         }
       ]
@@ -634,6 +818,150 @@
     }
   },
   {
+    "type": "named_argument",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "call_expression",
+            "named": true
+          },
+          {
+            "type": "context_variable",
+            "named": true
+          },
+          {
+            "type": "dereference_expression",
+            "named": true
+          },
+          {
+            "type": "false",
+            "named": true
+          },
+          {
+            "type": "float_literal",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "int_literal",
+            "named": true
+          },
+          {
+            "type": "interpreted_string_literal",
+            "named": true
+          },
+          {
+            "type": "nil",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "raw_string_literal",
+            "named": true
+          },
+          {
+            "type": "selector_expression",
+            "named": true
+          },
+          {
+            "type": "true",
+            "named": true
+          },
+          {
+            "type": "type_conversion_expression",
+            "named": true
+          },
+          {
+            "type": "type_dynamic_array",
+            "named": true
+          },
+          {
+            "type": "type_fixed_array",
+            "named": true
+          },
+          {
+            "type": "type_identifier",
+            "named": true
+          },
+          {
+            "type": "type_multi_pointer",
+            "named": true
+          },
+          {
+            "type": "type_of_expression",
+            "named": true
+          },
+          {
+            "type": "type_pointer",
+            "named": true
+          },
+          {
+            "type": "type_proc",
+            "named": true
+          },
+          {
+            "type": "type_slice",
+            "named": true
+          },
+          {
+            "type": "type_soa_dynamic_array",
+            "named": true
+          },
+          {
+            "type": "type_soa_fixed_array",
+            "named": true
+          },
+          {
+            "type": "type_soa_slice",
+            "named": true
+          },
+          {
+            "type": "type_struct",
+            "named": true
+          },
+          {
+            "type": "type_union",
+            "named": true
+          },
+          {
+            "type": "undefined_value",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "operator",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "package_clause",
     "named": true,
     "fields": {},
@@ -662,6 +990,10 @@
       "types": [
         {
           "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "context_variable",
           "named": true
         },
         {
@@ -707,6 +1039,14 @@
         {
           "type": "true",
           "named": true
+        },
+        {
+          "type": "type_conversion_expression",
+          "named": true
+        },
+        {
+          "type": "undefined_value",
+          "named": true
         }
       ]
     }
@@ -731,6 +1071,10 @@
         "types": [
           {
             "type": "call_expression",
+            "named": true
+          },
+          {
+            "type": "context_variable",
             "named": true
           },
           {
@@ -775,6 +1119,14 @@
           },
           {
             "type": "true",
+            "named": true
+          },
+          {
+            "type": "type_conversion_expression",
+            "named": true
+          },
+          {
+            "type": "undefined_value",
             "named": true
           }
         ]
@@ -821,30 +1173,7 @@
     }
   },
   {
-    "type": "type_dynamic_array",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "keyword",
-          "named": true
-        },
-        {
-          "type": "type_identifier",
-          "named": true
-        },
-        {
-          "type": "type_of_expression",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "type_fixed_array",
+    "type": "type_conversion_expression",
     "named": true,
     "fields": {},
     "children": {
@@ -853,6 +1182,10 @@
       "types": [
         {
           "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "context_variable",
           "named": true
         },
         {
@@ -900,11 +1233,165 @@
           "named": true
         },
         {
+          "type": "type_conversion_expression",
+          "named": true
+        },
+        {
+          "type": "type_dynamic_array",
+          "named": true
+        },
+        {
+          "type": "type_fixed_array",
+          "named": true
+        },
+        {
+          "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_multi_pointer",
+          "named": true
+        },
+        {
+          "type": "type_of_expression",
+          "named": true
+        },
+        {
+          "type": "type_pointer",
+          "named": true
+        },
+        {
+          "type": "type_proc",
+          "named": true
+        },
+        {
+          "type": "type_slice",
+          "named": true
+        },
+        {
+          "type": "type_soa_dynamic_array",
+          "named": true
+        },
+        {
+          "type": "type_soa_fixed_array",
+          "named": true
+        },
+        {
+          "type": "type_soa_slice",
+          "named": true
+        },
+        {
+          "type": "type_struct",
+          "named": true
+        },
+        {
+          "type": "type_union",
+          "named": true
+        },
+        {
+          "type": "undefined_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_dynamic_array",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword",
+          "named": true
+        },
+        {
           "type": "type_identifier",
           "named": true
         },
         {
           "type": "type_of_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_fixed_array",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "context_variable",
+          "named": true
+        },
+        {
+          "type": "dereference_expression",
+          "named": true
+        },
+        {
+          "type": "false",
+          "named": true
+        },
+        {
+          "type": "float_literal",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "int_literal",
+          "named": true
+        },
+        {
+          "type": "interpreted_string_literal",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "raw_string_literal",
+          "named": true
+        },
+        {
+          "type": "selector_expression",
+          "named": true
+        },
+        {
+          "type": "true",
+          "named": true
+        },
+        {
+          "type": "type_conversion_expression",
+          "named": true
+        },
+        {
+          "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_of_expression",
+          "named": true
+        },
+        {
+          "type": "undefined_value",
           "named": true
         }
       ]
@@ -950,6 +1437,10 @@
           "named": true
         },
         {
+          "type": "context_variable",
+          "named": true
+        },
+        {
           "type": "dereference_expression",
           "named": true
         },
@@ -992,6 +1483,14 @@
         {
           "type": "true",
           "named": true
+        },
+        {
+          "type": "type_conversion_expression",
+          "named": true
+        },
+        {
+          "type": "undefined_value",
+          "named": true
         }
       ]
     }
@@ -1022,15 +1521,111 @@
   {
     "type": "type_proc",
     "named": true,
-    "fields": {},
+    "fields": {
+      "parameters": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "type_dynamic_array",
+            "named": true
+          },
+          {
+            "type": "type_fixed_array",
+            "named": true
+          },
+          {
+            "type": "type_identifier",
+            "named": true
+          },
+          {
+            "type": "type_multi_pointer",
+            "named": true
+          },
+          {
+            "type": "type_of_expression",
+            "named": true
+          },
+          {
+            "type": "type_pointer",
+            "named": true
+          },
+          {
+            "type": "type_proc",
+            "named": true
+          },
+          {
+            "type": "type_slice",
+            "named": true
+          },
+          {
+            "type": "type_soa_dynamic_array",
+            "named": true
+          },
+          {
+            "type": "type_soa_fixed_array",
+            "named": true
+          },
+          {
+            "type": "type_soa_slice",
+            "named": true
+          },
+          {
+            "type": "type_struct",
+            "named": true
+          },
+          {
+            "type": "type_union",
+            "named": true
+          }
+        ]
+      },
+      "result": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "operator",
+            "named": true
+          },
+          {
+            "type": "type_proc_result",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
           "type": "keyword",
           "named": true
-        },
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_proc_result",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
         {
           "type": "type_dynamic_array",
           "named": true
@@ -1064,7 +1659,23 @@
           "named": true
         },
         {
-          "type": "type_soa",
+          "type": "type_soa_dynamic_array",
+          "named": true
+        },
+        {
+          "type": "type_soa_fixed_array",
+          "named": true
+        },
+        {
+          "type": "type_soa_slice",
+          "named": true
+        },
+        {
+          "type": "type_struct",
+          "named": true
+        },
+        {
+          "type": "type_union",
           "named": true
         }
       ]
@@ -1090,7 +1701,7 @@
     }
   },
   {
-    "type": "type_soa",
+    "type": "type_soa_dynamic_array",
     "named": true,
     "fields": {},
     "children": {
@@ -1104,13 +1715,414 @@
         {
           "type": "type_dynamic_array",
           "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_soa_fixed_array",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword",
+          "named": true
+        },
+        {
+          "type": "type_fixed_array",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_soa_slice",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword",
+          "named": true
+        },
+        {
+          "type": "type_slice",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_struct",
+    "named": true,
+    "fields": {
+      "tag": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type_struct_tag",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword",
+          "named": true
+        },
+        {
+          "type": "type_struct_fields",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_struct_field",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier_list",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type_dynamic_array",
+            "named": true
+          },
+          {
+            "type": "type_fixed_array",
+            "named": true
+          },
+          {
+            "type": "type_identifier",
+            "named": true
+          },
+          {
+            "type": "type_multi_pointer",
+            "named": true
+          },
+          {
+            "type": "type_of_expression",
+            "named": true
+          },
+          {
+            "type": "type_pointer",
+            "named": true
+          },
+          {
+            "type": "type_proc",
+            "named": true
+          },
+          {
+            "type": "type_slice",
+            "named": true
+          },
+          {
+            "type": "type_soa_dynamic_array",
+            "named": true
+          },
+          {
+            "type": "type_soa_fixed_array",
+            "named": true
+          },
+          {
+            "type": "type_soa_slice",
+            "named": true
+          },
+          {
+            "type": "type_struct",
+            "named": true
+          },
+          {
+            "type": "type_union",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "type_struct_fields",
+    "named": true,
+    "fields": {
+      "field": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "type_struct_field",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "type_struct_tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "context_variable",
+          "named": true
+        },
+        {
+          "type": "dereference_expression",
+          "named": true
+        },
+        {
+          "type": "false",
+          "named": true
+        },
+        {
+          "type": "float_literal",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "int_literal",
+          "named": true
+        },
+        {
+          "type": "interpreted_string_literal",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "raw_string_literal",
+          "named": true
+        },
+        {
+          "type": "selector_expression",
+          "named": true
+        },
+        {
+          "type": "true",
+          "named": true
+        },
+        {
+          "type": "type_conversion_expression",
+          "named": true
+        },
+        {
+          "type": "undefined_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_union",
+    "named": true,
+    "fields": {
+      "tag": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type_union_tag",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword",
+          "named": true
+        },
+        {
+          "type": "type_union_fields",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_union_field",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "type_dynamic_array",
+          "named": true
         },
         {
           "type": "type_fixed_array",
           "named": true
         },
         {
+          "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_multi_pointer",
+          "named": true
+        },
+        {
+          "type": "type_of_expression",
+          "named": true
+        },
+        {
+          "type": "type_pointer",
+          "named": true
+        },
+        {
+          "type": "type_proc",
+          "named": true
+        },
+        {
           "type": "type_slice",
+          "named": true
+        },
+        {
+          "type": "type_soa_dynamic_array",
+          "named": true
+        },
+        {
+          "type": "type_soa_fixed_array",
+          "named": true
+        },
+        {
+          "type": "type_soa_slice",
+          "named": true
+        },
+        {
+          "type": "type_struct",
+          "named": true
+        },
+        {
+          "type": "type_union",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_union_fields",
+    "named": true,
+    "fields": {
+      "field": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "type_union_field",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "type_union_tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "context_variable",
+          "named": true
+        },
+        {
+          "type": "dereference_expression",
+          "named": true
+        },
+        {
+          "type": "false",
+          "named": true
+        },
+        {
+          "type": "float_literal",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "int_literal",
+          "named": true
+        },
+        {
+          "type": "interpreted_string_literal",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "raw_string_literal",
+          "named": true
+        },
+        {
+          "type": "selector_expression",
+          "named": true
+        },
+        {
+          "type": "true",
+          "named": true
+        },
+        {
+          "type": "type_conversion_expression",
+          "named": true
+        },
+        {
+          "type": "undefined_value",
           "named": true
         }
       ]
@@ -1167,7 +2179,23 @@
             "named": true
           },
           {
-            "type": "type_soa",
+            "type": "type_soa_dynamic_array",
+            "named": true
+          },
+          {
+            "type": "type_soa_fixed_array",
+            "named": true
+          },
+          {
+            "type": "type_soa_slice",
+            "named": true
+          },
+          {
+            "type": "type_struct",
+            "named": true
+          },
+          {
+            "type": "type_union",
             "named": true
           }
         ]
@@ -1184,8 +2212,8 @@
       }
     },
     "children": {
-      "multiple": false,
-      "required": false,
+      "multiple": true,
+      "required": true,
       "types": [
         {
           "type": "operator",
@@ -1203,6 +2231,10 @@
     "named": false
   },
   {
+    "type": "#",
+    "named": false
+  },
+  {
     "type": "(",
     "named": false
   },
@@ -1212,10 +2244,6 @@
   },
   {
     "type": ",",
-    "named": false
-  },
-  {
-    "type": "->",
     "named": false
   },
   {
@@ -1255,7 +2283,15 @@
     "named": true
   },
   {
+    "type": "builtin_procedure",
+    "named": true
+  },
+  {
     "type": "comment",
+    "named": true
+  },
+  {
+    "type": "context_variable",
     "named": true
   },
   {
@@ -1304,6 +2340,10 @@
   },
   {
     "type": "type_identifier",
+    "named": true
+  },
+  {
+    "type": "undefined_value",
     "named": true
   },
   {

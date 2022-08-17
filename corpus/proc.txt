@@ -2,6 +2,7 @@
 builtin proc
 ========
 
+a := a.swizzle(1, another_proc())
 b := swizzle(a, 2, 1, 0)
 
 ---
@@ -11,14 +12,36 @@ b := swizzle(a, 2, 1, 0)
     (identifier_list
       (identifier))
     (operator)
+    (operator)
     (expression_list
       (call_expression
-        (keyword)
-        (arguments
+        (selector_expression
           (identifier)
-          (int_literal)
-          (int_literal)
-          (int_literal)))))
+          (identifier))
+        (arguments
+          (argument
+            (int_literal))
+          (argument
+            (call_expression
+              (identifier)
+              (arguments)))))))
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_list
+      (call_expression
+        (builtin_procedure)
+        (arguments
+          (argument
+            (identifier))
+          (argument
+            (int_literal))
+          (argument
+            (int_literal))
+          (argument
+            (int_literal))))))
 )
 
 ========
@@ -35,6 +58,7 @@ a := some_proc(1, another_proc())
     (identifier_list
       (identifier))
     (operator)
+    (operator)
     (expression_list
       (call_expression
         (identifier)
@@ -43,14 +67,17 @@ a := some_proc(1, another_proc())
     (identifier_list
       (identifier))
     (operator)
+    (operator)
     (expression_list
       (call_expression
         (identifier)
         (arguments
-          (int_literal)
-          (call_expression
-            (identifier)
-            (arguments))))))
+          (argument
+            (int_literal))
+          (argument
+            (call_expression
+              (identifier)
+              (arguments)))))))
 )
 
 ========
@@ -61,14 +88,13 @@ a := a.some_proc()
 a := a.b.some_proc()
 a := a.b.c.some_proc(1, another_proc())
 
-a := a.swizzle(1, another_proc())
-
 ---
 
 (source_file
   (var_declaration
     (identifier_list
       (identifier))
+    (operator)
     (operator)
     (expression_list
       (call_expression
@@ -79,6 +105,7 @@ a := a.swizzle(1, another_proc())
   (var_declaration
     (identifier_list
       (identifier))
+    (operator)
     (operator)
     (expression_list
       (call_expression
@@ -91,6 +118,7 @@ a := a.swizzle(1, another_proc())
   (var_declaration
     (identifier_list
       (identifier))
+    (operator)
     (operator)
     (expression_list
       (call_expression
@@ -102,13 +130,27 @@ a := a.swizzle(1, another_proc())
             (identifier))
           (identifier))
         (arguments
-          (int_literal)
-          (call_expression
-            (identifier)
-            (arguments))))))
+          (argument
+            (int_literal))
+          (argument
+            (call_expression
+              (identifier)
+              (arguments)))))))
+)
+
+========
+named arguments
+========
+
+a := a.some_proc(10, wow = "hi")
+
+---
+
+(source_file
   (var_declaration
     (identifier_list
       (identifier))
+    (operator)
     (operator)
     (expression_list
       (call_expression
@@ -116,8 +158,10 @@ a := a.swizzle(1, another_proc())
           (identifier)
           (identifier))
         (arguments
-          (int_literal)
-          (call_expression
+          (argument
+            (int_literal))
+          (named_argument
             (identifier)
-            (arguments))))))
+            (operator)
+            (interpreted_string_literal))))))
 )

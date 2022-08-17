@@ -1,8 +1,12 @@
 // TODO:
-// test all literals
-// test all types
-// add statement that includes operator
-// add expression that includes operator
+// - now: enum
+// - bit_set
+// - do
+// - or_else
+// - or_return
+// - type / proc with generic parameter
+// - where clause https://odin-lang.org/docs/overview/#where-clauses
+// - directives https://odin-lang.org/docs/overview/#directives
 
 const
   unicodeLetter = /\p{L}/,
@@ -53,6 +57,7 @@ const
     'u16be', 'u32be', 'u64be', 'u128be',
     'i16be', 'i32be', 'i64be', 'i128be',
     'string', 'cstring', 'rune',
+    'map',
     'matrix',
     'complex32', 'complex64', 'complex128',
     'quaternion64', 'quaternion128', 'quaternion256',
@@ -62,12 +67,6 @@ const
     'any'
   ],
 
-  operators = [
-    'cast',
-    'auto_cast',
-    'transmute',
-  ],
-
   builtin_procs = [
     'len',
     'swizzle',
@@ -75,6 +74,7 @@ const
     'make', 'delete',
     'soa_zip', 'soa_unzip',
     'typeid_of', 'type_info_of',
+    // -------------------------
     '#assert', '#panic',
     '#config',
     '#defined',
@@ -149,7 +149,7 @@ module.exports = grammar({
 
     const_declaration: $ => seq(
       field('name', $.identifier_list),
-      ':',
+      alias(':', $.operator),
       optional(field('type', $._type)),
       alias(':', $.operator),
       field('value', $.expression_list),
@@ -157,7 +157,7 @@ module.exports = grammar({
 
     var_declaration: $ => seq(
       field('name', $.identifier_list),
-      ':',
+      alias(':', $.operator),
       choice(
         field('type', $._type),
         seq(
@@ -178,7 +178,8 @@ module.exports = grammar({
       //   - defer
       //   - when
       //   - break, continue, fallthrough
-      //   - proc group
+      //   - proc group https://odin-lang.org/docs/overview/#explicit-procedure-overloading
+      //   - using
     ),
 
     assignment_statement: $ => seq(
@@ -204,8 +205,8 @@ module.exports = grammar({
       $.identifier,
       $.dereference_expression
     )),
-    identifier_list: $ => commaSep1($.identifier),
-    expression_list: $ => commaSep1($._expression),
+    identifier_list: $ => commaSep1(choice($.identifier, $.type_identifier)),
+    expression_list: $ => commaSep1(choice($._expression, $._type)),
 
     _literal: $ => choice(
       $._string_literal,
@@ -213,11 +214,12 @@ module.exports = grammar({
       // TODO: other literals
       // array_literal [5]int{1, 2, 3, 4, 5}, Vector3{1, 4, 9}
       // struct_literal Vector2{1, 2}, Vector2{}
-      // proc literal
       // union literal
+      // proc literal
       $.nil,
       $.true,
       $.false,
+      $.undefined_value,
     ),
 
     _string_literal: $ => choice(
@@ -260,14 +262,27 @@ module.exports = grammar({
     nil: $ => 'nil',
     true: $ => 'true',
     false: $ => 'false',
+    undefined_value: $ => '---',
 
     _expression: $ => choice(
       $.parenthesized_expression,
       $.dereference_expression,
       $.selector_expression,
       $.call_expression,
+      $.type_conversion_expression,
       $.identifier,
-      $._literal
+      $._literal,
+      alias('context', $.context_variable),
+      // TODO: other expressions
+      //   - ternary expressions
+      //   - expression with prefix operator
+      //     'cast',
+      //     'auto_cast',
+      //     'transmute',
+      //     'distinct',
+      //   - expression with infix operator
+      //     1 + 2 - 3 * 2
+      //     true && false || true
     ),
 
     parenthesized_expression: $ => seq(
@@ -299,17 +314,30 @@ module.exports = grammar({
       field('arguments', $.arguments)
     ),
     _builtin_call_expression: $ => seq(
-      field('function_call', alias(choice(...builtin_procs)), $.keyword),
+      field('function_call', alias(choice(...builtin_procs), $.builtin_procedure)),
       field('arguments', $.arguments)
     ),
 
+    type_conversion_expression: $ => seq(
+      $._type, '(', $._expression, ')'
+    ),
+
     arguments: $ => seq(
-      '(',
-      commaSep(choice(
+      '(', commaSep(choice($.argument, $.named_argument)), ')',
+    ),
+    argument: $ => seq(
+      field('value', choice(
         $._type,
         $._expression,
-      )),
-      ')',
+      ))
+    ),
+    named_argument: $ => seq(
+      field('name', $.identifier),
+      alias('=', $.operator),
+      field('value', choice(
+        $._type,
+        $._expression,
+      ))
     ),
 
     _type: $ => choice(
@@ -320,12 +348,21 @@ module.exports = grammar({
       $.type_slice,
       $.type_fixed_array,
       $.type_dynamic_array,
-      $.type_soa,
+      $.type_soa_slice,
+      $.type_soa_fixed_array,
+      $.type_soa_dynamic_array,
       $.type_proc,
-      // TODO: other types
-      // struct
-      // union
+      $.type_struct,
+      $.type_union,
     ),
+
+    type_identifier: $ => token(choice(
+      choice(...builtin_types),
+      seq(
+        /[A-Z]/,
+        repeat(choice(letter, unicodeDigit)),
+      )
+    )),
 
     type_of_expression: $ => seq(
       alias('type_of', $.builtin_identifier),
@@ -337,13 +374,6 @@ module.exports = grammar({
       $.type_of_expression,
     ),
 
-    type_identifier: $ => token(choice(
-      choice(...builtin_types),
-      seq(
-        /[A-Z]/,
-        repeat(choice(letter, unicodeDigit)),
-      )
-    )),
     type_pointer: $ => seq(
       alias('^', $.operator),
       $._base_type,
@@ -364,24 +394,70 @@ module.exports = grammar({
       '[', alias('dynamic', $.keyword), ']',
       $._base_type,
     ),
-    type_soa: $ => seq(
+    type_soa_slice: $ => seq(
       alias('#soa', $.keyword),
-      choice(
-        $.type_slice,
-        $.type_fixed_array,
-        $.type_dynamic_array,
-      ),
+      $.type_slice,
+    ),
+    type_soa_fixed_array: $ => seq(
+      alias('#soa', $.keyword),
+      $.type_fixed_array,
+    ),
+    type_soa_dynamic_array: $ => seq(
+      alias('#soa', $.keyword),
+      $.type_dynamic_array,
     ),
     type_proc: $ => seq(
       alias('proc', $.keyword),
-      '(', commaSep($._type), ')',
-      optional(seq(
-        '->',
-        choice(
-          $._type,
-          seq('(', commaSep($._type), ')')
-        )
+      field('parameters', seq('(', commaSep($._type), ')')),
+      field('result', optional(seq(
+        alias('->', $.operator),
+        $.type_proc_result
+      )))
+    ),
+    type_proc_result: $ => choice(
+      $._type,
+      seq('(', commaSep($._type), ')')
+    ),
+    type_struct: $ => seq(
+      alias('struct', $.keyword),
+      optional(field('tag', $.type_struct_tag)),
+      '{',
+      optional($.type_struct_fields),
+      '}'
+    ),
+    type_struct_tag: $ => seq(
+      '#',
+      $.identifier,
+      optional($._expression)
+    ),
+    type_struct_fields: $ => choice(
+      field('field', $.type_struct_field),
+      repeat1(seq(
+        field('field', $.type_struct_field),
+        ','
       ))
+    ),
+    type_struct_field: $ => seq(
+      field('name', $.identifier_list),
+      ':',
+      field('type', $._type),
+    ),
+    type_union: $ => seq(
+      alias('union', $.keyword),
+      optional(field('tag', alias($.type_struct_tag, $.type_union_tag))),
+      '{',
+      optional($.type_union_fields),
+      '}'
+    ),
+    type_union_fields: $ => choice(
+      field('field', $.type_union_field),
+      repeat1(seq(
+        field('field', $.type_union_field),
+        ','
+      ))
+    ),
+    type_union_field: $ => seq(
+      $._type,
     ),
 
     comment: $ => token(choice(

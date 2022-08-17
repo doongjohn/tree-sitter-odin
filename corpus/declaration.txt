@@ -17,11 +17,13 @@ n4: type_of(n3)
     (identifier_list
       (identifier))
     (operator)
+    (operator)
     (expression_list
       (interpreted_string_literal)))
   (const_declaration
     (identifier_list
       (identifier))
+    (operator)
     (type_identifier)
     (operator)
     (expression_list
@@ -30,15 +32,18 @@ n4: type_of(n3)
     (identifier_list
       (identifier))
     (operator)
+    (operator)
     (expression_list
       (float_literal)))
   (var_declaration
     (identifier_list
       (identifier))
+    (operator)
     (type_identifier))
   (var_declaration
     (identifier_list
       (identifier))
+    (operator)
     (type_identifier)
     (operator)
     (expression_list
@@ -46,6 +51,7 @@ n4: type_of(n3)
   (var_declaration
     (identifier_list
       (identifier))
+    (operator)
     (type_of_expression
       (builtin_identifier)
       (identifier)))
@@ -67,6 +73,7 @@ a: [dynamic]int
   (var_declaration
     (identifier_list
       (identifier))
+    (operator)
     (type_pointer
       (operator)
       (type_identifier))
@@ -76,23 +83,27 @@ a: [dynamic]int
   (var_declaration
     (identifier_list
       (identifier))
+    (operator)
     (type_multi_pointer
       (operator)
       (type_identifier)))
   (var_declaration
     (identifier_list
       (identifier))
+    (operator)
     (type_slice
       (type_identifier)))
   (var_declaration
     (identifier_list
       (identifier))
+    (operator)
     (type_fixed_array
       (int_literal)
       (type_identifier)))
   (var_declaration
     (identifier_list
       (identifier))
+    (operator)
     (type_dynamic_array
       (keyword)
       (type_identifier)))
@@ -112,14 +123,16 @@ a: #soa[dynamic]int
   (var_declaration
     (identifier_list
       (identifier))
-    (type_soa
+    (operator)
+    (type_soa_slice
       (keyword)
       (type_slice
         (type_identifier))))
   (var_declaration
     (identifier_list
       (identifier))
-    (type_soa
+    (operator)
+    (type_soa_fixed_array
       (keyword)
       (type_fixed_array
         (int_literal)
@@ -127,7 +140,8 @@ a: #soa[dynamic]int
   (var_declaration
     (identifier_list
       (identifier))
-    (type_soa
+    (operator)
+    (type_soa_dynamic_array
       (keyword)
       (type_dynamic_array
         (keyword)
@@ -152,6 +166,7 @@ a, b, c := 1, 2, 3
     (identifier_list
       (identifier)
       (identifier))
+    (operator)
     (type_identifier)
     (operator)
     (expression_list
@@ -163,6 +178,7 @@ a, b, c := 1, 2, 3
       (identifier)
       (identifier))
     (operator)
+    (operator)
     (expression_list
       (int_literal)
       (int_literal)
@@ -171,11 +187,13 @@ a, b, c := 1, 2, 3
     (identifier_list
       (identifier)
       (identifier))
+    (operator)
     (type_identifier))
   (var_declaration
     (identifier_list
       (identifier)
       (identifier))
+    (operator)
     (type_identifier)
     (operator)
     (expression_list
@@ -186,6 +204,7 @@ a, b, c := 1, 2, 3
       (identifier)
       (identifier)
       (identifier))
+    (operator)
     (operator)
     (expression_list
       (int_literal)

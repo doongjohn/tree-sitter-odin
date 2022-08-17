@@ -1,0 +1,93 @@
+========
+struct
+========
+
+A : typeid : struct {
+  a: f32,
+  b: int,
+}
+
+B : typeid : struct {
+  a: f32
+}
+
+---
+
+(source_file
+  (const_declaration
+    (identifier_list
+      (type_identifier))
+    (operator)
+    (type_identifier)
+    (operator)
+    (expression_list
+      (type_struct
+        (keyword)
+        (type_struct_fields
+          (type_struct_field
+            (identifier_list
+              (identifier))
+            (type_identifier))
+          (type_struct_field
+            (identifier_list
+              (identifier))
+            (type_identifier))))))
+  (const_declaration
+    (identifier_list
+      (type_identifier))
+    (operator)
+    (type_identifier)
+    (operator)
+    (expression_list
+      (type_struct
+        (keyword)
+        (type_struct_fields
+          (type_struct_field
+            (identifier_list
+              (identifier))
+            (type_identifier))))))
+)
+
+========
+union
+========
+
+A :: union {
+  f32,
+  int,
+}
+
+B :: union #no_nil {
+  f32
+}
+
+---
+
+(source_file
+  (const_declaration
+    (identifier_list
+      (type_identifier))
+    (operator)
+    (operator)
+    (expression_list
+      (type_union
+        (keyword)
+        (type_union_fields
+          (type_union_field
+            (type_identifier))
+          (type_union_field
+            (type_identifier))))))
+  (const_declaration
+    (identifier_list
+      (type_identifier))
+    (operator)
+    (operator)
+    (expression_list
+      (type_union
+        (keyword)
+        (type_union_tag
+          (identifier))
+        (type_union_fields
+          (type_union_field
+            (type_identifier))))))
+)
