@@ -1,3 +1,3 @@
-# tree-sitter-quick_check
+# tree-sitter-odin
 
-A grammar to test your Tree-sitter development workflow
+tree sitter parser for odin language (WIP)
