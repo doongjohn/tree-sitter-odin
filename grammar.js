@@ -1,6 +1,5 @@
 // TODO:
-// - now: enum
-// - bit_set
+// - now: bit_set
 // - do
 // - or_else
 // - or_return
@@ -93,6 +92,7 @@ module.exports = grammar({
 
   conflicts: $ => [
     [$._identifier_deref_list, $.identifier_list],
+    [$.proc_body_expression, $.type_proc],
   ],
 
   rules: {
@@ -171,6 +171,7 @@ module.exports = grammar({
     _statement: $ => choice(
       $.assignment_statement,
       $.block_statement,
+      $.using_statement,
       // TODO: other statements
       //   - for
       //   - if
@@ -179,7 +180,6 @@ module.exports = grammar({
       //   - when
       //   - break, continue, fallthrough
       //   - proc group https://odin-lang.org/docs/overview/#explicit-procedure-overloading
-      //   - using
     ),
 
     assignment_statement: $ => seq(
@@ -190,15 +190,27 @@ module.exports = grammar({
 
     block_statement: $ => seq(
       '{',
-      seq(choice(
-        $.attribute_declaration,
-        $.const_declaration,
-        $.var_declaration,
-        $._statement,
-        $._expression,
+      optional(seq(
+        choice(
+          $.attribute_declaration,
+          $.const_declaration,
+          $.var_declaration,
+          $._statement,
+          $._expression,
+        ),
         optional(terminator)
       )),
       '}'
+    ),
+
+    using_statement: $ => seq(
+      alias('using', $.keyword),
+      choice(
+        $.identifier,
+        $.type_identifier,
+        $.var_declaration,
+        $.const_declaration,
+      )
     ),
 
     _identifier_deref_list: $ => commaSep1(choice(
@@ -268,6 +280,8 @@ module.exports = grammar({
       $.parenthesized_expression,
       $.dereference_expression,
       $.selector_expression,
+      $.implicit_selector_expression,
+      $.proc_body_expression,
       $.call_expression,
       $.type_conversion_expression,
       $.identifier,
@@ -303,6 +317,44 @@ module.exports = grammar({
       field('operand', $._expression),
       '.',
       field('field', $.identifier)
+    ),
+
+    implicit_selector_expression: $ => seq(
+      '.',
+      field('field', choice(
+        $.identifier,
+        $.type_identifier
+      ))
+    ),
+
+    proc_body_expression: $ => seq(
+      alias('proc', $.keyword),
+      '(',
+      field('parameters', commaSep($.proc_body_parameter)),
+      ')',
+      optional(seq(
+        alias('->', $.operator),
+        field('result', $.type_proc_result)
+      )),
+      choice(
+        $.block_statement,
+        alias('...', $.operator)
+      )
+    ),
+    proc_body_parameter: $ => choice(
+      $._proc_body_normal_paramenter,
+      $._proc_body_using_paramenter,
+    ),
+    _proc_body_normal_paramenter: $ => seq(
+      field('name', $.identifier),
+      alias(':', $.operator),
+      field('type', $._type),
+    ),
+    _proc_body_using_paramenter: $ => seq(
+      alias('using', $.keyword),
+      field('name', $.identifier),
+      alias(':', $.operator),
+      field('type', $._type),
     ),
 
     call_expression: $ => choice(
@@ -352,8 +404,7 @@ module.exports = grammar({
       $.type_soa_fixed_array,
       $.type_soa_dynamic_array,
       $.type_proc,
-      $.type_struct,
-      $.type_union,
+      $._type_value,
     ),
 
     type_identifier: $ => token(choice(
@@ -409,55 +460,74 @@ module.exports = grammar({
     type_proc: $ => seq(
       alias('proc', $.keyword),
       field('parameters', seq('(', commaSep($._type), ')')),
-      field('result', optional(seq(
+      optional(seq(
         alias('->', $.operator),
-        $.type_proc_result
-      )))
+        field('result', $.type_proc_result)
+      ))
     ),
     type_proc_result: $ => choice(
       $._type,
       seq('(', commaSep($._type), ')')
     ),
-    type_struct: $ => seq(
-      alias('struct', $.keyword),
-      optional(field('tag', $.type_struct_tag)),
-      '{',
-      optional($.type_struct_fields),
-      '}'
+
+    _type_value: $ => choice(
+      $.type_value_struct,
+      $.type_value_union,
     ),
-    type_struct_tag: $ => seq(
+    type_value_tag: $ => seq(
       '#',
       $.identifier,
       optional($._expression)
     ),
-    type_struct_fields: $ => choice(
-      field('field', $.type_struct_field),
-      repeat1(seq(
-        field('field', $.type_struct_field),
-        ','
-      ))
-    ),
-    type_struct_field: $ => seq(
-      field('name', $.identifier_list),
-      ':',
-      field('type', $._type),
-    ),
-    type_union: $ => seq(
-      alias('union', $.keyword),
-      optional(field('tag', alias($.type_struct_tag, $.type_union_tag))),
+
+    type_value_struct: $ => seq(
+      alias('struct', $.keyword),
+      optional(field('tag', $.type_value_tag)),
       '{',
-      optional($.type_union_fields),
+      // TODO: using statement
+      optional(choice(
+        field('field', $.type_value_struct_field),
+        commaTerminated1(field('field', $.type_value_struct_field)),
+      )),
       '}'
     ),
-    type_union_fields: $ => choice(
-      field('field', $.type_union_field),
-      repeat1(seq(
-        field('field', $.type_union_field),
-        ','
-      ))
+    type_value_struct_field: $ => seq(
+      field('name', $.identifier_list),
+      alias(':', $.operator),
+      field('type', $._type),
     ),
-    type_union_field: $ => seq(
+
+    type_value_union: $ => seq(
+      alias('union', $.keyword),
+      optional(field('tag', $.type_value_tag)),
+      '{',
+      optional(choice(
+        field('field', $.type_value_union_field),
+        commaTerminated1(field('field', $.type_value_union_field)),
+      )),
+      '}'
+    ),
+    type_value_union_field: $ => seq(
       $._type,
+    ),
+
+    type_value_enum: $ => seq(
+      alias('enum', $.keyword),
+      optional(field('type', $._type)),
+      optional(field('tag', $.type_value_tag)),
+      '{',
+      optional(choice(
+        field('field', $.type_value_enum_field),
+        commaTerminated1(field('field', $.type_value_enum_field)),
+      )),
+      '}'
+    ),
+    type_value_enum_field: $ => seq(
+      alias($.type_identifier, $.enum_field),
+      optional(seq(
+        alias('=', $.operator),
+        $._expression
+      ))
     ),
 
     comment: $ => token(choice(
@@ -474,13 +544,26 @@ module.exports = grammar({
 function commaSep(rule) {
   return optional(commaSep1(rule))
 }
-
 function commaSep1(rule) {
   return seq(
     rule,
     repeat(seq(
       ',',
       rule
+    ))
+  )
+}
+
+function commaTerminated(rule) {
+  return optional(commaTerminated1(rule))
+}
+function commaTerminated1(rule) {
+  return seq(
+    rule,
+    ',',
+    repeat(seq(
+      rule,
+      ',',
     ))
   )
 }

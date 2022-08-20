@@ -32,6 +32,10 @@
             "named": true
           },
           {
+            "type": "implicit_selector_expression",
+            "named": true
+          },
+          {
             "type": "int_literal",
             "named": true
           },
@@ -45,6 +49,10 @@
           },
           {
             "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "proc_body_expression",
             "named": true
           },
           {
@@ -108,11 +116,11 @@
             "named": true
           },
           {
-            "type": "type_struct",
+            "type": "type_value_struct",
             "named": true
           },
           {
-            "type": "type_union",
+            "type": "type_value_union",
             "named": true
           },
           {
@@ -221,6 +229,10 @@
             "named": true
           },
           {
+            "type": "implicit_selector_expression",
+            "named": true
+          },
+          {
             "type": "int_literal",
             "named": true
           },
@@ -234,6 +246,10 @@
           },
           {
             "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "proc_body_expression",
             "named": true
           },
           {
@@ -297,11 +313,11 @@
             "named": true
           },
           {
-            "type": "type_struct",
+            "type": "type_value_struct",
             "named": true
           },
           {
-            "type": "type_union",
+            "type": "type_value_union",
             "named": true
           },
           {
@@ -371,6 +387,10 @@
           "named": true
         },
         {
+          "type": "implicit_selector_expression",
+          "named": true
+        },
+        {
           "type": "int_literal",
           "named": true
         },
@@ -384,6 +404,10 @@
         },
         {
           "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "proc_body_expression",
           "named": true
         },
         {
@@ -404,6 +428,10 @@
         },
         {
           "type": "undefined_value",
+          "named": true
+        },
+        {
+          "type": "using_statement",
           "named": true
         },
         {
@@ -460,6 +488,10 @@
             "named": true
           },
           {
+            "type": "implicit_selector_expression",
+            "named": true
+          },
+          {
             "type": "int_literal",
             "named": true
           },
@@ -473,6 +505,10 @@
           },
           {
             "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "proc_body_expression",
             "named": true
           },
           {
@@ -562,11 +598,11 @@
             "named": true
           },
           {
-            "type": "type_struct",
+            "type": "type_value_struct",
             "named": true
           },
           {
-            "type": "type_union",
+            "type": "type_value_union",
             "named": true
           }
         ]
@@ -645,6 +681,10 @@
           "named": true
         },
         {
+          "type": "implicit_selector_expression",
+          "named": true
+        },
+        {
           "type": "int_literal",
           "named": true
         },
@@ -658,6 +698,10 @@
         },
         {
           "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "proc_body_expression",
           "named": true
         },
         {
@@ -721,11 +765,11 @@
           "named": true
         },
         {
-          "type": "type_struct",
+          "type": "type_value_struct",
           "named": true
         },
         {
-          "type": "type_union",
+          "type": "type_value_union",
           "named": true
         },
         {
@@ -756,6 +800,26 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "implicit_selector_expression",
+    "named": true,
+    "fields": {
+      "field": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "type_identifier",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -860,6 +924,10 @@
             "named": true
           },
           {
+            "type": "implicit_selector_expression",
+            "named": true
+          },
+          {
             "type": "int_literal",
             "named": true
           },
@@ -873,6 +941,10 @@
           },
           {
             "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "proc_body_expression",
             "named": true
           },
           {
@@ -936,11 +1008,11 @@
             "named": true
           },
           {
-            "type": "type_struct",
+            "type": "type_value_struct",
             "named": true
           },
           {
-            "type": "type_union",
+            "type": "type_value_union",
             "named": true
           },
           {
@@ -1013,6 +1085,10 @@
           "named": true
         },
         {
+          "type": "implicit_selector_expression",
+          "named": true
+        },
+        {
           "type": "int_literal",
           "named": true
         },
@@ -1026,6 +1102,10 @@
         },
         {
           "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "proc_body_expression",
           "named": true
         },
         {
@@ -1046,6 +1126,142 @@
         },
         {
           "type": "undefined_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "proc_body_expression",
+    "named": true,
+    "fields": {
+      "parameters": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "proc_body_parameter",
+            "named": true
+          }
+        ]
+      },
+      "result": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type_proc_result",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block_statement",
+          "named": true
+        },
+        {
+          "type": "keyword",
+          "named": true
+        },
+        {
+          "type": "operator",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "proc_body_parameter",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type_dynamic_array",
+            "named": true
+          },
+          {
+            "type": "type_fixed_array",
+            "named": true
+          },
+          {
+            "type": "type_identifier",
+            "named": true
+          },
+          {
+            "type": "type_multi_pointer",
+            "named": true
+          },
+          {
+            "type": "type_of_expression",
+            "named": true
+          },
+          {
+            "type": "type_pointer",
+            "named": true
+          },
+          {
+            "type": "type_proc",
+            "named": true
+          },
+          {
+            "type": "type_slice",
+            "named": true
+          },
+          {
+            "type": "type_soa_dynamic_array",
+            "named": true
+          },
+          {
+            "type": "type_soa_fixed_array",
+            "named": true
+          },
+          {
+            "type": "type_soa_slice",
+            "named": true
+          },
+          {
+            "type": "type_value_struct",
+            "named": true
+          },
+          {
+            "type": "type_value_union",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword",
+          "named": true
+        },
+        {
+          "type": "operator",
           "named": true
         }
       ]
@@ -1094,6 +1310,10 @@
             "named": true
           },
           {
+            "type": "implicit_selector_expression",
+            "named": true
+          },
+          {
             "type": "int_literal",
             "named": true
           },
@@ -1107,6 +1327,10 @@
           },
           {
             "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "proc_body_expression",
             "named": true
           },
           {
@@ -1166,6 +1390,10 @@
           "named": true
         },
         {
+          "type": "using_statement",
+          "named": true
+        },
+        {
           "type": "var_declaration",
           "named": true
         }
@@ -1205,6 +1433,10 @@
           "named": true
         },
         {
+          "type": "implicit_selector_expression",
+          "named": true
+        },
+        {
           "type": "int_literal",
           "named": true
         },
@@ -1218,6 +1450,10 @@
         },
         {
           "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "proc_body_expression",
           "named": true
         },
         {
@@ -1281,11 +1517,11 @@
           "named": true
         },
         {
-          "type": "type_struct",
+          "type": "type_value_struct",
           "named": true
         },
         {
-          "type": "type_union",
+          "type": "type_value_union",
           "named": true
         },
         {
@@ -1351,6 +1587,10 @@
           "named": true
         },
         {
+          "type": "implicit_selector_expression",
+          "named": true
+        },
+        {
           "type": "int_literal",
           "named": true
         },
@@ -1364,6 +1604,10 @@
         },
         {
           "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "proc_body_expression",
           "named": true
         },
         {
@@ -1457,6 +1701,10 @@
           "named": true
         },
         {
+          "type": "implicit_selector_expression",
+          "named": true
+        },
+        {
           "type": "int_literal",
           "named": true
         },
@@ -1470,6 +1718,10 @@
         },
         {
           "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "proc_body_expression",
           "named": true
         },
         {
@@ -1583,23 +1835,19 @@
             "named": true
           },
           {
-            "type": "type_struct",
+            "type": "type_value_struct",
             "named": true
           },
           {
-            "type": "type_union",
+            "type": "type_value_union",
             "named": true
           }
         ]
       },
       "result": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
-          {
-            "type": "operator",
-            "named": true
-          },
           {
             "type": "type_proc_result",
             "named": true
@@ -1608,11 +1856,15 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
           "type": "keyword",
+          "named": true
+        },
+        {
+          "type": "operator",
           "named": true
         }
       ]
@@ -1671,11 +1923,11 @@
           "named": true
         },
         {
-          "type": "type_struct",
+          "type": "type_value_struct",
           "named": true
         },
         {
-          "type": "type_union",
+          "type": "type_value_union",
           "named": true
         }
       ]
@@ -1758,37 +2010,130 @@
     }
   },
   {
-    "type": "type_struct",
+    "type": "type_value_enum_field",
     "named": true,
-    "fields": {
-      "tag": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "type_struct_tag",
-            "named": true
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
       "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "keyword",
+          "type": "call_expression",
           "named": true
         },
         {
-          "type": "type_struct_fields",
+          "type": "context_variable",
+          "named": true
+        },
+        {
+          "type": "dereference_expression",
+          "named": true
+        },
+        {
+          "type": "enum_field",
+          "named": true
+        },
+        {
+          "type": "false",
+          "named": true
+        },
+        {
+          "type": "float_literal",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "implicit_selector_expression",
+          "named": true
+        },
+        {
+          "type": "int_literal",
+          "named": true
+        },
+        {
+          "type": "interpreted_string_literal",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "operator",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "proc_body_expression",
+          "named": true
+        },
+        {
+          "type": "raw_string_literal",
+          "named": true
+        },
+        {
+          "type": "selector_expression",
+          "named": true
+        },
+        {
+          "type": "true",
+          "named": true
+        },
+        {
+          "type": "type_conversion_expression",
+          "named": true
+        },
+        {
+          "type": "undefined_value",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "type_struct_field",
+    "type": "type_value_struct",
+    "named": true,
+    "fields": {
+      "field": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "type_value_struct_field",
+            "named": true
+          }
+        ]
+      },
+      "tag": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type_value_tag",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_value_struct_field",
     "named": true,
     "fields": {
       "name": {
@@ -1850,35 +2195,29 @@
             "named": true
           },
           {
-            "type": "type_struct",
+            "type": "type_value_struct",
             "named": true
           },
           {
-            "type": "type_union",
+            "type": "type_value_union",
             "named": true
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "operator",
+          "named": true
+        }
+      ]
     }
   },
   {
-    "type": "type_struct_fields",
-    "named": true,
-    "fields": {
-      "field": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "type_struct_field",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "type_struct_tag",
+    "type": "type_value_tag",
     "named": true,
     "fields": {},
     "children": {
@@ -1910,6 +2249,10 @@
           "named": true
         },
         {
+          "type": "implicit_selector_expression",
+          "named": true
+        },
+        {
           "type": "int_literal",
           "named": true
         },
@@ -1923,6 +2266,10 @@
         },
         {
           "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "proc_body_expression",
           "named": true
         },
         {
@@ -1949,37 +2296,43 @@
     }
   },
   {
-    "type": "type_union",
+    "type": "type_value_union",
     "named": true,
     "fields": {
+      "field": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "type_value_union_field",
+            "named": true
+          }
+        ]
+      },
       "tag": {
         "multiple": false,
         "required": false,
         "types": [
           {
-            "type": "type_union_tag",
+            "type": "type_value_tag",
             "named": true
           }
         ]
       }
     },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
           "type": "keyword",
-          "named": true
-        },
-        {
-          "type": "type_union_fields",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "type_union_field",
+    "type": "type_value_union_field",
     "named": true,
     "fields": {},
     "children": {
@@ -2031,34 +2384,18 @@
           "named": true
         },
         {
-          "type": "type_struct",
+          "type": "type_value_struct",
           "named": true
         },
         {
-          "type": "type_union",
+          "type": "type_value_union",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "type_union_fields",
-    "named": true,
-    "fields": {
-      "field": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "type_union_field",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "type_union_tag",
+    "type": "using_statement",
     "named": true,
     "fields": {},
     "children": {
@@ -2066,23 +2403,7 @@
       "required": true,
       "types": [
         {
-          "type": "call_expression",
-          "named": true
-        },
-        {
-          "type": "context_variable",
-          "named": true
-        },
-        {
-          "type": "dereference_expression",
-          "named": true
-        },
-        {
-          "type": "false",
-          "named": true
-        },
-        {
-          "type": "float_literal",
+          "type": "const_declaration",
           "named": true
         },
         {
@@ -2090,39 +2411,15 @@
           "named": true
         },
         {
-          "type": "int_literal",
+          "type": "keyword",
           "named": true
         },
         {
-          "type": "interpreted_string_literal",
+          "type": "type_identifier",
           "named": true
         },
         {
-          "type": "nil",
-          "named": true
-        },
-        {
-          "type": "parenthesized_expression",
-          "named": true
-        },
-        {
-          "type": "raw_string_literal",
-          "named": true
-        },
-        {
-          "type": "selector_expression",
-          "named": true
-        },
-        {
-          "type": "true",
-          "named": true
-        },
-        {
-          "type": "type_conversion_expression",
-          "named": true
-        },
-        {
-          "type": "undefined_value",
+          "type": "var_declaration",
           "named": true
         }
       ]
@@ -2191,11 +2488,11 @@
             "named": true
           },
           {
-            "type": "type_struct",
+            "type": "type_value_struct",
             "named": true
           },
           {
-            "type": "type_union",
+            "type": "type_value_union",
             "named": true
           }
         ]
@@ -2251,10 +2548,6 @@
     "named": false
   },
   {
-    "type": ":",
-    "named": false
-  },
-  {
     "type": ";",
     "named": false
   },
@@ -2292,6 +2585,10 @@
   },
   {
     "type": "context_variable",
+    "named": true
+  },
+  {
+    "type": "enum_field",
     "named": true
   },
   {

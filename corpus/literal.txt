@@ -11,6 +11,10 @@ B : typeid : struct {
   a: f32
 }
 
+C : typeid : struct {
+  a, b, c: f32
+}
+
 ---
 
 (source_file
@@ -21,17 +25,18 @@ B : typeid : struct {
     (type_identifier)
     (operator)
     (expression_list
-      (type_struct
+      (type_value_struct
         (keyword)
-        (type_struct_fields
-          (type_struct_field
-            (identifier_list
-              (identifier))
-            (type_identifier))
-          (type_struct_field
-            (identifier_list
-              (identifier))
-            (type_identifier))))))
+        (type_value_struct_field
+          (identifier_list
+            (identifier))
+          (operator)
+          (type_identifier))
+        (type_value_struct_field
+          (identifier_list
+            (identifier))
+          (operator)
+          (type_identifier)))))
   (const_declaration
     (identifier_list
       (type_identifier))
@@ -39,13 +44,29 @@ B : typeid : struct {
     (type_identifier)
     (operator)
     (expression_list
-      (type_struct
+      (type_value_struct
         (keyword)
-        (type_struct_fields
-          (type_struct_field
-            (identifier_list
-              (identifier))
-            (type_identifier))))))
+        (type_value_struct_field
+          (identifier_list
+            (identifier))
+          (operator)
+          (type_identifier)))))
+  (const_declaration
+    (identifier_list
+      (type_identifier))
+    (operator)
+    (type_identifier)
+    (operator)
+    (expression_list
+      (type_value_struct
+        (keyword)
+        (type_value_struct_field
+          (identifier_list
+            (identifier)
+            (identifier)
+            (identifier))
+          (operator)
+          (type_identifier)))))
 )
 
 ========
@@ -70,24 +91,22 @@ B :: union #no_nil {
     (operator)
     (operator)
     (expression_list
-      (type_union
+      (type_value_union
         (keyword)
-        (type_union_fields
-          (type_union_field
-            (type_identifier))
-          (type_union_field
-            (type_identifier))))))
+        (type_value_union_field
+          (type_identifier))
+        (type_value_union_field
+          (type_identifier)))))
   (const_declaration
     (identifier_list
       (type_identifier))
     (operator)
     (operator)
     (expression_list
-      (type_union
+      (type_value_union
         (keyword)
-        (type_union_tag
+        (type_value_tag
           (identifier))
-        (type_union_fields
-          (type_union_field
-            (type_identifier))))))
+        (type_value_union_field
+          (type_identifier)))))
 )
