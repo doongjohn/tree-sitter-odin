@@ -7,11 +7,11 @@ A : typeid : struct {
   b: int,
 }
 
-B : typeid : struct {
+B :: struct {
   a: f32
 }
 
-C : typeid : struct {
+C :: struct {
   a, b, c: f32
 }
 
@@ -41,7 +41,6 @@ C : typeid : struct {
     (identifier_list
       (type_identifier))
     (operator)
-    (type_identifier)
     (operator)
     (expression_list
       (type_value_struct
@@ -55,7 +54,6 @@ C : typeid : struct {
     (identifier_list
       (type_identifier))
     (operator)
-    (type_identifier)
     (operator)
     (expression_list
       (type_value_struct

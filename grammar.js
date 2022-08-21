@@ -1,4 +1,5 @@
 // TODO:
+// - now: return statement
 // - now: bit_set
 // - do
 // - or_else
@@ -92,7 +93,7 @@ module.exports = grammar({
 
   conflicts: $ => [
     [$._identifier_deref_list, $.identifier_list],
-    [$.proc_body_expression, $.type_proc],
+    [$.proc_body, $.type_proc],
   ],
 
   rules: {
@@ -281,9 +282,9 @@ module.exports = grammar({
       $.dereference_expression,
       $.selector_expression,
       $.implicit_selector_expression,
-      $.proc_body_expression,
       $.call_expression,
       $.type_conversion_expression,
+      $.proc_body,
       $.identifier,
       $._literal,
       alias('context', $.context_variable),
@@ -327,34 +328,36 @@ module.exports = grammar({
       ))
     ),
 
-    proc_body_expression: $ => seq(
+    proc_body: $ => seq(
       alias('proc', $.keyword),
-      '(',
-      field('parameters', commaSep($.proc_body_parameter)),
-      ')',
+      field('parameters', $.parameters),
       optional(seq(
         alias('->', $.operator),
-        field('result', $.type_proc_result)
+        field('result', $.proc_result)
       )),
       choice(
         $.block_statement,
-        alias('...', $.operator)
+        alias('---', $.operator)
       )
     ),
-    proc_body_parameter: $ => choice(
-      $._proc_body_normal_paramenter,
-      $._proc_body_using_paramenter,
+    parameters: $ => seq(
+      '(',
+      commaSep($.parameter),
+      ')',
     ),
-    _proc_body_normal_paramenter: $ => seq(
-      field('name', $.identifier),
-      alias(':', $.operator),
+    // FIXME: produces an ERROR
+    parameter: $ => choice(
+      seq(
+        optional(alias('using', $.keyword)),
+        field('name', $.identifier),
+        alias(':', $.operator),
+        field('type', $._type),
+      ),
       field('type', $._type),
     ),
-    _proc_body_using_paramenter: $ => seq(
-      alias('using', $.keyword),
-      field('name', $.identifier),
-      alias(':', $.operator),
-      field('type', $._type),
+    proc_result: $ => choice(
+      $._type,
+      seq('(', commaSep($._type), ')')
     ),
 
     call_expression: $ => choice(
@@ -459,15 +462,11 @@ module.exports = grammar({
     ),
     type_proc: $ => seq(
       alias('proc', $.keyword),
-      field('parameters', seq('(', commaSep($._type), ')')),
+      field('parameters', $.parameters),
       optional(seq(
         alias('->', $.operator),
-        field('result', $.type_proc_result)
-      ))
-    ),
-    type_proc_result: $ => choice(
-      $._type,
-      seq('(', commaSep($._type), ')')
+        field('result', $.proc_result)
+      )),
     ),
 
     _type_value: $ => choice(
@@ -484,14 +483,23 @@ module.exports = grammar({
       alias('struct', $.keyword),
       optional(field('tag', $.type_value_tag)),
       '{',
-      // TODO: using statement
       optional(choice(
         field('field', $.type_value_struct_field),
         commaTerminated1(field('field', $.type_value_struct_field)),
       )),
       '}'
     ),
-    type_value_struct_field: $ => seq(
+    type_value_struct_field: $ => choice(
+      $._type_value_struct_normal_field,
+      $._type_value_struct_using_field,
+    ),
+    _type_value_struct_normal_field: $ => seq(
+      field('name', $.identifier_list),
+      alias(':', $.operator),
+      field('type', $._type),
+    ),
+    _type_value_struct_using_field: $ => seq(
+      alias('using', $.keyword),
       field('name', $.identifier_list),
       alias(':', $.operator),
       field('type', $._type),

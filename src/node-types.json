@@ -52,7 +52,7 @@
             "named": true
           },
           {
-            "type": "proc_body_expression",
+            "type": "proc_body",
             "named": true
           },
           {
@@ -249,7 +249,7 @@
             "named": true
           },
           {
-            "type": "proc_body_expression",
+            "type": "proc_body",
             "named": true
           },
           {
@@ -407,7 +407,7 @@
           "named": true
         },
         {
-          "type": "proc_body_expression",
+          "type": "proc_body",
           "named": true
         },
         {
@@ -508,7 +508,7 @@
             "named": true
           },
           {
-            "type": "proc_body_expression",
+            "type": "proc_body",
             "named": true
           },
           {
@@ -701,7 +701,7 @@
           "named": true
         },
         {
-          "type": "proc_body_expression",
+          "type": "proc_body",
           "named": true
         },
         {
@@ -944,7 +944,7 @@
             "named": true
           },
           {
-            "type": "proc_body_expression",
+            "type": "proc_body",
             "named": true
           },
           {
@@ -1053,139 +1053,12 @@
     }
   },
   {
-    "type": "parenthesized_expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "call_expression",
-          "named": true
-        },
-        {
-          "type": "context_variable",
-          "named": true
-        },
-        {
-          "type": "dereference_expression",
-          "named": true
-        },
-        {
-          "type": "false",
-          "named": true
-        },
-        {
-          "type": "float_literal",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "implicit_selector_expression",
-          "named": true
-        },
-        {
-          "type": "int_literal",
-          "named": true
-        },
-        {
-          "type": "interpreted_string_literal",
-          "named": true
-        },
-        {
-          "type": "nil",
-          "named": true
-        },
-        {
-          "type": "parenthesized_expression",
-          "named": true
-        },
-        {
-          "type": "proc_body_expression",
-          "named": true
-        },
-        {
-          "type": "raw_string_literal",
-          "named": true
-        },
-        {
-          "type": "selector_expression",
-          "named": true
-        },
-        {
-          "type": "true",
-          "named": true
-        },
-        {
-          "type": "type_conversion_expression",
-          "named": true
-        },
-        {
-          "type": "undefined_value",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "proc_body_expression",
-    "named": true,
-    "fields": {
-      "parameters": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": ",",
-            "named": false
-          },
-          {
-            "type": "proc_body_parameter",
-            "named": true
-          }
-        ]
-      },
-      "result": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "type_proc_result",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "block_statement",
-          "named": true
-        },
-        {
-          "type": "keyword",
-          "named": true
-        },
-        {
-          "type": "operator",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "proc_body_parameter",
+    "type": "parameter",
     "named": true,
     "fields": {
       "name": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "identifier",
@@ -1254,7 +1127,7 @@
     },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "keyword",
@@ -1262,6 +1135,207 @@
         },
         {
           "type": "operator",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "parameters",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "parenthesized_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "context_variable",
+          "named": true
+        },
+        {
+          "type": "dereference_expression",
+          "named": true
+        },
+        {
+          "type": "false",
+          "named": true
+        },
+        {
+          "type": "float_literal",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "implicit_selector_expression",
+          "named": true
+        },
+        {
+          "type": "int_literal",
+          "named": true
+        },
+        {
+          "type": "interpreted_string_literal",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "proc_body",
+          "named": true
+        },
+        {
+          "type": "raw_string_literal",
+          "named": true
+        },
+        {
+          "type": "selector_expression",
+          "named": true
+        },
+        {
+          "type": "true",
+          "named": true
+        },
+        {
+          "type": "type_conversion_expression",
+          "named": true
+        },
+        {
+          "type": "undefined_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "proc_body",
+    "named": true,
+    "fields": {
+      "parameters": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "parameters",
+            "named": true
+          }
+        ]
+      },
+      "result": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "proc_result",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block_statement",
+          "named": true
+        },
+        {
+          "type": "keyword",
+          "named": true
+        },
+        {
+          "type": "operator",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "proc_result",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "type_dynamic_array",
+          "named": true
+        },
+        {
+          "type": "type_fixed_array",
+          "named": true
+        },
+        {
+          "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_multi_pointer",
+          "named": true
+        },
+        {
+          "type": "type_of_expression",
+          "named": true
+        },
+        {
+          "type": "type_pointer",
+          "named": true
+        },
+        {
+          "type": "type_proc",
+          "named": true
+        },
+        {
+          "type": "type_slice",
+          "named": true
+        },
+        {
+          "type": "type_soa_dynamic_array",
+          "named": true
+        },
+        {
+          "type": "type_soa_fixed_array",
+          "named": true
+        },
+        {
+          "type": "type_soa_slice",
+          "named": true
+        },
+        {
+          "type": "type_value_struct",
+          "named": true
+        },
+        {
+          "type": "type_value_union",
           "named": true
         }
       ]
@@ -1330,7 +1404,7 @@
             "named": true
           },
           {
-            "type": "proc_body_expression",
+            "type": "proc_body",
             "named": true
           },
           {
@@ -1453,7 +1527,7 @@
           "named": true
         },
         {
-          "type": "proc_body_expression",
+          "type": "proc_body",
           "named": true
         },
         {
@@ -1607,7 +1681,7 @@
           "named": true
         },
         {
-          "type": "proc_body_expression",
+          "type": "proc_body",
           "named": true
         },
         {
@@ -1721,7 +1795,7 @@
           "named": true
         },
         {
-          "type": "proc_body_expression",
+          "type": "proc_body",
           "named": true
         },
         {
@@ -1775,71 +1849,11 @@
     "named": true,
     "fields": {
       "parameters": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
-          },
-          {
-            "type": ",",
-            "named": false
-          },
-          {
-            "type": "type_dynamic_array",
-            "named": true
-          },
-          {
-            "type": "type_fixed_array",
-            "named": true
-          },
-          {
-            "type": "type_identifier",
-            "named": true
-          },
-          {
-            "type": "type_multi_pointer",
-            "named": true
-          },
-          {
-            "type": "type_of_expression",
-            "named": true
-          },
-          {
-            "type": "type_pointer",
-            "named": true
-          },
-          {
-            "type": "type_proc",
-            "named": true
-          },
-          {
-            "type": "type_slice",
-            "named": true
-          },
-          {
-            "type": "type_soa_dynamic_array",
-            "named": true
-          },
-          {
-            "type": "type_soa_fixed_array",
-            "named": true
-          },
-          {
-            "type": "type_soa_slice",
-            "named": true
-          },
-          {
-            "type": "type_value_struct",
-            "named": true
-          },
-          {
-            "type": "type_value_union",
+            "type": "parameters",
             "named": true
           }
         ]
@@ -1849,7 +1863,7 @@
         "required": false,
         "types": [
           {
-            "type": "type_proc_result",
+            "type": "proc_result",
             "named": true
           }
         ]
@@ -1865,69 +1879,6 @@
         },
         {
           "type": "operator",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "type_proc_result",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "type_dynamic_array",
-          "named": true
-        },
-        {
-          "type": "type_fixed_array",
-          "named": true
-        },
-        {
-          "type": "type_identifier",
-          "named": true
-        },
-        {
-          "type": "type_multi_pointer",
-          "named": true
-        },
-        {
-          "type": "type_of_expression",
-          "named": true
-        },
-        {
-          "type": "type_pointer",
-          "named": true
-        },
-        {
-          "type": "type_proc",
-          "named": true
-        },
-        {
-          "type": "type_slice",
-          "named": true
-        },
-        {
-          "type": "type_soa_dynamic_array",
-          "named": true
-        },
-        {
-          "type": "type_soa_fixed_array",
-          "named": true
-        },
-        {
-          "type": "type_soa_slice",
-          "named": true
-        },
-        {
-          "type": "type_value_struct",
-          "named": true
-        },
-        {
-          "type": "type_value_union",
           "named": true
         }
       ]
@@ -2070,7 +2021,7 @@
           "named": true
         },
         {
-          "type": "proc_body_expression",
+          "type": "proc_body",
           "named": true
         },
         {
@@ -2206,9 +2157,13 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "keyword",
+          "named": true
+        },
         {
           "type": "operator",
           "named": true
@@ -2269,7 +2224,7 @@
           "named": true
         },
         {
-          "type": "proc_body_expression",
+          "type": "proc_body",
           "named": true
         },
         {
@@ -2393,6 +2348,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "undefined_value",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "using_statement",
@@ -2544,6 +2504,10 @@
     "named": false
   },
   {
+    "type": "---",
+    "named": false
+  },
+  {
     "type": ".",
     "named": false
   },
@@ -2637,10 +2601,6 @@
   },
   {
     "type": "type_identifier",
-    "named": true
-  },
-  {
-    "type": "undefined_value",
     "named": true
   },
   {

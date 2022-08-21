@@ -165,3 +165,21 @@ a := a.some_proc(10, wow = "hi")
             (operator)
             (interpreted_string_literal))))))
 )
+
+========
+proc type
+========
+
+p :: proc(f32)
+
+---
+
+========
+proc body
+========
+
+p :: proc(f32) {
+
+}
+
+---
