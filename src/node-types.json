@@ -1123,16 +1123,22 @@
             "named": true
           }
         ]
+      },
+      "using": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "keyword",
+            "named": true
+          }
+        ]
       }
     },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": false,
       "types": [
-        {
-          "type": "keyword",
-          "named": true
-        },
         {
           "type": "operator",
           "named": true

@@ -170,12 +170,56 @@ a := a.some_proc(10, wow = "hi")
 proc type
 ========
 
-p :: proc(f32)
+p :: proc(using a: f32)
 
 ---
 
+(source_file
+  (const_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_list
+      (type_proc
+        (keyword)
+        (parameters
+          (parameter
+            (keyword)
+            (identifier)
+            (operator)
+            (type_identifier))))))
+)
+
 ========
 proc body
+========
+
+p :: proc(a: f32) {
+
+}
+
+---
+
+(source_file
+  (const_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_list
+      (proc_body
+        (keyword)
+        (parameters
+          (parameter
+            (identifier)
+            (operator)
+            (type_identifier)))
+        (block_statement))))
+)
+
+========
+proc body with unnamed parameter
 ========
 
 p :: proc(f32) {

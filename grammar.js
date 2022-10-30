@@ -345,16 +345,16 @@ module.exports = grammar({
       commaSep($.parameter),
       ')',
     ),
-    // FIXME: produces an ERROR
     parameter: $ => choice(
+      field('type', $._type), // FIXME: this is not working
       seq(
-        optional(alias('using', $.keyword)),
+        field('using', optional(alias('using', $.keyword))),
         field('name', $.identifier),
         alias(':', $.operator),
         field('type', $._type),
-      ),
-      field('type', $._type),
+      )
     ),
+    // TODO: named return values
     proc_result: $ => choice(
       $._type,
       seq('(', commaSep($._type), ')')

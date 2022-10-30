@@ -1808,49 +1808,53 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "SEQ",
+          "type": "CHOICE",
           "members": [
             {
-              "type": "CHOICE",
+              "type": "SEQ",
               "members": [
+                {
+                  "type": "FIELD",
+                  "name": "using",
+                  "content": {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "ALIAS",
+                        "content": {
+                          "type": "STRING",
+                          "value": "using"
+                        },
+                        "named": true,
+                        "value": "keyword"
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "FIELD",
+                  "name": "name",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "identifier"
+                  }
+                },
                 {
                   "type": "ALIAS",
                   "content": {
                     "type": "STRING",
-                    "value": "using"
+                    "value": ":"
                   },
                   "named": true,
-                  "value": "keyword"
-                },
-                {
-                  "type": "BLANK"
+                  "value": "operator"
                 }
               ]
             },
             {
-              "type": "FIELD",
-              "name": "name",
-              "content": {
-                "type": "SYMBOL",
-                "name": "identifier"
-              }
-            },
-            {
-              "type": "ALIAS",
-              "content": {
-                "type": "STRING",
-                "value": ":"
-              },
-              "named": true,
-              "value": "operator"
-            },
-            {
-              "type": "FIELD",
-              "name": "type",
-              "content": {
-                "type": "SYMBOL",
-                "name": "_type"
-              }
+              "type": "BLANK"
             }
           ]
         },
