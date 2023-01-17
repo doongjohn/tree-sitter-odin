@@ -91,7 +91,7 @@ module.exports = grammar({
 
   conflicts: $ => [
     [$._identifier_deref_list, $.identifier_list],
-    [$.proc_body, $.type_proc],
+    [$.proc_definition , $.type_proc],
     [$._expression, $._type],
   ],
 
@@ -282,7 +282,7 @@ module.exports = grammar({
       $.implicit_selector_expression,
       $.call_expression,
       $.type_conversion_expression,
-      $.proc_body,
+      $.proc_definition ,
       $.identifier,
       $._literal,
       alias('context', $.context_variable),
@@ -323,7 +323,7 @@ module.exports = grammar({
       field('field', $.identifier)
     ),
 
-    proc_body: $ => seq(
+    proc_definition: $ => seq(
       alias('proc', $.keyword),
       field('parameters', $.parameters),
       optional(seq(
