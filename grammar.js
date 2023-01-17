@@ -74,12 +74,10 @@ const
     'make', 'delete',
     'soa_zip', 'soa_unzip',
     'typeid_of', 'type_info_of',
-    // -------------------------
+    '#config', '#defined',
     '#assert', '#panic',
-    '#config',
-    '#defined',
-    '#file', '#line', '#procedure',
     '#location',
+    '#file', '#line', '#procedure',
     '#load', '#load_or', '#load_hash'
   ]
 
@@ -94,6 +92,7 @@ module.exports = grammar({
   conflicts: $ => [
     [$._identifier_deref_list, $.identifier_list],
     [$.proc_body, $.type_proc],
+    [$._expression, $._type],
   ],
 
   rules: {
@@ -208,7 +207,6 @@ module.exports = grammar({
       alias('using', $.keyword),
       choice(
         $.identifier,
-        $.type_identifier,
         $.var_declaration,
         $.const_declaration,
       )
@@ -218,7 +216,7 @@ module.exports = grammar({
       $.identifier,
       $.dereference_expression
     )),
-    identifier_list: $ => commaSep1(choice($.identifier, $.type_identifier)),
+    identifier_list: $ => commaSep1($.identifier),
     expression_list: $ => commaSep1(choice($._expression, $._type)),
 
     _literal: $ => choice(
@@ -290,12 +288,12 @@ module.exports = grammar({
       alias('context', $.context_variable),
       // TODO: other expressions
       //   - ternary expressions
-      //   - expression with prefix operator
+      //   - expressions with prefix operator
       //     'cast',
       //     'auto_cast',
       //     'transmute',
       //     'distinct',
-      //   - expression with infix operator
+      //   - expressions with infix operator
       //     1 + 2 - 3 * 2
       //     true && false || true
     ),
@@ -305,7 +303,7 @@ module.exports = grammar({
     ),
 
     identifier: $ => token(seq(
-      /[a-z_]/,
+      /[a-zA-Z_]/,
       repeat(choice(letter, unicodeDigit))
     )),
 
@@ -322,10 +320,7 @@ module.exports = grammar({
 
     implicit_selector_expression: $ => seq(
       '.',
-      field('field', choice(
-        $.identifier,
-        $.type_identifier
-      ))
+      field('field', $.identifier)
     ),
 
     proc_body: $ => seq(
@@ -337,27 +332,41 @@ module.exports = grammar({
       )),
       choice(
         $.block_statement,
-        alias('---', $.operator)
+        alias('---', $.keyword)
       )
     ),
     parameters: $ => seq(
-      '(',
-      commaSep($.parameter),
-      ')',
+      '(', commaSep($.parameter_declaration), ')',
     ),
-    parameter: $ => choice(
-      field('type', $._type), // FIXME: this is not working
-      seq(
+    parameter_declaration: $ => choice(
+      prec.dynamic(0, $._named_parameter_declaration),
+      prec.dynamic(1, $._unnamed_parameter_declaration),
+    ),
+    _named_parameter_declaration: $ => prec.right(1, seq(
+      commaSep1(seq(
         field('using', optional(alias('using', $.keyword))),
         field('name', $.identifier),
-        alias(':', $.operator),
-        field('type', $._type),
-      )
+      )),
+      alias(':', $.operator),
+      field('type', $._type),
+      // TODO: default value
+      // TODO: generic constraint
+    )),
+    // NOTE: is this impossible to parse?
+    /*
+      p :: proc(int, b: f32) {}
+    */
+    _unnamed_parameter_declaration: $ => seq(
+      field('type', $._type),
     ),
-    // TODO: named return values
+    return_value_declaration: $ => choice(
+      prec.dynamic(0, $._named_parameter_declaration),
+      prec.dynamic(1, $._unnamed_parameter_declaration),
+    ),
     proc_result: $ => choice(
+      // TODO: named return values
       $._type,
-      seq('(', commaSep($._type), ')')
+      seq('(', commaSep($.return_value_declaration), ')')
     ),
 
     call_expression: $ => choice(
@@ -396,8 +405,9 @@ module.exports = grammar({
     ),
 
     _type: $ => choice(
+      alias(choice(...builtin_types), $.type_identifier),
+      alias($.identifier, $.type_identifier),
       $.type_of_expression,
-      $.type_identifier,
       $.type_pointer,
       $.type_multi_pointer,
       $.type_slice,
@@ -410,21 +420,13 @@ module.exports = grammar({
       $._type_value,
     ),
 
-    type_identifier: $ => token(choice(
-      choice(...builtin_types),
-      seq(
-        /[A-Z]/,
-        repeat(choice(letter, unicodeDigit)),
-      )
-    )),
-
     type_of_expression: $ => seq(
       alias('type_of', $.builtin_identifier),
       '(', $._expression, ')',
     ),
 
     _base_type: $ => choice(
-      $.type_identifier,
+      $.identifier,
       $.type_of_expression,
     ),
 
@@ -531,7 +533,7 @@ module.exports = grammar({
       '}'
     ),
     type_value_enum_field: $ => seq(
-      alias($.type_identifier, $.enum_field),
+      alias($.identifier, $.enum_field),
       optional(seq(
         alias('=', $.operator),
         $._expression

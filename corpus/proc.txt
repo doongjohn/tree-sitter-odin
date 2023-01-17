@@ -1,11 +1,11 @@
-========
+================================================================================
 builtin proc
-========
+================================================================================
 
 a := a.swizzle(1, another_proc())
 b := swizzle(a, 2, 1, 0)
 
----
+--------------------------------------------------------------------------------
 
 (source_file
   (var_declaration
@@ -35,23 +35,22 @@ b := swizzle(a, 2, 1, 0)
         (builtin_procedure)
         (arguments
           (argument
-            (identifier))
+            (type_identifier))
           (argument
             (int_literal))
           (argument
             (int_literal))
           (argument
-            (int_literal))))))
-)
+            (int_literal)))))))
 
-========
+================================================================================
 proc
-========
+================================================================================
 
 a := some_proc()
 a := some_proc(1, another_proc())
 
----
+--------------------------------------------------------------------------------
 
 (source_file
   (var_declaration
@@ -77,18 +76,17 @@ a := some_proc(1, another_proc())
           (argument
             (call_expression
               (identifier)
-              (arguments)))))))
-)
+              (arguments))))))))
 
-========
+================================================================================
 member proc
-========
+================================================================================
 
 a := a.some_proc()
 a := a.b.some_proc()
 a := a.b.c.some_proc(1, another_proc())
 
----
+--------------------------------------------------------------------------------
 
 (source_file
   (var_declaration
@@ -135,16 +133,15 @@ a := a.b.c.some_proc(1, another_proc())
           (argument
             (call_expression
               (identifier)
-              (arguments)))))))
-)
+              (arguments))))))))
 
-========
+================================================================================
 named arguments
-========
+================================================================================
 
 a := a.some_proc(10, wow = "hi")
 
----
+--------------------------------------------------------------------------------
 
 (source_file
   (var_declaration
@@ -163,16 +160,15 @@ a := a.some_proc(10, wow = "hi")
           (named_argument
             (identifier)
             (operator)
-            (interpreted_string_literal))))))
-)
+            (interpreted_string_literal)))))))
 
-========
+================================================================================
 proc type
-========
+================================================================================
 
 p :: proc(using a: f32)
 
----
+--------------------------------------------------------------------------------
 
 (source_file
   (const_declaration
@@ -184,22 +180,19 @@ p :: proc(using a: f32)
       (type_proc
         (keyword)
         (parameters
-          (parameter
+          (parameter_declaration
             (keyword)
             (identifier)
             (operator)
-            (type_identifier))))))
-)
+            (type_identifier)))))))
 
-========
+================================================================================
 proc body
-========
+================================================================================
 
-p :: proc(a: f32) {
+p :: proc(a: f32) {}
 
-}
-
----
+--------------------------------------------------------------------------------
 
 (source_file
   (const_declaration
@@ -211,19 +204,30 @@ p :: proc(a: f32) {
       (proc_body
         (keyword)
         (parameters
-          (parameter
+          (parameter_declaration
             (identifier)
             (operator)
             (type_identifier)))
-        (block_statement))))
-)
+        (block_statement)))))
 
-========
+================================================================================
 proc body with unnamed parameter
-========
+================================================================================
 
-p :: proc(f32) {
+p :: proc(f32) {}
 
-}
+--------------------------------------------------------------------------------
 
----
+(source_file
+  (const_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_list
+      (proc_body
+        (keyword)
+        (parameters
+          (parameter_declaration
+            (type_identifier)))
+        (block_statement)))))

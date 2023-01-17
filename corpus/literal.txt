@@ -1,6 +1,6 @@
-========
+================================================================================
 struct
-========
+================================================================================
 
 A : typeid : struct {
   a: f32,
@@ -15,12 +15,12 @@ C :: struct {
   a, b, c: f32
 }
 
----
+--------------------------------------------------------------------------------
 
 (source_file
   (const_declaration
     (identifier_list
-      (type_identifier))
+      (identifier))
     (operator)
     (type_identifier)
     (operator)
@@ -39,7 +39,7 @@ C :: struct {
           (type_identifier)))))
   (const_declaration
     (identifier_list
-      (type_identifier))
+      (identifier))
     (operator)
     (operator)
     (expression_list
@@ -52,7 +52,7 @@ C :: struct {
           (type_identifier)))))
   (const_declaration
     (identifier_list
-      (type_identifier))
+      (identifier))
     (operator)
     (operator)
     (expression_list
@@ -64,12 +64,11 @@ C :: struct {
             (identifier)
             (identifier))
           (operator)
-          (type_identifier)))))
-)
+          (type_identifier))))))
 
-========
+================================================================================
 union
-========
+================================================================================
 
 A :: union {
   f32,
@@ -80,12 +79,12 @@ B :: union #no_nil {
   f32
 }
 
----
+--------------------------------------------------------------------------------
 
 (source_file
   (const_declaration
     (identifier_list
-      (type_identifier))
+      (identifier))
     (operator)
     (operator)
     (expression_list
@@ -97,7 +96,7 @@ B :: union #no_nil {
           (type_identifier)))))
   (const_declaration
     (identifier_list
-      (type_identifier))
+      (identifier))
     (operator)
     (operator)
     (expression_list
@@ -106,5 +105,4 @@ B :: union #no_nil {
         (type_value_tag
           (identifier))
         (type_value_union_field
-          (type_identifier)))))
-)
+          (type_identifier))))))

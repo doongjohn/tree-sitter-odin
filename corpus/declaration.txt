@@ -1,6 +1,6 @@
-========
+================================================================================
 const, var
-========
+================================================================================
 
 str :: "hello"
 str: string : "hello"
@@ -10,7 +10,7 @@ n2: string
 n3: f32 = 10e+12
 n4: type_of(n3)
 
----
+--------------------------------------------------------------------------------
 
 (source_file
   (const_declaration
@@ -54,12 +54,11 @@ n4: type_of(n3)
     (operator)
     (type_of_expression
       (builtin_identifier)
-      (identifier)))
-)
+      (identifier))))
 
-========
+================================================================================
 pointer and array
-========
+================================================================================
 
 a: ^int = nil
 a: [^]int
@@ -67,7 +66,7 @@ a: []int
 a: [5]int
 a: [dynamic]int
 
----
+--------------------------------------------------------------------------------
 
 (source_file
   (var_declaration
@@ -76,7 +75,7 @@ a: [dynamic]int
     (operator)
     (type_pointer
       (operator)
-      (type_identifier))
+      (identifier))
     (operator)
     (expression_list
       (nil)))
@@ -86,38 +85,37 @@ a: [dynamic]int
     (operator)
     (type_multi_pointer
       (operator)
-      (type_identifier)))
+      (identifier)))
   (var_declaration
     (identifier_list
       (identifier))
     (operator)
     (type_slice
-      (type_identifier)))
+      (identifier)))
   (var_declaration
     (identifier_list
       (identifier))
     (operator)
     (type_fixed_array
       (int_literal)
-      (type_identifier)))
+      (identifier)))
   (var_declaration
     (identifier_list
       (identifier))
     (operator)
     (type_dynamic_array
       (keyword)
-      (type_identifier)))
-)
+      (identifier))))
 
-========
+================================================================================
 soa
-========
+================================================================================
 
 a: #soa[]int
 a: #soa[5]int
 a: #soa[dynamic]int
 
----
+--------------------------------------------------------------------------------
 
 (source_file
   (var_declaration
@@ -127,7 +125,7 @@ a: #soa[dynamic]int
     (type_soa_slice
       (keyword)
       (type_slice
-        (type_identifier))))
+        (identifier))))
   (var_declaration
     (identifier_list
       (identifier))
@@ -136,7 +134,7 @@ a: #soa[dynamic]int
       (keyword)
       (type_fixed_array
         (int_literal)
-        (type_identifier))))
+        (identifier))))
   (var_declaration
     (identifier_list
       (identifier))
@@ -145,12 +143,11 @@ a: #soa[dynamic]int
       (keyword)
       (type_dynamic_array
         (keyword)
-        (type_identifier))))
-)
+        (identifier)))))
 
-========
+================================================================================
 multiple decl
-========
+================================================================================
 
 a, b: int : 10, 12
 a, b, c :: 1, 2, 3
@@ -159,7 +156,7 @@ a, b: int
 a, b: int = 10, 12
 a, b, c := 1, 2, 3
 
----
+--------------------------------------------------------------------------------
 
 (source_file
   (const_declaration
@@ -209,5 +206,4 @@ a, b, c := 1, 2, 3
     (expression_list
       (int_literal)
       (int_literal)
-      (int_literal)))
-)
+      (int_literal))))
