@@ -201,7 +201,7 @@ p :: proc(a: f32) {}
     (operator)
     (operator)
     (expression_list
-      (proc_body
+      (proc_definition
         (keyword)
         (parameters
           (parameter_declaration
@@ -225,9 +225,35 @@ p :: proc(f32) {}
     (operator)
     (operator)
     (expression_list
-      (proc_body
+      (proc_definition
         (keyword)
         (parameters
           (parameter_declaration
+            (type_identifier)))
+        (block_statement)))))
+
+================================================================================
+proc body with generic parameter
+================================================================================
+
+p :: proc($a: T) {}
+p :: proc() ---
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (const_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_list
+      (proc_definition
+        (keyword)
+        (parameters
+          (parameter_declaration
+            (operator)
+            (identifier)
+            (operator)
             (type_identifier)))
         (block_statement)))))

@@ -1490,8 +1490,13 @@
       "value": "false"
     },
     "undefined_value": {
-      "type": "STRING",
-      "value": "---"
+      "type": "ALIAS",
+      "content": {
+        "type": "STRING",
+        "value": "---"
+      },
+      "named": true,
+      "value": "keyword"
     },
     "_expression": {
       "type": "CHOICE",
@@ -1522,7 +1527,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "proc_body"
+          "name": "proc_definition"
         },
         {
           "type": "SYMBOL",
@@ -1539,7 +1544,7 @@
             "value": "context"
           },
           "named": true,
-          "value": "context_variable"
+          "value": "keyword"
         }
       ]
     },
@@ -1657,7 +1662,7 @@
         }
       ]
     },
-    "proc_body": {
+    "proc_definition": {
       "type": "SEQ",
       "members": [
         {
@@ -1708,22 +1713,21 @@
           ]
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "block_statement"
-            },
-            {
-              "type": "ALIAS",
-              "content": {
-                "type": "STRING",
-                "value": "---"
+          "type": "FIELD",
+          "name": "body",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "block_statement"
               },
-              "named": true,
-              "value": "keyword"
-            }
-          ]
+              {
+                "type": "SYMBOL",
+                "name": "undefined_value"
+              }
+            ]
+          }
         }
       ]
     },
@@ -1828,6 +1832,23 @@
                     }
                   },
                   {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "ALIAS",
+                        "content": {
+                          "type": "STRING",
+                          "value": "$"
+                        },
+                        "named": true,
+                        "value": "operator"
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
+                  },
+                  {
                     "type": "FIELD",
                     "name": "name",
                     "content": {
@@ -1871,6 +1892,23 @@
                           }
                         },
                         {
+                          "type": "CHOICE",
+                          "members": [
+                            {
+                              "type": "ALIAS",
+                              "content": {
+                                "type": "STRING",
+                                "value": "$"
+                              },
+                              "named": true,
+                              "value": "operator"
+                            },
+                            {
+                              "type": "BLANK"
+                            }
+                          ]
+                        },
+                        {
                           "type": "FIELD",
                           "name": "name",
                           "content": {
@@ -1901,6 +1939,32 @@
               "type": "SYMBOL",
               "name": "_type"
             }
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "STRING",
+                      "value": "="
+                    },
+                    "named": true,
+                    "value": "operator"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "_expression"
+                  }
+                ]
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
           }
         ]
       }
@@ -2065,6 +2129,14 @@
                 },
                 {
                   "type": "STRING",
+                  "value": "size_of"
+                },
+                {
+                  "type": "STRING",
+                  "value": "align_of"
+                },
+                {
+                  "type": "STRING",
                   "value": "soa_zip"
                 },
                 {
@@ -2081,6 +2153,14 @@
                 },
                 {
                   "type": "STRING",
+                  "value": "#config"
+                },
+                {
+                  "type": "STRING",
+                  "value": "#defined"
+                },
+                {
+                  "type": "STRING",
                   "value": "#assert"
                 },
                 {
@@ -2089,11 +2169,7 @@
                 },
                 {
                   "type": "STRING",
-                  "value": "#config"
-                },
-                {
-                  "type": "STRING",
-                  "value": "#defined"
+                  "value": "#location"
                 },
                 {
                   "type": "STRING",
@@ -2106,10 +2182,6 @@
                 {
                   "type": "STRING",
                   "value": "#procedure"
-                },
-                {
-                  "type": "STRING",
-                  "value": "#location"
                 },
                 {
                   "type": "STRING",
@@ -3362,7 +3434,7 @@
       "identifier_list"
     ],
     [
-      "proc_body",
+      "proc_definition",
       "type_proc"
     ],
     [

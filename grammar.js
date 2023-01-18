@@ -72,6 +72,7 @@ const
     'swizzle',
     'new', 'free',
     'make', 'delete',
+    'size_of', 'align_of',
     'soa_zip', 'soa_unzip',
     'typeid_of', 'type_info_of',
     '#config', '#defined',
@@ -130,8 +131,8 @@ module.exports = grammar({
       ))),
       field('path', $._string_literal),
     ),
-    blank_identifier: $ => '_',
 
+    blank_identifier: $ => '_',
     _package_identifier: $ => alias($.identifier, $.package_identifier),
 
     attribute_declaration: $ => seq(
@@ -273,7 +274,7 @@ module.exports = grammar({
     nil: $ => 'nil',
     true: $ => 'true',
     false: $ => 'false',
-    undefined_value: $ => '---',
+    undefined_value: $ => alias('---', $.keyword),
 
     _expression: $ => choice(
       $.parenthesized_expression,
@@ -285,7 +286,7 @@ module.exports = grammar({
       $.proc_definition ,
       $.identifier,
       $._literal,
-      alias('context', $.context_variable),
+      alias('context', $.keyword),
       // TODO: other expressions
       //   - ternary expressions
       //   - expressions with prefix operator
@@ -330,32 +331,36 @@ module.exports = grammar({
         alias('->', $.operator),
         field('result', $.proc_result)
       )),
-      choice(
+      field('body', choice(
         $.block_statement,
-        alias('---', $.keyword)
-      )
+        $.undefined_value,
+      ))
     ),
     parameters: $ => seq(
       '(', commaSep($.parameter_declaration), ')',
     ),
     parameter_declaration: $ => choice(
+      // NOTE: is this impossible to parse?
+      /*
+        p :: proc(TypeName, b: f32) {}
+      */
       prec.dynamic(0, $._named_parameter_declaration),
       prec.dynamic(1, $._unnamed_parameter_declaration),
     ),
     _named_parameter_declaration: $ => prec.right(1, seq(
       commaSep1(seq(
         field('using', optional(alias('using', $.keyword))),
+        optional(alias('$', $.operator)),
         field('name', $.identifier),
       )),
       alias(':', $.operator),
       field('type', $._type),
-      // TODO: default value
+      optional(seq(
+        alias('=', $.operator),
+        $._expression
+      ))
       // TODO: generic constraint
     )),
-    // NOTE: is this impossible to parse?
-    /*
-      p :: proc(int, b: f32) {}
-    */
     _unnamed_parameter_declaration: $ => seq(
       field('type', $._type),
     ),
@@ -424,7 +429,6 @@ module.exports = grammar({
       alias('type_of', $.builtin_identifier),
       '(', $._expression, ')',
     ),
-
     _base_type: $ => choice(
       $.identifier,
       $.type_of_expression,
@@ -432,7 +436,7 @@ module.exports = grammar({
 
     type_pointer: $ => seq(
       alias('^', $.operator),
-      $._base_type,
+      $._base_type, // TODO: why use base type?
     ),
     type_multi_pointer: $ => seq(
       '[', alias('^', $.operator), ']',
