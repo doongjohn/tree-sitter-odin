@@ -1856,15 +1856,59 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
-          "named": true
-        },
-        {
           "type": "keyword",
           "named": true
         },
         {
+          "type": "type_dynamic_array",
+          "named": true
+        },
+        {
+          "type": "type_fixed_array",
+          "named": true
+        },
+        {
+          "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_multi_pointer",
+          "named": true
+        },
+        {
           "type": "type_of_expression",
+          "named": true
+        },
+        {
+          "type": "type_pointer",
+          "named": true
+        },
+        {
+          "type": "type_proc",
+          "named": true
+        },
+        {
+          "type": "type_slice",
+          "named": true
+        },
+        {
+          "type": "type_soa_dynamic_array",
+          "named": true
+        },
+        {
+          "type": "type_soa_fixed_array",
+          "named": true
+        },
+        {
+          "type": "type_soa_slice",
+          "named": true
+        },
+        {
+          "type": "type_value_struct",
+          "named": true
+        },
+        {
+          "type": "type_value_union",
           "named": true
         }
       ]
@@ -1943,7 +1987,55 @@
           "named": true
         },
         {
+          "type": "type_dynamic_array",
+          "named": true
+        },
+        {
+          "type": "type_fixed_array",
+          "named": true
+        },
+        {
+          "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_multi_pointer",
+          "named": true
+        },
+        {
           "type": "type_of_expression",
+          "named": true
+        },
+        {
+          "type": "type_pointer",
+          "named": true
+        },
+        {
+          "type": "type_proc",
+          "named": true
+        },
+        {
+          "type": "type_slice",
+          "named": true
+        },
+        {
+          "type": "type_soa_dynamic_array",
+          "named": true
+        },
+        {
+          "type": "type_soa_fixed_array",
+          "named": true
+        },
+        {
+          "type": "type_soa_slice",
+          "named": true
+        },
+        {
+          "type": "type_value_struct",
+          "named": true
+        },
+        {
+          "type": "type_value_union",
           "named": true
         },
         {
@@ -1962,15 +2054,59 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
-          "named": true
-        },
-        {
           "type": "operator",
           "named": true
         },
         {
+          "type": "type_dynamic_array",
+          "named": true
+        },
+        {
+          "type": "type_fixed_array",
+          "named": true
+        },
+        {
+          "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_multi_pointer",
+          "named": true
+        },
+        {
           "type": "type_of_expression",
+          "named": true
+        },
+        {
+          "type": "type_pointer",
+          "named": true
+        },
+        {
+          "type": "type_proc",
+          "named": true
+        },
+        {
+          "type": "type_slice",
+          "named": true
+        },
+        {
+          "type": "type_soa_dynamic_array",
+          "named": true
+        },
+        {
+          "type": "type_soa_fixed_array",
+          "named": true
+        },
+        {
+          "type": "type_soa_slice",
+          "named": true
+        },
+        {
+          "type": "type_value_struct",
+          "named": true
+        },
+        {
+          "type": "type_value_union",
           "named": true
         }
       ]
@@ -2068,15 +2204,59 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
-          "named": true
-        },
-        {
           "type": "operator",
           "named": true
         },
         {
+          "type": "type_dynamic_array",
+          "named": true
+        },
+        {
+          "type": "type_fixed_array",
+          "named": true
+        },
+        {
+          "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_multi_pointer",
+          "named": true
+        },
+        {
           "type": "type_of_expression",
+          "named": true
+        },
+        {
+          "type": "type_pointer",
+          "named": true
+        },
+        {
+          "type": "type_proc",
+          "named": true
+        },
+        {
+          "type": "type_slice",
+          "named": true
+        },
+        {
+          "type": "type_soa_dynamic_array",
+          "named": true
+        },
+        {
+          "type": "type_soa_fixed_array",
+          "named": true
+        },
+        {
+          "type": "type_soa_slice",
+          "named": true
+        },
+        {
+          "type": "type_value_struct",
+          "named": true
+        },
+        {
+          "type": "type_value_union",
           "named": true
         }
       ]
@@ -2131,11 +2311,55 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
+          "type": "type_dynamic_array",
+          "named": true
+        },
+        {
+          "type": "type_fixed_array",
+          "named": true
+        },
+        {
+          "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_multi_pointer",
           "named": true
         },
         {
           "type": "type_of_expression",
+          "named": true
+        },
+        {
+          "type": "type_pointer",
+          "named": true
+        },
+        {
+          "type": "type_proc",
+          "named": true
+        },
+        {
+          "type": "type_slice",
+          "named": true
+        },
+        {
+          "type": "type_soa_dynamic_array",
+          "named": true
+        },
+        {
+          "type": "type_soa_fixed_array",
+          "named": true
+        },
+        {
+          "type": "type_soa_slice",
+          "named": true
+        },
+        {
+          "type": "type_value_struct",
+          "named": true
+        },
+        {
+          "type": "type_value_union",
           "named": true
         }
       ]

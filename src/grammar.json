@@ -1933,6 +1933,23 @@
             "value": "operator"
           },
           {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "STRING",
+                  "value": "$"
+                },
+                "named": true,
+                "value": "operator"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
             "type": "FIELD",
             "name": "type",
             "content": {
@@ -2683,19 +2700,6 @@
         }
       ]
     },
-    "_base_type": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "identifier"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "type_of_expression"
-        }
-      ]
-    },
     "type_pointer": {
       "type": "SEQ",
       "members": [
@@ -2710,7 +2714,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_base_type"
+          "name": "_type"
         }
       ]
     },
@@ -2736,7 +2740,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_base_type"
+          "name": "_type"
         }
       ]
     },
@@ -2749,7 +2753,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_base_type"
+          "name": "_type"
         }
       ]
     },
@@ -2770,7 +2774,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_base_type"
+          "name": "_type"
         }
       ]
     },
@@ -2796,7 +2800,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_base_type"
+          "name": "_type"
         }
       ]
     },

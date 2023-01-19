@@ -12,7 +12,6 @@ const
   unicodeLetter = /\p{L}/,
   unicodeDigit = /[0-9]/,
   unicodeChar = /./,
-  unicodeValue = unicodeChar,
   letter = choice(unicodeLetter, '_'),
 
   newline = '\n',
@@ -32,7 +31,6 @@ const
   octalLiteral = seq('0', optional(choice('o', 'O')), optional('_'), octalDigits),
   decimalLiteral = choice('0', seq(/[1-9]/, optional(seq(optional('_'), decimalDigits)))),
   binaryLiteral = seq('0', choice('b', 'B'), optional('_'), binaryDigits),
-
   intLiteral = choice(binaryLiteral, decimalLiteral, octalLiteral, hexLiteral),
 
   decimalExponent = seq(choice('e', 'E'), optional(choice('+', '-')), decimalDigits),
@@ -41,7 +39,6 @@ const
     seq(decimalDigits, decimalExponent),
     seq('.', decimalDigits, optional(decimalExponent)),
   ),
-
   floatLiteral = decimalFloatLiteral,
 
   builtin_types = [
@@ -175,6 +172,8 @@ module.exports = grammar({
       $.using_statement,
       // TODO: other statements
       //   - for
+      //     - Basic for loop
+      //     - Range-based for loop
       //   - if
       //   - switch
       //   - defer
@@ -350,26 +349,28 @@ module.exports = grammar({
     _named_parameter_declaration: $ => prec.right(1, seq(
       commaSep1(seq(
         field('using', optional(alias('using', $.keyword))),
-        optional(alias('$', $.operator)),
+        optional(alias('$', $.operator)), // compile-time parameter
         field('name', $.identifier),
       )),
       alias(':', $.operator),
+      optional(alias('$', $.operator)), // generic type
       field('type', $._type),
+      // TODO: generic constraint
+      // https://odin-lang.org/docs/overview/#specialization
       optional(seq(
         alias('=', $.operator),
         $._expression
       ))
-      // TODO: generic constraint
     )),
     _unnamed_parameter_declaration: $ => seq(
       field('type', $._type),
     ),
+
     return_value_declaration: $ => choice(
       prec.dynamic(0, $._named_parameter_declaration),
       prec.dynamic(1, $._unnamed_parameter_declaration),
     ),
     proc_result: $ => choice(
-      // TODO: named return values
       $._type,
       seq('(', commaSep($.return_value_declaration), ')')
     ),
@@ -386,7 +387,6 @@ module.exports = grammar({
       field('function_call', alias(choice(...builtin_procs), $.builtin_procedure)),
       field('arguments', $.arguments)
     ),
-
     type_conversion_expression: $ => seq(
       $._type, '(', $._expression, ')'
     ),
@@ -429,30 +429,26 @@ module.exports = grammar({
       alias('type_of', $.builtin_identifier),
       '(', $._expression, ')',
     ),
-    _base_type: $ => choice(
-      $.identifier,
-      $.type_of_expression,
-    ),
 
     type_pointer: $ => seq(
       alias('^', $.operator),
-      $._base_type, // TODO: why use base type?
+      $._type, // TODO: why use base type?
     ),
     type_multi_pointer: $ => seq(
       '[', alias('^', $.operator), ']',
-      $._base_type,
+      $._type,
     ),
     type_slice: $ => seq(
       '[]',
-      $._base_type,
+      $._type,
     ),
     type_fixed_array: $ => seq(
       '[', $._expression, ']',
-      $._base_type,
+      $._type,
     ),
     type_dynamic_array: $ => seq(
       '[', alias('dynamic', $.keyword), ']',
-      $._base_type,
+      $._type,
     ),
     type_soa_slice: $ => seq(
       alias('#soa', $.keyword),

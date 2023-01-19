@@ -256,4 +256,15 @@ p :: proc() ---
             (identifier)
             (operator)
             (type_identifier)))
-        (block_statement)))))
+        (block_statement))))
+  (const_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_list
+      (proc_definition
+        (keyword)
+        (parameters)
+        (undefined_value
+          (keyword))))))

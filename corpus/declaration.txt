@@ -65,6 +65,7 @@ a: [^]int
 a: []int
 a: [5]int
 a: [dynamic]int
+a: [dynamic][dynamic]int
 
 --------------------------------------------------------------------------------
 
@@ -75,7 +76,7 @@ a: [dynamic]int
     (operator)
     (type_pointer
       (operator)
-      (identifier))
+      (type_identifier))
     (operator)
     (expression_list
       (nil)))
@@ -85,27 +86,36 @@ a: [dynamic]int
     (operator)
     (type_multi_pointer
       (operator)
-      (identifier)))
+      (type_identifier)))
   (var_declaration
     (identifier_list
       (identifier))
     (operator)
     (type_slice
-      (identifier)))
+      (type_identifier)))
   (var_declaration
     (identifier_list
       (identifier))
     (operator)
     (type_fixed_array
       (int_literal)
-      (identifier)))
+      (type_identifier)))
   (var_declaration
     (identifier_list
       (identifier))
     (operator)
     (type_dynamic_array
       (keyword)
-      (identifier))))
+      (type_identifier)))
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (type_dynamic_array
+      (keyword)
+      (type_dynamic_array
+        (keyword)
+        (type_identifier)))))
 
 ================================================================================
 soa
@@ -125,7 +135,7 @@ a: #soa[dynamic]int
     (type_soa_slice
       (keyword)
       (type_slice
-        (identifier))))
+        (type_identifier))))
   (var_declaration
     (identifier_list
       (identifier))
@@ -134,7 +144,7 @@ a: #soa[dynamic]int
       (keyword)
       (type_fixed_array
         (int_literal)
-        (identifier))))
+        (type_identifier))))
   (var_declaration
     (identifier_list
       (identifier))
@@ -143,7 +153,7 @@ a: #soa[dynamic]int
       (keyword)
       (type_dynamic_array
         (keyword)
-        (identifier)))))
+        (type_identifier)))))
 
 ================================================================================
 multiple decl
