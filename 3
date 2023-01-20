@@ -104,6 +104,7 @@ const
     'size_of', 'align_of',
     'soa_zip', 'soa_unzip',
     'typeid_of', 'type_info_of',
+    // starts with #
     '#config', '#defined',
     '#assert', '#panic',
     '#location',
@@ -353,12 +354,12 @@ module.exports = grammar({
     selector_expression: $ => seq(
       field('operand', $._expression),
       '.',
-      field('field', $.identifier),
+      field('field', $.identifier)
     ),
 
     implicit_selector_expression: $ => seq(
       '.',
-      field('field', $.identifier),
+      field('field', $.identifier)
     ),
 
     binary_expression: $ => {
@@ -447,18 +448,17 @@ module.exports = grammar({
     ),
 
     call_expression: $ => choice(
-      prec(1, $._builtin_call_expression),
-      prec(0, $._normal_call_expression),
+      $._normal_call_expression,
+      $._builtin_call_expression,
     ),
     _normal_call_expression: $ => seq(
       field('function_call', $._expression),
       field('arguments', $.arguments),
     ),
-    // FIXME: this is not working if another expression is after this call
     _builtin_call_expression: $ => seq(
       field(
         'function_call',
-        alias(token(choice(...builtin_procs)), $.builtin_procedure),
+        alias(choice(...builtin_procs), $.builtin_procedure)
       ),
       field('arguments', $.arguments),
     ),
@@ -470,7 +470,7 @@ module.exports = grammar({
     ),
     argument: $ => seq(
       field('value', choice(
-        $._known_type,
+        $._type,
         $._expression,
       ))
     ),
@@ -478,7 +478,7 @@ module.exports = grammar({
       field('name', $.identifier),
       alias('=', $.operator),
       field('value', choice(
-        $._known_type,
+        $._type,
         $._expression,
       ))
     ),
@@ -487,8 +487,9 @@ module.exports = grammar({
       $._type, '(', $._expression, ')'
     ),
 
-    _known_type: $ => choice(
+    _type: $ => choice(
       alias(choice(...builtin_types), $.type_identifier),
+      alias($.identifier, $.type_identifier),
       $.type_of_expression,
       $.type_pointer,
       $.type_multi_pointer,
@@ -500,10 +501,6 @@ module.exports = grammar({
       $.type_soa_dynamic_array,
       $.type_proc,
       $._type_value,
-    ),
-    _type: $ => choice(
-      $._known_type,
-      alias($.identifier, $.type_identifier),
     ),
 
     type_of_expression: $ => seq(

@@ -2,46 +2,13 @@
 builtin proc
 ================================================================================
 
-a := a.swizzle(1, another_proc())
-b := swizzle(a, 2, 1, 0)
+a :: proc() {
+  #assert(len(x) == 5)
+  a := 10
+}
 
 --------------------------------------------------------------------------------
 
-(source_file
-  (var_declaration
-    (identifier_list
-      (identifier))
-    (operator)
-    (operator)
-    (expression_list
-      (call_expression
-        (selector_expression
-          (identifier)
-          (identifier))
-        (arguments
-          (argument
-            (int_literal))
-          (argument
-            (call_expression
-              (identifier)
-              (arguments)))))))
-  (var_declaration
-    (identifier_list
-      (identifier))
-    (operator)
-    (operator)
-    (expression_list
-      (call_expression
-        (builtin_procedure)
-        (arguments
-          (argument
-            (type_identifier))
-          (argument
-            (int_literal))
-          (argument
-            (int_literal))
-          (argument
-            (int_literal)))))))
 
 ================================================================================
 proc

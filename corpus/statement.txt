@@ -1,29 +1,28 @@
-========
+================================================================================
 block
-========
+================================================================================
 
 {}
 {
 
 }
 
----
+--------------------------------------------------------------------------------
 
 (source_file
   (block_statement)
-  (block_statement)
-)
+  (block_statement))
 
-========
+================================================================================
 assignment
-========
+================================================================================
 
 a = 10
 a, b = 10, 20
 a^ = 10
 a, b^ = 10, 20
 
----
+--------------------------------------------------------------------------------
 
 (source_file
   (assignment_statement
@@ -57,15 +56,57 @@ a, b^ = 10, 20
     (operator)
     (expression_list
       (int_literal)
-      (int_literal)))
-)
+      (int_literal))))
 
-===
+================================================================================
 return statement
-===
+================================================================================
+
+test :: proc() { return }
 
 multiply :: proc(x: int, y: int) -> int {
 	return x * y
 }
 
----
+--------------------------------------------------------------------------------
+
+(source_file
+  (const_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_list
+      (proc_definition
+        (keyword)
+        (parameters)
+        (block_statement
+          (return_statement
+            (keyword))))))
+  (const_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_list
+      (proc_definition
+        (keyword)
+        (parameters
+          (parameter_declaration
+            (identifier)
+            (operator)
+            (type_identifier))
+          (parameter_declaration
+            (identifier)
+            (operator)
+            (type_identifier)))
+        (operator)
+        (proc_result
+          (type_identifier))
+        (block_statement
+          (return_statement
+            (keyword)
+            (expression_list
+              (binary_expression
+                (identifier)
+                (identifier)))))))))
