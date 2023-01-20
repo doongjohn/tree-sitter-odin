@@ -59,3 +59,13 @@ a, b^ = 10, 20
       (int_literal)
       (int_literal)))
 )
+
+===
+return statement
+===
+
+multiply :: proc(x: int, y: int) -> int {
+	return x * y
+}
+
+---

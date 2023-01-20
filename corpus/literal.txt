@@ -106,3 +106,59 @@ B :: union #no_nil {
           (identifier))
         (type_value_union_field
           (type_identifier))))))
+
+================================================================================
+enum
+================================================================================
+
+Direction :: enum{North, East, South, West}
+
+Foo :: enum u32 {
+	A,
+	B = 4,
+	C = 7,
+	D = 1337,
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (const_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_list
+      (type_value_enum
+        (keyword)
+        (type_value_enum_field
+          (enum_field))
+        (type_value_enum_field
+          (enum_field))
+        (type_value_enum_field
+          (enum_field))
+        (type_value_enum_field
+          (enum_field)))))
+  (const_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_list
+      (type_value_enum
+        (keyword)
+        (type_identifier)
+        (type_value_enum_field
+          (enum_field))
+        (type_value_enum_field
+          (enum_field)
+          (operator)
+          (int_literal))
+        (type_value_enum_field
+          (enum_field)
+          (operator)
+          (int_literal))
+        (type_value_enum_field
+          (enum_field)
+          (operator)
+          (int_literal))))))

@@ -8,7 +8,36 @@
 // - where clause https://odin-lang.org/docs/overview/#where-clauses
 // - directives https://odin-lang.org/docs/overview/#directives
 
+// TODO: this works...
+/*
+  test :: proc() -> int {
+    return \
+      10
+  }
+*/
+
+// - test: literals
+// - test: statements
+// - test: expressions
+// - test: declarations
+// - test: assignments
+
 const
+  PREC = {
+    primary: 7,
+    unary: 6,
+    multiplicative: 5,
+    additive: 4,
+    comparative: 3,
+    and: 2,
+    or: 1,
+    composite_literal: -1,
+  },
+
+  multiplicative_operators = ['*', '/', '%', '%%', '<<', '>>', '~', '&', '&~'],
+  additive_operators = ['+', '-', '|'],
+  comparative_operators = ['==', '!=', '<', '<=', '>', '>='],
+
   unicodeLetter = /\p{L}/,
   unicodeDigit = /[0-9]/,
   unicodeChar = /./,
@@ -88,6 +117,7 @@ module.exports = grammar({
   ],
 
   conflicts: $ => [
+    [$.using_statement, $.identifier_list],
     [$._identifier_deref_list, $.identifier_list],
     [$.proc_definition , $.type_proc],
     [$._expression, $._type],
@@ -170,6 +200,7 @@ module.exports = grammar({
       $.assignment_statement,
       $.block_statement,
       $.using_statement,
+      $.return_statement,
       // TODO: other statements
       //   - for
       //     - Basic for loop
@@ -185,7 +216,7 @@ module.exports = grammar({
     assignment_statement: $ => seq(
       field('name', alias($._identifier_deref_list, $.identifier_list)),
       alias('=', $.operator),
-      field('value', $.expression_list)
+      field('value', $.expression_list),
     ),
 
     block_statement: $ => seq(
@@ -200,24 +231,34 @@ module.exports = grammar({
         ),
         optional(terminator)
       )),
-      '}'
+      '}',
     ),
 
     using_statement: $ => seq(
       alias('using', $.keyword),
-      choice(
-        $.identifier,
-        $.var_declaration,
-        $.const_declaration,
-      )
+      $._expression,
     ),
 
+    return_statement: $ => seq(
+      alias('return', $.keyword),
+      choice(
+        terminator,
+        $.expression_list,
+      ),
+    ),
+
+    identifier_list: $ => commaSep1(seq(
+      optional(alias('using', $.operator)),
+      $.identifier,
+    )),
     _identifier_deref_list: $ => commaSep1(choice(
       $.identifier,
-      $.dereference_expression
+      $.dereference_expression,
     )),
-    identifier_list: $ => commaSep1($.identifier),
-    expression_list: $ => commaSep1(choice($._expression, $._type)),
+    expression_list: $ => commaSep1(choice(
+      $._expression,
+      $._type,
+    )),
 
     _literal: $ => choice(
       $._string_literal,
@@ -235,22 +276,23 @@ module.exports = grammar({
 
     _string_literal: $ => choice(
       $.raw_string_literal,
-      $.interpreted_string_literal
+      $.interpreted_string_literal,
     ),
     raw_string_literal: $ => token(seq(
       '`',
       repeat(/[^`]/),
-      '`'
+      '`',
     )),
     interpreted_string_literal: $ => seq(
       '"',
       repeat(choice(
         $._interpreted_string_literal_basic_content,
-        $.escape_sequence
+        $.escape_sequence,
       )),
-      '"'
+      '"',
     ),
-    _interpreted_string_literal_basic_content: $ => token.immediate(prec(1, /[^"\n\\]+/)),
+    _interpreted_string_literal_basic_content: $ =>
+      token.immediate(prec(1, /[^"\n\\]+/)),
 
     escape_sequence: $ => token.immediate(seq(
       '\\',
@@ -265,7 +307,7 @@ module.exports = grammar({
 
     _numeric_literal: $ => choice(
       $.int_literal,
-      $.float_literal
+      $.float_literal,
     ),
     int_literal: $ => token(intLiteral),
     float_literal: $ => token(floatLiteral),
@@ -276,15 +318,16 @@ module.exports = grammar({
     undefined_value: $ => alias('---', $.keyword),
 
     _expression: $ => choice(
-      $.parenthesized_expression,
+      $._literal,
+      $.identifier,
       $.dereference_expression,
       $.selector_expression,
       $.implicit_selector_expression,
+      $.binary_expression,
+      $.parenthesized_expression,
       $.call_expression,
       $.type_conversion_expression,
-      $.proc_definition ,
-      $.identifier,
-      $._literal,
+      $.proc_definition,
       alias('context', $.keyword),
       // TODO: other expressions
       //   - ternary expressions
@@ -298,12 +341,8 @@ module.exports = grammar({
       //     true && false || true
     ),
 
-    parenthesized_expression: $ => seq(
-      '(', $._expression, ')'
-    ),
-
     identifier: $ => token(seq(
-      /[a-zA-Z_]/,
+      letter,
       repeat(choice(letter, unicodeDigit))
     )),
 
@@ -321,6 +360,28 @@ module.exports = grammar({
     implicit_selector_expression: $ => seq(
       '.',
       field('field', $.identifier)
+    ),
+
+    binary_expression: $ => {
+      const table = [
+        [PREC.multiplicative, choice(...multiplicative_operators)],
+        [PREC.additive, choice(...additive_operators)],
+        [PREC.comparative, choice(...comparative_operators)],
+        [PREC.and, '&&'],
+        [PREC.or, '||'],
+      ];
+
+      return choice(...table.map(([precedence, operator]) =>
+        prec.left(precedence, seq(
+          field('left', $._expression),
+          field('operator', operator),
+          field('right', $._expression)
+        ))
+      ));
+    },
+
+    parenthesized_expression: $ => seq(
+      '(', $._expression, ')'
     ),
 
     proc_definition: $ => seq(
@@ -366,13 +427,13 @@ module.exports = grammar({
       field('type', $._type),
     ),
 
-    return_value_declaration: $ => choice(
+    proc_result_declaration: $ => choice(
       prec.dynamic(0, $._named_parameter_declaration),
       prec.dynamic(1, $._unnamed_parameter_declaration),
     ),
     proc_result: $ => choice(
       $._type,
-      seq('(', commaSep($.return_value_declaration), ')')
+      seq('(', commaSep($.proc_result_declaration), ')')
     ),
 
     call_expression: $ => choice(
@@ -432,12 +493,13 @@ module.exports = grammar({
 
     type_pointer: $ => seq(
       alias('^', $.operator),
-      $._type, // TODO: why use base type?
+      $._type,
     ),
     type_multi_pointer: $ => seq(
       '[', alias('^', $.operator), ']',
       $._type,
     ),
+
     type_slice: $ => seq(
       '[]',
       $._type,
@@ -450,6 +512,7 @@ module.exports = grammar({
       '[', alias('dynamic', $.keyword), ']',
       $._type,
     ),
+
     type_soa_slice: $ => seq(
       alias('#soa', $.keyword),
       $.type_slice,
@@ -462,6 +525,7 @@ module.exports = grammar({
       alias('#soa', $.keyword),
       $.type_dynamic_array,
     ),
+
     type_proc: $ => seq(
       alias('proc', $.keyword),
       field('parameters', $.parameters),
@@ -474,6 +538,7 @@ module.exports = grammar({
     _type_value: $ => choice(
       $.type_value_struct,
       $.type_value_union,
+      $.type_value_enum,
     ),
     type_value_tag: $ => seq(
       '#',
@@ -485,23 +550,11 @@ module.exports = grammar({
       alias('struct', $.keyword),
       optional(field('tag', $.type_value_tag)),
       '{',
-      optional(choice(
-        field('field', $.type_value_struct_field),
-        commaTerminated1(field('field', $.type_value_struct_field)),
-      )),
+      optional(commaSep(field('field', $.type_value_struct_field))),
+      optional(','),
       '}'
     ),
-    type_value_struct_field: $ => choice(
-      $._type_value_struct_normal_field,
-      $._type_value_struct_using_field,
-    ),
-    _type_value_struct_normal_field: $ => seq(
-      field('name', $.identifier_list),
-      alias(':', $.operator),
-      field('type', $._type),
-    ),
-    _type_value_struct_using_field: $ => seq(
-      alias('using', $.keyword),
+    type_value_struct_field: $ => seq(
       field('name', $.identifier_list),
       alias(':', $.operator),
       field('type', $._type),
@@ -511,10 +564,8 @@ module.exports = grammar({
       alias('union', $.keyword),
       optional(field('tag', $.type_value_tag)),
       '{',
-      optional(choice(
-        field('field', $.type_value_union_field),
-        commaTerminated1(field('field', $.type_value_union_field)),
-      )),
+      optional(commaSep(field('field', $.type_value_union_field))),
+      optional(','),
       '}'
     ),
     type_value_union_field: $ => seq(
@@ -526,10 +577,8 @@ module.exports = grammar({
       optional(field('type', $._type)),
       optional(field('tag', $.type_value_tag)),
       '{',
-      optional(choice(
-        field('field', $.type_value_enum_field),
-        commaTerminated1(field('field', $.type_value_enum_field)),
-      )),
+      optional(commaSep(field('field', $.type_value_enum_field))),
+      optional(','),
       '}'
     ),
     type_value_enum_field: $ => seq(
