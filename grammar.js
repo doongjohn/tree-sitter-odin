@@ -10,14 +10,6 @@
 // - where clause https://odin-lang.org/docs/overview/#where-clauses
 // - directives https://odin-lang.org/docs/overview/#directives
 
-// NOTE: ok... this works...
-/*
-  test :: proc() -> int {
-    return \
-      10
-  }
-*/
-
 // - test: literals
 // - test: statements
 // - test: expressions
@@ -111,9 +103,15 @@ module.exports = grammar({
   name: 'odin',
 
   extras: $ => [
-    $.comment,
-    /\s/,
-    /\\/,
+    // NOTE: multiline statement similar to python
+    // https://github.com/tree-sitter/tree-sitter-python/blob/master/grammar.js#L32
+    /[\s\f\uFEFF\u2060\u200B]|\\\r?\n/,
+    $.line_comment,
+    $.block_comment,
+  ],
+
+  externals: $ => [
+    $.block_comment,
   ],
 
   conflicts: $ => [
@@ -121,10 +119,21 @@ module.exports = grammar({
   ],
 
   rules: {
-    source_file: $ => repeat(choice(
-      seq($._statement, terminator),
-      seq($._expression, terminator), // NOTE: is this unnecessary?
-      seq($._top_level_declaration, optional(terminator)),
+    source_file: $ => optional(seq(
+      choice(
+        $._top_level_declaration,
+        $._statement,
+        $._expression, // NOTE: is this unnecessary?
+      ),
+      repeat(seq(
+        terminator,
+        choice(
+          $._top_level_declaration,
+          $._statement,
+          $._expression,
+        ),
+      )),
+      optional(terminator),
     )),
 
     _top_level_declaration: $ => choice(
@@ -226,7 +235,7 @@ module.exports = grammar({
             ),
           )),
         ),
-        optional(terminator), // WTF????
+        optional(terminator),
       )),
       '}',
     ),
@@ -400,6 +409,8 @@ module.exports = grammar({
         alias('->', $.operator),
         field('result', $.proc_result)
       )),
+      // TODO: where clauses
+      // https://odin-lang.org/docs/overview/#where-clauses
       field('body', choice(
         $.block_statement,
         $.undefined_value,
@@ -608,14 +619,7 @@ module.exports = grammar({
       ))
     ),
 
-    comment: $ => token(choice(
-      seq('//', /.*/),
-      seq(
-        '/*',
-        /[^*]*\*+([^/*][^*]*\*+)*/,
-        '/'
-      )
-    )),
+    line_comment: $ => token(seq('//', /.*/)),
   }
 })
 

@@ -1,18 +1,39 @@
 ================================================================================
+empty
+================================================================================
+
+--------------------------------------------------------------------------------
+
+(source_file)
+
+================================================================================
 comment
 ================================================================================
 
-/*
-hello
-*/
+// wow
+// hey
 
-// comment
+/**/
+/*/**/*/
+
+/*asd/*asd*/asd*/
+
+/*
+  hello
+    /*
+      nested
+    */
+*/
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (comment)
-  (comment))
+  (line_comment)
+  (line_comment)
+  (block_comment)
+  (block_comment)
+  (block_comment)
+  (block_comment))
 
 ================================================================================
 attribute
@@ -85,3 +106,33 @@ a :: proc() {
             (arguments
               (argument
                 (interpreted_string_literal)))))))))
+
+================================================================================
+multiline statement
+================================================================================
+
+test :: proc() -> int {
+  return \
+    10
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (const_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_list
+      (proc_definition
+        (keyword)
+        (parameters)
+        (operator)
+        (proc_result
+          (type_identifier))
+        (block_statement
+          (return_statement
+            (keyword)
+            (expression_list
+              (int_literal))))))))
