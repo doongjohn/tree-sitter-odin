@@ -2639,32 +2639,19 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "_builtin_call_expression"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_normal_call_expression"
-        }
-      ]
-    },
-    "_normal_call_expression": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "function_call",
+          "type": "PREC",
+          "value": 1,
           "content": {
             "type": "SYMBOL",
-            "name": "_expression"
+            "name": "_builtin_call_expression"
           }
         },
         {
-          "type": "FIELD",
-          "name": "arguments",
+          "type": "PREC",
+          "value": 0,
           "content": {
             "type": "SYMBOL",
-            "name": "arguments"
+            "name": "_call_expression"
           }
         }
       ]
@@ -2678,107 +2665,88 @@
           "content": {
             "type": "ALIAS",
             "content": {
-              "type": "TOKEN",
-              "content": {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "len"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "swizzle"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "new"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "free"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "make"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "delete"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "size_of"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "align_of"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "soa_zip"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "soa_unzip"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "typeid_of"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "type_info_of"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "#config"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "#defined"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "#assert"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "#panic"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "#location"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "#file"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "#line"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "#procedure"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "#load"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "#load_or"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "#load_hash"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "len"
+                },
+                {
+                  "type": "STRING",
+                  "value": "swizzle"
+                },
+                {
+                  "type": "STRING",
+                  "value": "new"
+                },
+                {
+                  "type": "STRING",
+                  "value": "free"
+                },
+                {
+                  "type": "STRING",
+                  "value": "make"
+                },
+                {
+                  "type": "STRING",
+                  "value": "delete"
+                },
+                {
+                  "type": "STRING",
+                  "value": "size_of"
+                },
+                {
+                  "type": "STRING",
+                  "value": "align_of"
+                },
+                {
+                  "type": "STRING",
+                  "value": "soa_zip"
+                },
+                {
+                  "type": "STRING",
+                  "value": "soa_unzip"
+                },
+                {
+                  "type": "STRING",
+                  "value": "typeid_of"
+                },
+                {
+                  "type": "STRING",
+                  "value": "type_info_of"
+                },
+                {
+                  "type": "TOKEN",
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "#[^\\s\\(]+"
                   }
-                ]
-              }
+                }
+              ]
             },
             "named": true,
             "value": "builtin_procedure"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "arguments",
+          "content": {
+            "type": "SYMBOL",
+            "name": "arguments"
+          }
+        }
+      ]
+    },
+    "_call_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "function_call",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_expression"
           }
         },
         {

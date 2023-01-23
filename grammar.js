@@ -1,13 +1,8 @@
-// WIP:
-// - range expression
-// - bit_set
-
 // TODO:
+// - bit_set
 // - do
 // - or_else
 // - or_return
-// - type / proc with generic parameter
-// - where clause https://odin-lang.org/docs/overview/#where-clauses
 // - directives https://odin-lang.org/docs/overview/#directives
 
 // - test: literals
@@ -92,11 +87,6 @@ const
     'size_of', 'align_of',
     'soa_zip', 'soa_unzip',
     'typeid_of', 'type_info_of',
-    '#config', '#defined',
-    '#assert', '#panic',
-    '#location',
-    '#file', '#line', '#procedure',
-    '#load', '#load_or', '#load_hash'
   ]
 
 module.exports = grammar({
@@ -133,7 +123,7 @@ module.exports = grammar({
           $._expression,
         ),
       )),
-      optional(terminator),
+      optional(terminator), // ???
     )),
 
     _top_level_declaration: $ => choice(
@@ -450,7 +440,7 @@ module.exports = grammar({
       alias(':', $.operator),
       optional(alias('$', $.operator)), // generic type
       field('type', $._type),
-      // TODO: generic constraint
+      // TODO: generic specialization
       // https://odin-lang.org/docs/overview/#specialization
       optional(seq(
         alias('=', $.operator),
@@ -471,18 +461,18 @@ module.exports = grammar({
     ),
 
     call_expression: $ => choice(
-      $._builtin_call_expression,
-      $._normal_call_expression,
-    ),
-    _normal_call_expression: $ => seq(
-      field('function_call', $._expression),
-      field('arguments', $.arguments),
+      prec(1, $._builtin_call_expression),
+      prec(0, $._call_expression),
     ),
     _builtin_call_expression: $ => seq(
       field(
         'function_call',
-        alias(token(choice(...builtin_procs)), $.builtin_procedure),
+        alias(choice(...builtin_procs, token(/#[^\s\(]+/)), $.builtin_procedure),
       ),
+      field('arguments', $.arguments),
+    ),
+    _call_expression: $ => seq(
+      field('function_call', $._expression),
       field('arguments', $.arguments),
     ),
 

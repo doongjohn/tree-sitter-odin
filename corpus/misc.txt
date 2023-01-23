@@ -76,6 +76,7 @@ builtin proc
 ================================================================================
 
 a :: proc() {
+  n := len(array)
   #assert("" == "")
   #panic("lol")
 }
@@ -93,6 +94,17 @@ a :: proc() {
         (keyword)
         (parameters)
         (block_statement
+          (var_declaration
+            (identifier_list
+              (identifier))
+            (operator)
+            (operator)
+            (expression_list
+              (call_expression
+                (builtin_procedure)
+                (arguments
+                  (argument
+                    (identifier))))))
           (call_expression
             (builtin_procedure)
             (arguments
