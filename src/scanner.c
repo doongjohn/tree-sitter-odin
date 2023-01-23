@@ -1,6 +1,9 @@
 #include "tree_sitter/parser.h"
 #include <wctype.h>
 
+// NOTE: source from tree-sitter-rust
+// https://github.com/tree-sitter/tree-sitter-rust/blob/master/src/scanner.c
+
 enum TokenType {
   BLOCK_COMMENT,
 };
