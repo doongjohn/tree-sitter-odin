@@ -221,5 +221,4 @@ p :: proc() ---
       (proc_definition
         (keyword)
         (parameters)
-        (undefined_value
-          (keyword))))))
+        (undefined_value)))))

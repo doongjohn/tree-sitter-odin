@@ -3,7 +3,12 @@ block
 ================================================================================
 
 {}
+{{}}
 {
+}
+{
+
+{{}}
 
 }
 
@@ -11,7 +16,56 @@ block
 
 (source_file
   (block_statement)
-  (block_statement))
+  (block_statement
+    (block_statement))
+  (block_statement)
+  (block_statement
+    (block_statement
+      (block_statement))))
+
+================================================================================
+foreign block
+================================================================================
+
+@(default_calling_convention = "std")
+foreign kernel32 {
+    @(link_name="LoadLibraryA") load_library_a :: proc(c_str: ^u8) -> Hmodule ---
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (attribute_declaration
+    (keyword)
+    (operator)
+    (interpreted_string_literal))
+  (foreign_block
+    (keyword)
+    (identifier)
+    (block_statement
+      (attribute_declaration
+        (keyword)
+        (operator)
+        (interpreted_string_literal))
+      (const_declaration
+        (identifier_list
+          (identifier))
+        (operator)
+        (operator)
+        (expression_list
+          (proc_definition
+            (keyword)
+            (parameters
+              (parameter_declaration
+                (identifier)
+                (operator)
+                (type_pointer
+                  (operator)
+                  (type_identifier))))
+            (operator)
+            (proc_result
+              (type_identifier))
+            (undefined_value)))))))
 
 ================================================================================
 assignment

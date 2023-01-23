@@ -926,21 +926,6 @@
     }
   },
   {
-    "type": "context_variable",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "keyword",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "dereference_expression",
     "named": true,
     "fields": {},
@@ -1093,6 +1078,29 @@
         },
         {
           "type": "undefined_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "foreign_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block_statement",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword",
           "named": true
         }
       ]
@@ -2097,6 +2105,10 @@
         },
         {
           "type": "float_literal",
+          "named": true
+        },
+        {
+          "type": "foreign_block",
           "named": true
         },
         {
@@ -3412,21 +3424,6 @@
     }
   },
   {
-    "type": "undefined_value",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "keyword",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "using_statement",
     "named": true,
     "fields": {},
@@ -3684,6 +3681,10 @@
     "named": true
   },
   {
+    "type": "context_variable",
+    "named": true
+  },
+  {
     "type": "enum_field",
     "named": true
   },
@@ -3745,6 +3746,10 @@
   },
   {
     "type": "type_identifier",
+    "named": true
+  },
+  {
+    "type": "undefined_value",
     "named": true
   },
   {

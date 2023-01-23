@@ -129,8 +129,7 @@ module.exports = grammar({
     _top_level_declaration: $ => choice(
       $.package_clause,
       $.import_declaration,
-      // TODO: foreign block
-      // https://odin-lang.org/docs/overview/#foreign-system
+      $.foreign_block,
     ),
 
     package_clause: $ => seq(
@@ -150,6 +149,12 @@ module.exports = grammar({
 
     blank_identifier: $ => '_',
     _package_identifier: $ => alias($.identifier, $.package_identifier),
+
+    foreign_block: $ => seq(
+      alias('foreign', $.keyword),
+      $.identifier,
+      $.block_statement,
+    ),
 
     _declaration: $ => choice(
       $.attribute_declaration,
@@ -204,22 +209,25 @@ module.exports = grammar({
       )
     ),
 
-    _statement: $ => choice(
-      $.block_statement,
-      $._declaration,
-      $.assignment_statement,
-      $.using_statement,
-      $.return_statement,
-      // TODO: other statements
-      //   - for
-      //     - Basic for loop
-      //     - Range-based for loop
-      //   - if
-      //   - switch
-      //   - defer
-      //   - when
-      //   - break, continue, fallthrough
-      //   - proc group https://odin-lang.org/docs/overview/#explicit-procedure-overloading
+    _statement: $ => seq(
+      optional($.attribute_declaration),
+      choice(
+        $.block_statement,
+        $._declaration,
+        $.assignment_statement,
+        $.using_statement,
+        $.return_statement,
+        // TODO: other statements
+        //   - for
+        //     - Basic for loop
+        //     - Range-based for loop
+        //   - if
+        //   - switch
+        //   - defer
+        //   - when
+        //   - break, continue, fallthrough
+        //   - proc group https://odin-lang.org/docs/overview/#explicit-procedure-overloading
+      ),
     ),
 
     block_statement: $ => seq(
@@ -330,8 +338,8 @@ module.exports = grammar({
     nil: $ => 'nil',
     true: $ => 'true',
     false: $ => 'false',
-    undefined_value: $ => alias('---', $.keyword),
-    context_variable: $ => alias('context', $.keyword),
+    undefined_value: $ => '---',
+    context_variable: $ => 'context',
 
     _expression: $ => prec(1, choice(
       $._literal,

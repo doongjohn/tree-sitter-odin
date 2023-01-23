@@ -1,4 +1,40 @@
 ================================================================================
+string
+================================================================================
+
+a := "asd\n"
+b := "C:\\Windows\\notepad.exe"
+c := `C:\Windows\notepad.exe`
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_list
+      (interpreted_string_literal
+        (escape_sequence))))
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_list
+      (interpreted_string_literal
+        (escape_sequence)
+        (escape_sequence))))
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_list
+      (raw_string_literal))))
+
+================================================================================
 struct
 ================================================================================
 

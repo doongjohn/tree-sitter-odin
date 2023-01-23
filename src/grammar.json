@@ -100,6 +100,10 @@
         {
           "type": "SYMBOL",
           "name": "import_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "foreign_block"
         }
       ]
     },
@@ -197,6 +201,28 @@
       },
       "named": true,
       "value": "package_identifier"
+    },
+    "foreign_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": "foreign"
+          },
+          "named": true,
+          "value": "keyword"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "block_statement"
+        }
+      ]
     },
     "_declaration": {
       "type": "CHOICE",
@@ -470,27 +496,44 @@
       ]
     },
     "_statement": {
-      "type": "CHOICE",
+      "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "block_statement"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "attribute_declaration"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
-          "type": "SYMBOL",
-          "name": "_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "assignment_statement"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "using_statement"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "return_statement"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "block_statement"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_declaration"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "assignment_statement"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "using_statement"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "return_statement"
+            }
+          ]
         }
       ]
     },
@@ -1738,22 +1781,12 @@
       "value": "false"
     },
     "undefined_value": {
-      "type": "ALIAS",
-      "content": {
-        "type": "STRING",
-        "value": "---"
-      },
-      "named": true,
-      "value": "keyword"
+      "type": "STRING",
+      "value": "---"
     },
     "context_variable": {
-      "type": "ALIAS",
-      "content": {
-        "type": "STRING",
-        "value": "context"
-      },
-      "named": true,
-      "value": "keyword"
+      "type": "STRING",
+      "value": "context"
     },
     "_expression": {
       "type": "PREC",
