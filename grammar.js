@@ -167,7 +167,11 @@ module.exports = grammar({
       $.var_declaration,
     ),
 
-    attribute_declaration: $ => seq(
+    attribute_declaration: $ => choice(
+      $._attribute_declaration,
+      $._attribute_declaration_objc_type,
+    ),
+    _attribute_declaration: $ => seq(
       '@(',
       field('attribute', alias($.identifier, $.keyword)),
       optional(seq(
@@ -175,8 +179,17 @@ module.exports = grammar({
         field('value', choice(
           $._known_type,
           $._expression,
-        ))
+        )),
       )),
+      ')'
+    ),
+    _attribute_declaration_objc_type: $ => seq(
+      '@(',
+      field('attribute', alias('objc_type', $.keyword)),
+      seq(
+        alias('=', $.operator),
+        field('value', $._type),
+      ),
       ')'
     ),
 

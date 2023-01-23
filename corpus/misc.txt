@@ -15,7 +15,6 @@ comment
 
 /**/
 /*/**/*/
-
 /*asd/*asd*/asd*/
 
 /*
@@ -44,7 +43,7 @@ attribute
 @(deferred_none = baz)
 @(disabled = true)
 @(disabled = false)
-@(objc_type = Type)
+@(objc_type = wow)
 
 --------------------------------------------------------------------------------
 
@@ -70,7 +69,7 @@ attribute
   (attribute_declaration
     (keyword)
     (operator)
-    (identifier)))
+    (type_identifier)))
 
 ================================================================================
 builtin proc
