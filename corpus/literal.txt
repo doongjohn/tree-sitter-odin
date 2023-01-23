@@ -14,7 +14,7 @@ c := `C:\Windows\notepad.exe`
       (identifier))
     (operator)
     (operator)
-    (expression_list
+    (expression_type_list
       (interpreted_string_literal
         (escape_sequence))))
   (var_declaration
@@ -22,7 +22,7 @@ c := `C:\Windows\notepad.exe`
       (identifier))
     (operator)
     (operator)
-    (expression_list
+    (expression_type_list
       (interpreted_string_literal
         (escape_sequence)
         (escape_sequence))))
@@ -31,7 +31,7 @@ c := `C:\Windows\notepad.exe`
       (identifier))
     (operator)
     (operator)
-    (expression_list
+    (expression_type_list
       (raw_string_literal))))
 
 ================================================================================
@@ -60,7 +60,7 @@ C :: struct {
     (operator)
     (type_identifier)
     (operator)
-    (expression_list
+    (expression_type_list
       (type_value_struct
         (keyword)
         (type_value_struct_field
@@ -78,7 +78,7 @@ C :: struct {
       (identifier))
     (operator)
     (operator)
-    (expression_list
+    (expression_type_list
       (type_value_struct
         (keyword)
         (type_value_struct_field
@@ -91,7 +91,7 @@ C :: struct {
       (identifier))
     (operator)
     (operator)
-    (expression_list
+    (expression_type_list
       (type_value_struct
         (keyword)
         (type_value_struct_field
@@ -123,7 +123,7 @@ B :: union #no_nil {
       (identifier))
     (operator)
     (operator)
-    (expression_list
+    (expression_type_list
       (type_value_union
         (keyword)
         (type_value_union_field
@@ -135,7 +135,7 @@ B :: union #no_nil {
       (identifier))
     (operator)
     (operator)
-    (expression_list
+    (expression_type_list
       (type_value_union
         (keyword)
         (type_value_tag
@@ -164,7 +164,7 @@ Foo :: enum u32 {
       (identifier))
     (operator)
     (operator)
-    (expression_list
+    (expression_type_list
       (type_value_enum
         (keyword)
         (type_value_enum_field
@@ -180,7 +180,7 @@ Foo :: enum u32 {
       (identifier))
     (operator)
     (operator)
-    (expression_list
+    (expression_type_list
       (type_value_enum
         (keyword)
         (type_identifier)

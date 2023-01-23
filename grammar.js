@@ -105,7 +105,8 @@ module.exports = grammar({
   ],
 
   conflicts: $ => [
-    [$._identifier_deref_list, $.identifier_list],
+    [$.identifier_list, $._expression],
+    [$._expression, $._type],
   ],
 
   rules: {
@@ -189,22 +190,22 @@ module.exports = grammar({
     ),
 
     const_declaration: $ => seq(
-      field('name', $.identifier_list),
+      field('left', $.identifier_list),
       alias(':', $.operator),
       optional(field('type', $._type)),
       alias(':', $.operator),
-      field('value', $.expression_list),
+      field('right', $.expression_type_list),
     ),
 
     var_declaration: $ => seq(
-      field('name', $.identifier_list),
+      field('left', $.identifier_list),
       alias(':', $.operator),
       choice(
         field('type', $._type),
         seq(
           optional(field('type', $._type)),
           alias('=', $.operator),
-          field('value', $.expression_list)
+          field('right', $.expression_type_list)
         )
       )
     ),
@@ -252,9 +253,9 @@ module.exports = grammar({
     ),
 
     assignment_statement: $ => seq(
-      field('name', alias($._identifier_deref_list, $.identifier_list)),
+      field('left', $.expression_list),
       alias('=', $.operator),
-      field('value', $.expression_list),
+      field('right', $.expression_type_list),
     ),
 
     using_statement: $ => seq(
@@ -264,21 +265,18 @@ module.exports = grammar({
 
     return_statement: $ => seq(
       alias('return', $.keyword),
-      optional($.expression_list),
+      optional($.expression_type_list),
     ),
 
     identifier_list: $ => commaSep1(seq(
-      optional(alias('using', $.operator)),
+      optional(alias('using', $.keyword)),
       $.identifier,
     )),
-    _identifier_deref_list: $ => commaSep1(choice(
-      seq(
-        optional(alias('using', $.operator)),
-        $.identifier,
-      ),
-      $.dereference_expression,
-    )),
-    expression_list: $ => commaSep1(choice(
+
+    expression_list: $ => commaSep1(
+      $._expression,
+    ),
+    expression_type_list: $ => commaSep1(choice(
       $._expression,
       $._known_type,
     )),
@@ -341,7 +339,7 @@ module.exports = grammar({
     undefined_value: $ => '---',
     context_variable: $ => 'context',
 
-    _expression: $ => prec(1, choice(
+    _expression: $ => choice(
       $._literal,
       $.identifier,
       $.dereference_expression,
@@ -354,14 +352,14 @@ module.exports = grammar({
       $.proc_definition,
       $.context_variable,
       // TODO: other expressions
-      //   - ternary expressions
       //   - unary expressions
+      //   - ternary expressions
       //   - expressions with prefix operator
       //     'cast',
       //     'auto_cast',
       //     'transmute',
       //     'distinct',
-    )),
+    ),
 
     identifier: $ => token(seq(
       letter,
@@ -435,9 +433,9 @@ module.exports = grammar({
       /*
         p :: proc(TypeName, b: f32) {}
       */
-      // TODO: variadic parameter
       $._named_parameter_declaration,
       $._unnamed_parameter_declaration,
+      // TODO: variadic parameter
     ),
     _named_parameter_declaration: $ => prec.right(1, seq(
       commaSep1(seq(
@@ -521,6 +519,7 @@ module.exports = grammar({
       $.type_soa_dynamic_array,
       $.type_proc,
       $._type_value,
+      // TODO: matrix, quaternion, bit_set
     ),
     _type: $ => choice(
       $._known_type,

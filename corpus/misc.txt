@@ -39,11 +39,13 @@ attribute
 ================================================================================
 
 @(require)
-@(private="file")
-@(deferred_none = baz)
-@(disabled = true)
-@(disabled = false)
 @(objc_type = wow)
+
+@(private)
+my_variable: int
+
+@(private="file")
+my_variable: int
 
 --------------------------------------------------------------------------------
 
@@ -53,21 +55,21 @@ attribute
   (attribute_declaration
     (keyword)
     (operator)
+    (type_identifier))
+  (attribute_declaration
+    (keyword))
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (type_identifier))
+  (attribute_declaration
+    (keyword)
+    (operator)
     (interpreted_string_literal))
-  (attribute_declaration
-    (keyword)
-    (operator)
-    (identifier))
-  (attribute_declaration
-    (keyword)
-    (operator)
-    (true))
-  (attribute_declaration
-    (keyword)
-    (operator)
-    (false))
-  (attribute_declaration
-    (keyword)
+  (var_declaration
+    (identifier_list
+      (identifier))
     (operator)
     (type_identifier)))
 
@@ -89,7 +91,7 @@ a :: proc() {
       (identifier))
     (operator)
     (operator)
-    (expression_list
+    (expression_type_list
       (proc_definition
         (keyword)
         (parameters)
@@ -99,7 +101,7 @@ a :: proc() {
               (identifier))
             (operator)
             (operator)
-            (expression_list
+            (expression_type_list
               (call_expression
                 (builtin_procedure)
                 (arguments
@@ -135,7 +137,7 @@ test :: proc() -> int {
       (identifier))
     (operator)
     (operator)
-    (expression_list
+    (expression_type_list
       (proc_definition
         (keyword)
         (parameters)
@@ -145,5 +147,5 @@ test :: proc() -> int {
         (block_statement
           (return_statement
             (keyword)
-            (expression_list
+            (expression_type_list
               (int_literal))))))))

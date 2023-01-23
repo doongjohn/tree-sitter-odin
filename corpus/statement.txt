@@ -30,6 +30,7 @@ foreign block
 @(default_calling_convention = "std")
 foreign kernel32 {
     @(link_name="LoadLibraryA") load_library_a :: proc(c_str: ^u8) -> Hmodule ---
+    @(link_name="LoadLibraryB") load_library_b :: proc(c_str: ^u8) -> Hmodule ---
 }
 
 --------------------------------------------------------------------------------
@@ -52,7 +53,30 @@ foreign kernel32 {
           (identifier))
         (operator)
         (operator)
-        (expression_list
+        (expression_type_list
+          (proc_definition
+            (keyword)
+            (parameters
+              (parameter_declaration
+                (identifier)
+                (operator)
+                (type_pointer
+                  (operator)
+                  (type_identifier))))
+            (operator)
+            (proc_result
+              (type_identifier))
+            (undefined_value))))
+      (attribute_declaration
+        (keyword)
+        (operator)
+        (interpreted_string_literal))
+      (const_declaration
+        (identifier_list
+          (identifier))
+        (operator)
+        (operator)
+        (expression_type_list
           (proc_definition
             (keyword)
             (parameters
@@ -71,46 +95,22 @@ foreign kernel32 {
 assignment
 ================================================================================
 
-a = 10
-a, b = 10, 20
-a^ = 10
-a, b^ = 10, 20
+{
+  a, b = 10, 10
+}
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (assignment_statement
-    (identifier_list
-      (identifier))
-    (operator)
-    (expression_list
-      (int_literal)))
-  (assignment_statement
-    (identifier_list
-      (identifier)
-      (identifier))
-    (operator)
-    (expression_list
-      (int_literal)
-      (int_literal)))
-  (assignment_statement
-    (identifier_list
-      (dereference_expression
+  (block_statement
+    (assignment_statement
+      (expression_list
         (identifier)
-        (operator)))
-    (operator)
-    (expression_list
-      (int_literal)))
-  (assignment_statement
-    (identifier_list
-      (identifier)
-      (dereference_expression
-        (identifier)
-        (operator)))
-    (operator)
-    (expression_list
-      (int_literal)
-      (int_literal))))
+        (identifier))
+      (operator)
+      (expression_type_list
+        (int_literal)
+        (int_literal)))))
 
 ================================================================================
 return statement
@@ -135,7 +135,7 @@ test :: proc() {
       (identifier))
     (operator)
     (operator)
-    (expression_list
+    (expression_type_list
       (proc_definition
         (keyword)
         (parameters)
@@ -147,7 +147,7 @@ test :: proc() {
       (identifier))
     (operator)
     (operator)
-    (expression_list
+    (expression_type_list
       (proc_definition
         (keyword)
         (parameters)
@@ -159,28 +159,49 @@ test :: proc() {
       (identifier))
     (operator)
     (operator)
-    (expression_list
+    (expression_type_list
       (proc_definition
         (keyword)
         (parameters)
         (block_statement
           (return_statement
             (keyword)
-            (expression_list
+            (expression_type_list
               (int_literal)))))))
   (const_declaration
     (identifier_list
       (identifier))
     (operator)
     (operator)
-    (expression_list
+    (expression_type_list
       (proc_definition
         (keyword)
         (parameters)
         (block_statement
           (return_statement
             (keyword)
-            (expression_list
+            (expression_type_list
               (binary_expression
                 (identifier)
                 (identifier)))))))))
+
+================================================================================
+selector assignment
+================================================================================
+
+{
+  frog.x = 123
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_statement
+    (assignment_statement
+      (expression_list
+        (selector_expression
+          (identifier)
+          (identifier)))
+      (operator)
+      (expression_type_list
+        (int_literal)))))

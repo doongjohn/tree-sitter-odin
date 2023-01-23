@@ -18,7 +18,7 @@ n4: type_of(n3)
       (identifier))
     (operator)
     (operator)
-    (expression_list
+    (expression_type_list
       (interpreted_string_literal)))
   (const_declaration
     (identifier_list
@@ -26,14 +26,14 @@ n4: type_of(n3)
     (operator)
     (type_identifier)
     (operator)
-    (expression_list
+    (expression_type_list
       (interpreted_string_literal)))
   (var_declaration
     (identifier_list
       (identifier))
     (operator)
     (operator)
-    (expression_list
+    (expression_type_list
       (float_literal)))
   (var_declaration
     (identifier_list
@@ -46,7 +46,7 @@ n4: type_of(n3)
     (operator)
     (type_identifier)
     (operator)
-    (expression_list
+    (expression_type_list
       (float_literal)))
   (var_declaration
     (identifier_list
@@ -78,7 +78,7 @@ a: [dynamic][dynamic]int
       (operator)
       (type_identifier))
     (operator)
-    (expression_list
+    (expression_type_list
       (nil)))
   (var_declaration
     (identifier_list
@@ -156,46 +156,14 @@ a: #soa[dynamic]int
         (type_identifier)))))
 
 ================================================================================
-multiple decl
+const / var decl
 ================================================================================
 
-a, b: int : 10, 12
-a, b, c :: 1, 2, 3
-
-a, b: int
 a, b: int = 10, 12
-a, b, c := 1, 2, 3
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (const_declaration
-    (identifier_list
-      (identifier)
-      (identifier))
-    (operator)
-    (type_identifier)
-    (operator)
-    (expression_list
-      (int_literal)
-      (int_literal)))
-  (const_declaration
-    (identifier_list
-      (identifier)
-      (identifier)
-      (identifier))
-    (operator)
-    (operator)
-    (expression_list
-      (int_literal)
-      (int_literal)
-      (int_literal)))
-  (var_declaration
-    (identifier_list
-      (identifier)
-      (identifier))
-    (operator)
-    (type_identifier))
   (var_declaration
     (identifier_list
       (identifier)
@@ -203,17 +171,6 @@ a, b, c := 1, 2, 3
     (operator)
     (type_identifier)
     (operator)
-    (expression_list
-      (int_literal)
-      (int_literal)))
-  (var_declaration
-    (identifier_list
-      (identifier)
-      (identifier)
-      (identifier))
-    (operator)
-    (operator)
-    (expression_list
-      (int_literal)
+    (expression_type_list
       (int_literal)
       (int_literal))))

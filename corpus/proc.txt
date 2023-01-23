@@ -13,7 +13,7 @@ a := some_proc(1, another_proc())
       (identifier))
     (operator)
     (operator)
-    (expression_list
+    (expression_type_list
       (call_expression
         (identifier)
         (arguments))))
@@ -22,7 +22,7 @@ a := some_proc(1, another_proc())
       (identifier))
     (operator)
     (operator)
-    (expression_list
+    (expression_type_list
       (call_expression
         (identifier)
         (arguments
@@ -49,7 +49,7 @@ a := a.b.c.some_proc(1, another_proc())
       (identifier))
     (operator)
     (operator)
-    (expression_list
+    (expression_type_list
       (call_expression
         (selector_expression
           (identifier)
@@ -60,7 +60,7 @@ a := a.b.c.some_proc(1, another_proc())
       (identifier))
     (operator)
     (operator)
-    (expression_list
+    (expression_type_list
       (call_expression
         (selector_expression
           (selector_expression
@@ -73,7 +73,7 @@ a := a.b.c.some_proc(1, another_proc())
       (identifier))
     (operator)
     (operator)
-    (expression_list
+    (expression_type_list
       (call_expression
         (selector_expression
           (selector_expression
@@ -104,7 +104,7 @@ a := a.some_proc(10, wow = "hi")
       (identifier))
     (operator)
     (operator)
-    (expression_list
+    (expression_type_list
       (call_expression
         (selector_expression
           (identifier)
@@ -131,7 +131,7 @@ p :: proc(using a: f32)
       (identifier))
     (operator)
     (operator)
-    (expression_list
+    (expression_type_list
       (type_proc
         (keyword)
         (parameters
@@ -155,7 +155,7 @@ p :: proc(a: f32) {}
       (identifier))
     (operator)
     (operator)
-    (expression_list
+    (expression_type_list
       (proc_definition
         (keyword)
         (parameters
@@ -179,7 +179,7 @@ p :: proc(f32) {}
       (identifier))
     (operator)
     (operator)
-    (expression_list
+    (expression_type_list
       (proc_definition
         (keyword)
         (parameters
@@ -202,7 +202,7 @@ p :: proc() ---
       (identifier))
     (operator)
     (operator)
-    (expression_list
+    (expression_type_list
       (proc_definition
         (keyword)
         (parameters
@@ -217,7 +217,7 @@ p :: proc() ---
       (identifier))
     (operator)
     (operator)
-    (expression_list
+    (expression_type_list
       (proc_definition
         (keyword)
         (parameters)
