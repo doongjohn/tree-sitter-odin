@@ -63,9 +63,14 @@ return statement
 ================================================================================
 
 test :: proc() { return }
-
-multiply :: proc(x: int, y: int) -> int {
-	return x * y
+test :: proc() {
+  return
+}
+test :: proc() {
+  return 10
+}
+test :: proc() {
+  return x * y
 }
 
 --------------------------------------------------------------------------------
@@ -91,18 +96,33 @@ multiply :: proc(x: int, y: int) -> int {
     (expression_list
       (proc_definition
         (keyword)
-        (parameters
-          (parameter_declaration
-            (identifier)
-            (operator)
-            (type_identifier))
-          (parameter_declaration
-            (identifier)
-            (operator)
-            (type_identifier)))
-        (operator)
-        (proc_result
-          (type_identifier))
+        (parameters)
+        (block_statement
+          (return_statement
+            (keyword))))))
+  (const_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_list
+      (proc_definition
+        (keyword)
+        (parameters)
+        (block_statement
+          (return_statement
+            (keyword)
+            (expression_list
+              (int_literal)))))))
+  (const_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_list
+      (proc_definition
+        (keyword)
+        (parameters)
         (block_statement
           (return_statement
             (keyword)

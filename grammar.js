@@ -26,20 +26,16 @@
 
 const
   PREC = {
-    primary: 7,
-    unary: 6,
-    multiplicative: 5,
-    additive: 4,
-    comparative: 3,
-    and: 2,
-    or: 1,
+    primary: 9,
+    unary: 8,
+    multiplicative: 7,
+    additive: 6,
+    comparative: 5,
+    and: 4,
+    or: 3,
+    range: 2,
     composite_literal: -1,
   },
-
-  // https://odin-lang.org/docs/overview/#operator-precedence
-  multiplicative_operators = ['*', '/', '%', '%%', '<<', '>>', '&', '&~'],
-  additive_operators = ['+', '-', '|', '~', 'in', 'not_in'],
-  comparative_operators = ['==', '!=', '<', '<=', '>', '>='],
 
   unicodeLetter = /\p{L}/,
   unicodeDigit = /[0-9]/,
@@ -116,35 +112,26 @@ module.exports = grammar({
 
   extras: $ => [
     $.comment,
-    /\s/
+    /\s/,
+    /\\/,
   ],
 
   conflicts: $ => [
-    [$.using_statement, $.identifier_list],
     [$._identifier_deref_list, $.identifier_list],
-    [$.proc_definition , $.type_proc],
-    [$._expression, $._type],
   ],
 
   rules: {
-    source_file: $ => repeat(
-      seq($._file_scope, optional(terminator))
-    ),
+    source_file: $ => repeat(choice(
+      seq($._statement, terminator),
+      seq($._expression, terminator), // NOTE: is this unnecessary?
+      seq($._top_level_declaration, optional(terminator)),
+    )),
 
-    _file_scope: $ => choice(
-      $._declaration,
-      $._statement,
-      // TODO: when statement
-      // TODO: foreign block
-      // https://odin-lang.org/docs/overview/#foreign-system
-    ),
-
-    _declaration: $ => choice(
+    _top_level_declaration: $ => choice(
       $.package_clause,
       $.import_declaration,
-      $.attribute_declaration,
-      $.const_declaration,
-      $.var_declaration,
+      // TODO: foreign block
+      // https://odin-lang.org/docs/overview/#foreign-system
     ),
 
     package_clause: $ => seq(
@@ -165,13 +152,19 @@ module.exports = grammar({
     blank_identifier: $ => '_',
     _package_identifier: $ => alias($.identifier, $.package_identifier),
 
+    _declaration: $ => choice(
+      $.attribute_declaration,
+      $.const_declaration,
+      $.var_declaration,
+    ),
+
     attribute_declaration: $ => seq(
       '@(',
       field('attribute', alias($.identifier, $.keyword)),
       optional(seq(
         alias('=', $.operator),
         field('value', choice(
-          $._type,
+          $._known_type,
           $._expression,
         ))
       )),
@@ -200,8 +193,9 @@ module.exports = grammar({
     ),
 
     _statement: $ => choice(
-      $.assignment_statement,
       $.block_statement,
+      $._declaration,
+      $.assignment_statement,
       $.using_statement,
       $.return_statement,
       // TODO: other statements
@@ -216,62 +210,71 @@ module.exports = grammar({
       //   - proc group https://odin-lang.org/docs/overview/#explicit-procedure-overloading
     ),
 
+    block_statement: $ => seq(
+      '{',
+      optional(seq(
+        choice(
+          $._statement,
+          $._expression,
+        ),
+        optional(
+          repeat(seq(
+            terminator,
+            choice(
+              $._statement,
+              $._expression,
+            ),
+          )),
+        ),
+        optional(terminator), // WTF????
+      )),
+      '}',
+    ),
+
     assignment_statement: $ => seq(
       field('name', alias($._identifier_deref_list, $.identifier_list)),
       alias('=', $.operator),
       field('value', $.expression_list),
     ),
 
-    block_statement: $ => seq(
-      '{',
-      optional(seq(
-        choice(
-          $.attribute_declaration,
-          $.const_declaration,
-          $.var_declaration,
-          $._statement,
-          $._expression,
-        ),
-        optional(terminator)
-      )),
-      '}',
-    ),
-
     using_statement: $ => seq(
       alias('using', $.keyword),
-      $._expression,
+      $.identifier,
     ),
 
-    return_statement: $ => prec.right(1, seq(
+    return_statement: $ => seq(
       alias('return', $.keyword),
       optional($.expression_list),
-    )),
+    ),
 
     identifier_list: $ => commaSep1(seq(
       optional(alias('using', $.operator)),
       $.identifier,
     )),
     _identifier_deref_list: $ => commaSep1(choice(
-      $.identifier,
+      seq(
+        optional(alias('using', $.operator)),
+        $.identifier,
+      ),
       $.dereference_expression,
     )),
     expression_list: $ => commaSep1(choice(
       $._expression,
-      $._type,
+      $._known_type,
     )),
 
     _literal: $ => choice(
-      $._string_literal,
-      $._numeric_literal,
-      // TODO: other literals
-      // array_literal [5]int{1, 2, 3, 4, 5}, Vector3{1, 4, 9}
-      // struct_literal Vector2{1, 2}, Vector2{}
-      // union literal
-      // proc literal
       $.nil,
       $.true,
       $.false,
       $.undefined_value,
+      $._string_literal,
+      $._numeric_literal,
+      // TODO: other literals
+      // - array_literal [5]int{1, 2, 3, 4, 5}, Vector3{1, 4, 9}
+      // - struct_literal Vector2{1, 2}, Vector2{}
+      // - union literal
+      // - proc literal
     ),
 
     _string_literal: $ => choice(
@@ -318,7 +321,7 @@ module.exports = grammar({
     undefined_value: $ => alias('---', $.keyword),
     context_variable: $ => alias('context', $.keyword),
 
-    _expression: $ => choice(
+    _expression: $ => prec(1, choice(
       $._literal,
       $.identifier,
       $.dereference_expression,
@@ -338,7 +341,7 @@ module.exports = grammar({
       //     'auto_cast',
       //     'transmute',
       //     'distinct',
-    ),
+    )),
 
     identifier: $ => token(seq(
       letter,
@@ -362,12 +365,19 @@ module.exports = grammar({
     ),
 
     binary_expression: $ => {
+      const
+        // https://odin-lang.org/docs/overview/#operator-precedence
+        multiplicative_operators = ['*', '/', '%', '%%', '&', '&~', '<<', '>>'],
+        additive_operators = ['+', '-', '|', '~', 'in', 'not_in'],
+        comparative_operators = ['==', '!=', '<', '>', '<=', '>=']
+
       const table = [
         [PREC.multiplicative, choice(...multiplicative_operators)],
         [PREC.additive, choice(...additive_operators)],
         [PREC.comparative, choice(...comparative_operators)],
         [PREC.and, '&&'],
         [PREC.or, '||'],
+        [PREC.range, choice('..=', '..<')],
       ];
 
       return choice(...table.map(([precedence, operator]) =>
@@ -379,21 +389,11 @@ module.exports = grammar({
       ));
     },
 
-    // TODO: make this
-    range_expression: $ => seq(
-
-      alias(
-        choice('..', '..=', '..<'),
-        $.operator
-      ),
-
-    ),
-
     parenthesized_expression: $ => seq(
       '(', $._expression, ')'
     ),
 
-    proc_definition: $ => seq(
+    proc_definition: $ => prec.right(1, seq(
       alias('proc', $.keyword),
       field('parameters', $.parameters),
       optional(seq(
@@ -404,18 +404,18 @@ module.exports = grammar({
         $.block_statement,
         $.undefined_value,
       ))
-    ),
+    )),
     parameters: $ => seq(
       '(', commaSep($.parameter_declaration), ')',
     ),
     parameter_declaration: $ => choice(
-      // NOTE: is this impossible to parse?
+      // NOTE: this is impossible to parse
       /*
         p :: proc(TypeName, b: f32) {}
       */
       // TODO: variadic parameter
-      prec.dynamic(0, $._named_parameter_declaration),
-      prec.dynamic(1, $._unnamed_parameter_declaration),
+      $._named_parameter_declaration,
+      $._unnamed_parameter_declaration,
     ),
     _named_parameter_declaration: $ => prec.right(1, seq(
       commaSep1(seq(
@@ -447,14 +447,13 @@ module.exports = grammar({
     ),
 
     call_expression: $ => choice(
-      prec(1, $._builtin_call_expression),
-      prec(0, $._normal_call_expression),
+      $._builtin_call_expression,
+      $._normal_call_expression,
     ),
     _normal_call_expression: $ => seq(
       field('function_call', $._expression),
       field('arguments', $.arguments),
     ),
-    // FIXME: this is not working if another expression is after this call
     _builtin_call_expression: $ => seq(
       field(
         'function_call',
@@ -620,29 +619,22 @@ module.exports = grammar({
   }
 })
 
-function commaSep(rule) {
-  return optional(commaSep1(rule))
+function sep(rule, separator) {
+  return optional(sep1(rule, separator))
 }
-function commaSep1(rule) {
+function sep1(rule, separator) {
   return seq(
     rule,
     repeat(seq(
-      ',',
-      rule
+      separator,
+      rule,
     ))
   )
 }
 
-function commaTerminated(rule) {
-  return optional(commaTerminated1(rule))
+function commaSep(rule) {
+  return sep(rule, ',')
 }
-function commaTerminated1(rule) {
-  return seq(
-    rule,
-    ',',
-    repeat(seq(
-      rule,
-      ',',
-    ))
-  )
+function commaSep1(rule) {
+  return sep1(rule, ',')
 }
