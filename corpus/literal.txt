@@ -35,6 +35,57 @@ c := `C:\Windows\notepad.exe`
       (raw_string_literal))))
 
 ================================================================================
+array
+================================================================================
+
+x := [5]int{1, 2, 3, 4, 5}
+x := [?]int{1, 2, 3, 4, 5}
+x := Vector3{2, 4, 8}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_type_list
+      (fixed_array_literal
+        (int_literal)
+        (type_identifier)
+        (int_literal)
+        (int_literal)
+        (int_literal)
+        (int_literal)
+        (int_literal))))
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_type_list
+      (fixed_array_literal
+        (keyword)
+        (type_identifier)
+        (int_literal)
+        (int_literal)
+        (int_literal)
+        (int_literal)
+        (int_literal))))
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_type_list
+      (fixed_array_literal
+        (type_identifier)
+        (int_literal)
+        (int_literal)
+        (int_literal)))))
+
+================================================================================
 struct
 ================================================================================
 

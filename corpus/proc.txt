@@ -122,6 +122,7 @@ proc type
 ================================================================================
 
 p :: proc(using a: f32)
+p :: proc(a: cstring) -> int
 
 --------------------------------------------------------------------------------
 
@@ -139,7 +140,23 @@ p :: proc(using a: f32)
             (keyword)
             (identifier)
             (operator)
-            (type_identifier)))))))
+            (type_identifier))))))
+  (const_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_type_list
+      (type_proc
+        (keyword)
+        (parameters
+          (parameter_declaration
+            (identifier)
+            (operator)
+            (type_identifier)))
+        (operator)
+        (proc_result
+          (type_identifier))))))
 
 ================================================================================
 proc body
@@ -156,7 +173,7 @@ p :: proc(a: f32) {}
     (operator)
     (operator)
     (expression_type_list
-      (proc_definition
+      (proc_literal
         (keyword)
         (parameters
           (parameter_declaration
@@ -180,7 +197,7 @@ p :: proc(f32) {}
     (operator)
     (operator)
     (expression_type_list
-      (proc_definition
+      (proc_literal
         (keyword)
         (parameters
           (parameter_declaration
@@ -203,7 +220,7 @@ p :: proc() ---
     (operator)
     (operator)
     (expression_type_list
-      (proc_definition
+      (proc_literal
         (keyword)
         (parameters
           (parameter_declaration
@@ -218,7 +235,7 @@ p :: proc() ---
     (operator)
     (operator)
     (expression_type_list
-      (proc_definition
+      (proc_literal
         (keyword)
         (parameters)
         (undefined_value)))))

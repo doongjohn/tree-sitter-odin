@@ -92,7 +92,7 @@ a :: proc() {
     (operator)
     (operator)
     (expression_type_list
-      (proc_definition
+      (proc_literal
         (keyword)
         (parameters)
         (block_statement
@@ -138,7 +138,7 @@ test :: proc() -> int {
     (operator)
     (operator)
     (expression_type_list
-      (proc_definition
+      (proc_literal
         (keyword)
         (parameters)
         (operator)

@@ -54,7 +54,7 @@ foreign kernel32 {
         (operator)
         (operator)
         (expression_type_list
-          (proc_definition
+          (proc_literal
             (keyword)
             (parameters
               (parameter_declaration
@@ -77,7 +77,7 @@ foreign kernel32 {
         (operator)
         (operator)
         (expression_type_list
-          (proc_definition
+          (proc_literal
             (keyword)
             (parameters
               (parameter_declaration
@@ -136,7 +136,7 @@ test :: proc() {
     (operator)
     (operator)
     (expression_type_list
-      (proc_definition
+      (proc_literal
         (keyword)
         (parameters)
         (block_statement
@@ -148,7 +148,7 @@ test :: proc() {
     (operator)
     (operator)
     (expression_type_list
-      (proc_definition
+      (proc_literal
         (keyword)
         (parameters)
         (block_statement
@@ -160,7 +160,7 @@ test :: proc() {
     (operator)
     (operator)
     (expression_type_list
-      (proc_definition
+      (proc_literal
         (keyword)
         (parameters)
         (block_statement
@@ -174,7 +174,7 @@ test :: proc() {
     (operator)
     (operator)
     (expression_type_list
-      (proc_definition
+      (proc_literal
         (keyword)
         (parameters)
         (block_statement
@@ -191,6 +191,7 @@ selector assignment
 
 {
   frog.x = 123
+  hello.world.hi = "wow"
 }
 
 --------------------------------------------------------------------------------
@@ -204,4 +205,14 @@ selector assignment
           (identifier)))
       (operator)
       (expression_type_list
-        (int_literal)))))
+        (int_literal)))
+    (assignment_statement
+      (expression_list
+        (selector_expression
+          (selector_expression
+            (identifier)
+            (identifier))
+          (identifier)))
+      (operator)
+      (expression_type_list
+        (interpreted_string_literal)))))

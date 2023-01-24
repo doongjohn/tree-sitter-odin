@@ -159,11 +159,39 @@ a: #soa[dynamic]int
 const / var decl
 ================================================================================
 
+a :: 20
+a := 10
+
+a, b: int : 10, 12
 a, b: int = 10, 12
 
 --------------------------------------------------------------------------------
 
 (source_file
+  (const_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_type_list
+      (int_literal)))
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_type_list
+      (int_literal)))
+  (const_declaration
+    (identifier_list
+      (identifier)
+      (identifier))
+    (operator)
+    (type_identifier)
+    (operator)
+    (expression_type_list
+      (int_literal)
+      (int_literal)))
   (var_declaration
     (identifier_list
       (identifier)

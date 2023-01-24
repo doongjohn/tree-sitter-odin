@@ -5,12 +5,6 @@
 // - or_return
 // - directives https://odin-lang.org/docs/overview/#directives
 
-// - test: literals
-// - test: statements
-// - test: expressions
-// - test: declarations
-// - test: assignments
-
 const
   PREC = {
     primary: 9,
@@ -57,6 +51,8 @@ const
   floatLiteral = decimalFloatLiteral,
 
   builtin_types = [
+    'typeid',
+    'any',
     'byte',
     'bool', 'b8', 'b16', 'b32', 'b64',
     'u8', 'u16', 'u32', 'u64', 'u128',
@@ -68,15 +64,13 @@ const
     'i16le', 'i32le', 'i64le', 'i128le',
     'u16be', 'u32be', 'u64be', 'u128be',
     'i16be', 'i32be', 'i64be', 'i128be',
+    'uint', 'int',
+    'uintptr', 'rawptr',
     'string', 'cstring', 'rune',
     'map',
     'matrix',
     'complex32', 'complex64', 'complex128',
     'quaternion64', 'quaternion128', 'quaternion256',
-    'uintptr', 'uint', 'int',
-    'rawptr',
-    'typeid',
-    'any'
   ],
 
   builtin_procs = [
@@ -107,6 +101,7 @@ module.exports = grammar({
   conflicts: $ => [
     [$.identifier_list, $._expression],
     [$._expression, $._type],
+    [$.type_fixed_array, $._fixed_array_literal],
   ],
 
   rules: {
@@ -114,7 +109,7 @@ module.exports = grammar({
       choice(
         $._top_level_declaration,
         $._statement,
-        $._expression, // NOTE: is this unnecessary?
+        $._expression,
       ),
       repeat(seq(
         terminator,
@@ -124,7 +119,7 @@ module.exports = grammar({
           $._expression,
         ),
       )),
-      optional(terminator), // ???
+      optional(terminator),
     )),
 
     _top_level_declaration: $ => choice(
@@ -288,12 +283,24 @@ module.exports = grammar({
       $.undefined_value,
       $._string_literal,
       $._numeric_literal,
-      // TODO: other literals
-      // - array_literal [5]int{1, 2, 3, 4, 5}, Vector3{1, 4, 9}
-      // - struct_literal Vector2{1, 2}, Vector2{}
-      // - union literal
-      // - proc literal
+      $.proc_literal,
+      $.fixed_array_literal,
+      // TODO: dynamic array literal
+      // TODO: struct literal
+      // TODO: union literal
     ),
+
+    nil: $ => 'nil',
+    true: $ => 'true',
+    false: $ => 'false',
+    undefined_value: $ => '---',
+
+    _numeric_literal: $ => choice(
+      $.int_literal,
+      $.float_literal,
+    ),
+    int_literal: $ => token(intLiteral),
+    float_literal: $ => token(floatLiteral),
 
     _string_literal: $ => choice(
       $.raw_string_literal,
@@ -326,92 +333,7 @@ module.exports = grammar({
       )
     )),
 
-    _numeric_literal: $ => choice(
-      $.int_literal,
-      $.float_literal,
-    ),
-    int_literal: $ => token(intLiteral),
-    float_literal: $ => token(floatLiteral),
-
-    nil: $ => 'nil',
-    true: $ => 'true',
-    false: $ => 'false',
-    undefined_value: $ => '---',
-    context_variable: $ => 'context',
-
-    _expression: $ => choice(
-      $._literal,
-      $.identifier,
-      $.dereference_expression,
-      $.selector_expression,
-      $.implicit_selector_expression,
-      $.binary_expression,
-      $.parenthesized_expression,
-      $.call_expression,
-      $.type_conversion_expression,
-      $.proc_definition,
-      $.context_variable,
-      // TODO: other expressions
-      //   - unary expressions
-      //   - ternary expressions
-      //   - expressions with prefix operator
-      //     'cast',
-      //     'auto_cast',
-      //     'transmute',
-      //     'distinct',
-    ),
-
-    identifier: $ => token(seq(
-      letter,
-      repeat(choice(letter, unicodeDigit))
-    )),
-
-    dereference_expression: $ => seq(
-      $.identifier,
-      alias('^', $.operator),
-    ),
-
-    selector_expression: $ => seq(
-      field('operand', $._expression),
-      '.',
-      field('field', $.identifier),
-    ),
-
-    implicit_selector_expression: $ => seq(
-      '.',
-      field('field', $.identifier),
-    ),
-
-    binary_expression: $ => {
-      const
-        // https://odin-lang.org/docs/overview/#operator-precedence
-        multiplicative_operators = ['*', '/', '%', '%%', '&', '&~', '<<', '>>'],
-        additive_operators = ['+', '-', '|', '~', 'in', 'not_in'],
-        comparative_operators = ['==', '!=', '<', '>', '<=', '>=']
-
-      const table = [
-        [PREC.multiplicative, choice(...multiplicative_operators)],
-        [PREC.additive, choice(...additive_operators)],
-        [PREC.comparative, choice(...comparative_operators)],
-        [PREC.and, '&&'],
-        [PREC.or, '||'],
-        [PREC.range, choice('..=', '..<')],
-      ];
-
-      return choice(...table.map(([precedence, operator]) =>
-        prec.left(precedence, seq(
-          field('left', $._expression),
-          field('operator', operator),
-          field('right', $._expression)
-        ))
-      ));
-    },
-
-    parenthesized_expression: $ => seq(
-      '(', $._expression, ')'
-    ),
-
-    proc_definition: $ => prec.right(1, seq(
+    proc_literal: $ => prec.right(1, seq(
       alias('proc', $.keyword),
       field('parameters', $.parameters),
       optional(seq(
@@ -464,6 +386,105 @@ module.exports = grammar({
     proc_result: $ => choice(
       $._type,
       seq('(', commaSep($.proc_result_declaration), ')')
+    ),
+
+    fixed_array_literal: $ => choice(
+      $._fixed_array_literal,
+      $._fixed_array_literal_alias,
+    ),
+    _fixed_array_literal: $ => seq(
+      '[',
+      choice(
+        $._expression,
+        alias('?', $.keyword),
+      ),
+      ']',
+      $._type,
+      '{',
+      commaSep($._expression),
+      optional(','),
+      '}',
+    ),
+    _fixed_array_literal_alias: $ => seq(
+      $._type,
+      '{',
+      commaSep($._expression),
+      optional(','),
+      '}',
+    ),
+
+    _expression: $ => choice(
+      $._literal,
+      $.context_variable,
+      $.identifier,
+      $.dereference_expression,
+      $.selector_expression,
+      $.implicit_selector_expression,
+      $.binary_expression,
+      $.parenthesized_expression,
+      $.call_expression,
+      $.type_conversion_expression,
+      // TODO: other expressions
+      //   - unary expressions
+      //   - ternary expressions
+      //   - array index expression
+      //   - expressions with prefix operator
+      //     'cast',
+      //     'auto_cast',
+      //     'transmute',
+      //     'distinct',
+    ),
+
+    context_variable: $ => 'context',
+
+    identifier: $ => token(seq(
+      letter,
+      repeat(choice(letter, unicodeDigit))
+    )),
+
+    dereference_expression: $ => seq(
+      $.identifier,
+      alias('^', $.operator),
+    ),
+
+    selector_expression: $ => seq(
+      field('operand', $._expression),
+      '.',
+      field('field', $.identifier),
+    ),
+
+    implicit_selector_expression: $ => seq(
+      '.',
+      field('field', $.identifier),
+    ),
+
+    binary_expression: $ => {
+      const
+        // https://odin-lang.org/docs/overview/#operator-precedence
+        multiplicative_operators = ['*', '/', '%', '%%', '&', '&~', '<<', '>>'],
+        additive_operators = ['+', '-', '|', '~', 'in', 'not_in'],
+        comparative_operators = ['==', '!=', '<', '>', '<=', '>=']
+
+      const table = [
+        [PREC.multiplicative, choice(...multiplicative_operators)],
+        [PREC.additive, choice(...additive_operators)],
+        [PREC.comparative, choice(...comparative_operators)],
+        [PREC.and, '&&'],
+        [PREC.or, '||'],
+        [PREC.range, choice('..=', '..<')],
+      ];
+
+      return choice(...table.map(([precedence, operator]) =>
+        prec.left(precedence, seq(
+          field('left', $._expression),
+          field('operator', operator),
+          field('right', $._expression)
+        ))
+      ));
+    },
+
+    parenthesized_expression: $ => seq(
+      '(', $._expression, ')'
     ),
 
     call_expression: $ => choice(
@@ -524,6 +545,7 @@ module.exports = grammar({
     _type: $ => choice(
       $._known_type,
       alias($.identifier, $.type_identifier),
+      // TODO: support selector? `io.Error`
     ),
 
     type_of_expression: $ => seq(
