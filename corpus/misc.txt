@@ -157,3 +157,16 @@ test :: proc() -> int {
             (keyword)
             (expression_type_list
               (int_literal))))))))
+
+===
+type cast
+===
+
+{
+  a := int(Direction.North) == 0
+  a := int(Direction.East)  == 1
+  a := int(Direction.South) == 2
+  a := int(Direction.West)  == 3
+}
+
+---

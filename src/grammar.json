@@ -2688,8 +2688,17 @@
           "type": "FIELD",
           "name": "operand",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "type_identifier"
+              }
+            ]
           }
         },
         {
@@ -2717,17 +2726,8 @@
           "type": "FIELD",
           "name": "field",
           "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "_identifier"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "type_identifier"
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "type_identifier"
           }
         }
       ]

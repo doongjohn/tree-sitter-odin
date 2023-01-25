@@ -1752,14 +1752,6 @@
         "required": true,
         "types": [
           {
-            "type": "const_identifier",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
             "type": "type_identifier",
             "named": true
           }
@@ -3792,6 +3784,10 @@
         "types": [
           {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "type_identifier",
             "named": true
           }
         ]

@@ -350,10 +350,6 @@ module.exports = grammar({
       '(', commaSep($.parameter_declaration), ')',
     ),
     parameter_declaration: $ => choice(
-      // NOTE: this is impossible to parse
-      /*
-        p :: proc(TypeName, b: f32) {}
-      */
       $._named_parameter_declaration,
       $._unnamed_parameter_declaration,
       // TODO: variadic parameter
@@ -500,16 +496,16 @@ module.exports = grammar({
       '.',
       field('field', $._identifier),
     ),
-    // FIXME: this is ambiguous
+    // FIXME: is this ambiguous?
     type_selector_expression: $ => seq(
-      field('operand', $.identifier),
+      field('operand', choice($.identifier, $.type_identifier)),
       '.',
       field('field', $.type_identifier),
     ),
 
     implicit_selector_expression: $ => seq(
       '.',
-      field('field', choice($._identifier, $.type_identifier)),
+      field('field', $.type_identifier),
     ),
 
     binary_expression: $ => {
@@ -577,6 +573,7 @@ module.exports = grammar({
       ))
     ),
 
+    // FIXME: also include $.type_selector_expression but how...?
     type_conversion_expression: $ => seq(
       $._type, '(', $._expression, ')'
     ),
@@ -600,7 +597,6 @@ module.exports = grammar({
       $._known_type,
       $.type_identifier,
       $.type_selector_expression,
-      // TODO: support selector `io.Error`
     ),
     type_identifier: $ => token(seq(
       unicodeLetterUpper,
