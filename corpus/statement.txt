@@ -216,3 +216,19 @@ selector assignment
       (operator)
       (expression_type_list
         (interpreted_string_literal)))))
+
+================================================================================
+call statement
+================================================================================
+
+{
+  hello()
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_statement
+    (call_statement
+      (identifier)
+      (arguments))))

@@ -107,7 +107,7 @@ C :: struct {
 (source_file
   (const_declaration
     (identifier_list
-      (identifier))
+      (const_identifier))
     (operator)
     (type_identifier)
     (operator)
@@ -126,7 +126,7 @@ C :: struct {
           (type_identifier)))))
   (const_declaration
     (identifier_list
-      (identifier))
+      (const_identifier))
     (operator)
     (operator)
     (expression_type_list
@@ -139,7 +139,7 @@ C :: struct {
           (type_identifier)))))
   (const_declaration
     (identifier_list
-      (identifier))
+      (const_identifier))
     (operator)
     (operator)
     (expression_type_list
@@ -171,7 +171,7 @@ B :: union #no_nil {
 (source_file
   (const_declaration
     (identifier_list
-      (identifier))
+      (const_identifier))
     (operator)
     (operator)
     (expression_type_list
@@ -183,14 +183,14 @@ B :: union #no_nil {
           (type_identifier)))))
   (const_declaration
     (identifier_list
-      (identifier))
+      (const_identifier))
     (operator)
     (operator)
     (expression_type_list
       (type_value_union
         (keyword)
-        (type_value_tag
-          (identifier))
+        (union_tag
+          (tag))
         (type_value_union_field
           (type_identifier))))))
 
@@ -212,7 +212,7 @@ Foo :: enum u32 {
 (source_file
   (const_declaration
     (identifier_list
-      (identifier))
+      (type_identifier))
     (operator)
     (operator)
     (expression_type_list
@@ -228,7 +228,7 @@ Foo :: enum u32 {
           (enum_field)))))
   (const_declaration
     (identifier_list
-      (identifier))
+      (type_identifier))
     (operator)
     (operator)
     (expression_type_list

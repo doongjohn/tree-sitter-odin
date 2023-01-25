@@ -39,7 +39,7 @@ attribute
 ================================================================================
 
 @(require)
-@(objc_type = wow)
+@(objc_type = Some_Type)
 
 @(private)
 my_variable: int
@@ -78,6 +78,7 @@ builtin proc
 ================================================================================
 
 a :: proc() {
+  a: type_of(10)
   n := len(array)
   #assert("" == "")
   #panic("lol")
@@ -100,6 +101,13 @@ a :: proc() {
             (identifier_list
               (identifier))
             (operator)
+            (type_of_expression
+              (builtin_identifier)
+              (int_literal)))
+          (var_declaration
+            (identifier_list
+              (identifier))
+            (operator)
             (operator)
             (expression_type_list
               (call_expression
@@ -107,14 +115,14 @@ a :: proc() {
                 (arguments
                   (argument
                     (identifier))))))
-          (call_expression
+          (call_statement
             (builtin_procedure)
             (arguments
               (argument
                 (binary_expression
                   (interpreted_string_literal)
                   (interpreted_string_literal)))))
-          (call_expression
+          (call_statement
             (builtin_procedure)
             (arguments
               (argument
