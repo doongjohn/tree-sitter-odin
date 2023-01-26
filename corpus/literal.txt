@@ -79,7 +79,7 @@ x := Vector3{2, 4, 8}
     (operator)
     (operator)
     (expression_type_list
-      (fixed_array_literal
+      (initializer_literal
         (type_identifier)
         (int_literal)
         (int_literal)
@@ -100,6 +100,18 @@ B :: struct {
 
 C :: struct {
   a, b, c: f32
+}
+
+hi := Vector{ 1, 2, 3 }
+hi := Vector{
+  1,
+  2,
+  3,
+}
+hi := Vector{
+  x=1,
+  y=2,
+  z=3,
 }
 
 --------------------------------------------------------------------------------
@@ -151,7 +163,43 @@ C :: struct {
             (identifier)
             (identifier))
           (operator)
-          (type_identifier))))))
+          (type_identifier)))))
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_type_list
+      (initializer_literal
+        (type_identifier)
+        (int_literal)
+        (int_literal)
+        (int_literal))))
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_type_list
+      (initializer_literal
+        (type_identifier)
+        (int_literal)
+        (int_literal)
+        (int_literal))))
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_type_list
+      (struct_literal
+        (type_identifier)
+        (identifier)
+        (int_literal)
+        (identifier)
+        (int_literal)
+        (identifier)
+        (int_literal)))))
 
 ================================================================================
 union

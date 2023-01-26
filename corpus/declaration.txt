@@ -2,14 +2,14 @@
 const, var
 ================================================================================
 
-str :: "hello"
-str: string : "hello"
+STR :: "hello"
+STR: string : "hello"
 
 n1 := 10.2
 n2: string
 n3: f32 = 10e+12
 
-a, b: int : 10, 12
+A, B: int : 10, 12
 a, b: int = 10, 12
 
 e: io.Error
@@ -19,14 +19,14 @@ e: io.Error
 (source_file
   (const_declaration
     (identifier_list
-      (identifier))
+      (const_identifier))
     (operator)
     (operator)
     (expression_type_list
       (interpreted_string_literal)))
   (const_declaration
     (identifier_list
-      (identifier))
+      (const_identifier))
     (operator)
     (type_identifier)
     (operator)
@@ -54,8 +54,8 @@ e: io.Error
       (float_literal)))
   (const_declaration
     (identifier_list
-      (identifier)
-      (identifier))
+      (const_identifier)
+      (const_identifier))
     (operator)
     (type_identifier)
     (operator)

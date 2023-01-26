@@ -107,12 +107,13 @@ module.exports = grammar({
   conflicts: $ => [
     [$._simple_expression, $._type],
     [$._simple_expression, $.identifier_list],
-    // [$._simple_expression, $.type_selector_expression],
     [$._identifier, $.identifier_list],
     [$._identifier, $.type_selector_expression],
     [$._complex_expression, $._statement],
     [$.block_statement, $.bit_set_literal],
-    [$.type_fixed_array, $._fixed_array_literal],
+    [$.type_fixed_array, $.fixed_array_literal],
+    [$.type_fixed_array, $.initializer_literal],
+    [$.struct_literal, $.initializer_literal],
   ],
 
   rules: {
@@ -273,6 +274,7 @@ module.exports = grammar({
     expression_type_list: $ => commaSep1(choice(
       $._expression,
       $._known_type,
+      $.distinct_expression,
     )),
 
     _literal: $ => choice(
@@ -283,11 +285,12 @@ module.exports = grammar({
       $._string_literal,
       $._numeric_literal,
       $.proc_literal,
+      $.bit_set_literal,
       $.fixed_array_literal,
       $.slice_literal,
-      $.bit_set_literal,
-      // TODO: struct literal
-      // TODO: union literal
+      $.struct_literal,
+      $.initializer_literal,
+      // TODO: map literal https://odin-lang.org/docs/overview/#maps
     ),
 
     nil: $ => 'nil',
@@ -335,6 +338,7 @@ module.exports = grammar({
 
     proc_literal: $ => prec.right(1, seq(
       alias('proc', $.keyword),
+      optional(field('calling_convention', $._string_literal)),
       field('parameters', $.parameters),
       optional(seq(
         alias('->', $.operator),
@@ -384,24 +388,20 @@ module.exports = grammar({
       seq('(', commaSep($.proc_result_declaration), ')')
     ),
 
-    fixed_array_literal: $ => choice(
-      $._fixed_array_literal,
-      $._fixed_array_literal_alias,
+    bit_set_literal: $ => seq(
+      '{',
+      commaSep($._expression),
+      optional(','),
+      '}',
     ),
-    _fixed_array_literal: $ => seq(
+
+    fixed_array_literal: $ => seq(
       '[',
       choice(
         $._expression,
         alias('?', $.keyword),
       ),
       ']',
-      $._type,
-      '{',
-      commaSep($._expression),
-      optional(','),
-      '}',
-    ),
-    _fixed_array_literal_alias: $ => seq(
       $._type,
       '{',
       commaSep($._expression),
@@ -429,25 +429,37 @@ module.exports = grammar({
       optional(','),
       '}',
     ),
-    // NOTE: this is ambiguous with `_fixed_array_literal_alias`
-    // _slice_literal_array_alias: $ => seq(
-    //   $._type,
-    //   '{',
-    //   commaSep($._expression),
-    //   optional(','),
-    //   '}',
-    // ),
 
-    bit_set_literal: $ => seq(
+    struct_literal: $ => seq(
+      $._type,
       '{',
-      commaSep($._expression),
+      commaSep(seq($.identifier, '=', $._expression)),
+      optional(','),
       '}',
     ),
+
+    // aliased fixed array / slice / struct literal
+    /*
+      Vector :: distinct [3]f32
+      v := Vector{1, 2, 3}
+
+      Vector :: struct { x, y, z: f32 }
+      v := Vector{1, 2, 3}
+    */
+    initializer_literal: $ => seq(
+      $._type,
+      '{',
+      commaSep($._expression),
+      optional(','),
+      '}',
+    ),
+
 
     _expression: $ => choice(
       $._simple_expression,
       $._complex_expression,
       // TODO: other expressions
+      //   - type assert https://odin-lang.org/docs/overview/#unions
       //   - unary expressions
       //   - ternary expressions
       //   - array index expression
@@ -455,7 +467,6 @@ module.exports = grammar({
       //     'cast',
       //     'auto_cast',
       //     'transmute',
-      //     'distinct',
     ),
     _simple_expression: $ => choice(
       $._literal,
@@ -471,6 +482,10 @@ module.exports = grammar({
     _complex_expression: $ => choice(
       $.binary_expression,
       $.call_expression,
+    ),
+    distinct_expression: $ => seq(
+      alias('distinct', $.keyword),
+      $._type,
     ),
 
     context_variable: $ => 'context',
@@ -507,11 +522,11 @@ module.exports = grammar({
     enum_selector_expression: $ => seq(
       field('enum', $.type_identifier),
       '.',
-      field('field', $.type_identifier),
+      field('field', alias($.type_identifier, $.enum_field)),
     ),
     implicit_selector_expression: $ => seq(
       '.',
-      field('field', $.type_identifier),
+      field('field', alias($.type_identifier, $.enum_field)),
     ),
 
     binary_expression: $ => {
@@ -650,6 +665,7 @@ module.exports = grammar({
 
     type_proc: $ => seq(
       alias('proc', $.keyword),
+      optional(field('calling_convention', $._string_literal)),
       field('parameters', $.parameters),
       optional(seq(
         alias('->', $.operator),
