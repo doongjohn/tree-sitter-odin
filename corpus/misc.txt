@@ -121,6 +121,7 @@ a :: proc() {
               (argument
                 (binary_expression
                   (interpreted_string_literal)
+                  (operator)
                   (interpreted_string_literal)))))
           (call_statement
             (builtin_procedure)
@@ -158,9 +159,9 @@ test :: proc() -> int {
             (expression_type_list
               (int_literal))))))))
 
-===
+================================================================================
 type cast
-===
+================================================================================
 
 {
   a := int(Direction.North) == 0
@@ -169,4 +170,63 @@ type cast
   a := int(Direction.West)  == 3
 }
 
----
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_statement
+    (var_declaration
+      (identifier_list
+        (identifier))
+      (operator)
+      (operator)
+      (expression_type_list
+        (binary_expression
+          (type_conversion_expression
+            (type_identifier)
+            (enum_selector_expression
+              (type_identifier)
+              (type_identifier)))
+          (operator)
+          (int_literal))))
+    (var_declaration
+      (identifier_list
+        (identifier))
+      (operator)
+      (operator)
+      (expression_type_list
+        (binary_expression
+          (type_conversion_expression
+            (type_identifier)
+            (enum_selector_expression
+              (type_identifier)
+              (type_identifier)))
+          (operator)
+          (int_literal))))
+    (var_declaration
+      (identifier_list
+        (identifier))
+      (operator)
+      (operator)
+      (expression_type_list
+        (binary_expression
+          (type_conversion_expression
+            (type_identifier)
+            (enum_selector_expression
+              (type_identifier)
+              (type_identifier)))
+          (operator)
+          (int_literal))))
+    (var_declaration
+      (identifier_list
+        (identifier))
+      (operator)
+      (operator)
+      (expression_type_list
+        (binary_expression
+          (type_conversion_expression
+            (type_identifier)
+            (enum_selector_expression
+              (type_identifier)
+              (type_identifier)))
+          (operator)
+          (int_literal))))))

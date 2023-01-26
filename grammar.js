@@ -107,6 +107,7 @@ module.exports = grammar({
   conflicts: $ => [
     [$._simple_expression, $._type],
     [$._simple_expression, $.identifier_list],
+    // [$._simple_expression, $.type_selector_expression],
     [$._identifier, $.identifier_list],
     [$._identifier, $.type_selector_expression],
     [$._complex_expression, $._statement],
@@ -461,6 +462,7 @@ module.exports = grammar({
       $._identifier,
       $.context_variable,
       $.selector_expression,
+      $.enum_selector_expression,
       $.implicit_selector_expression,
       $.parenthesized_expression,
       $.type_conversion_expression,
@@ -496,13 +498,17 @@ module.exports = grammar({
       '.',
       field('field', $._identifier),
     ),
-    // FIXME: is this ambiguous?
     type_selector_expression: $ => seq(
-      field('operand', choice($.identifier, $.type_identifier)),
+      field('operand', $.identifier),
       '.',
       field('field', $.type_identifier),
     ),
 
+    enum_selector_expression: $ => seq(
+      field('enum', $.type_identifier),
+      '.',
+      field('field', $.type_identifier),
+    ),
     implicit_selector_expression: $ => seq(
       '.',
       field('field', $.type_identifier),
@@ -527,7 +533,7 @@ module.exports = grammar({
       return choice(...table.map(([precedence, operator]) =>
         prec.left(precedence, seq(
           field('left', $._expression),
-          field('operator', operator),
+          field('operator', alias(operator, $.operator)), // NOTE: I may not need a node to query this
           field('right', $._expression)
         ))
       ));
@@ -573,7 +579,6 @@ module.exports = grammar({
       ))
     ),
 
-    // FIXME: also include $.type_selector_expression but how...?
     type_conversion_expression: $ => seq(
       $._type, '(', $._expression, ')'
     ),
@@ -631,15 +636,15 @@ module.exports = grammar({
     ),
 
     type_soa_slice: $ => seq(
-      alias('#soa', $.keyword),
+      alias(token('#soa'), $.keyword),
       $.type_slice,
     ),
     type_soa_fixed_array: $ => seq(
-      alias('#soa', $.keyword),
+      alias(token('#soa'), $.keyword),
       $.type_fixed_array,
     ),
     type_soa_dynamic_array: $ => seq(
-      alias('#soa', $.keyword),
+      alias(token('#soa'), $.keyword),
       $.type_dynamic_array,
     ),
 
@@ -658,6 +663,7 @@ module.exports = grammar({
       $.type_value_enum,
     ),
 
+    // TODO: these are called directives
     _tag: $ => choice(
       alias(token(/#[^\s]+/), $.tag),
       $._align_tag,

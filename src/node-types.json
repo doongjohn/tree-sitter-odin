@@ -32,6 +32,10 @@
             "named": true
           },
           {
+            "type": "enum_selector_expression",
+            "named": true
+          },
+          {
             "type": "false",
             "named": true
           },
@@ -253,6 +257,10 @@
             "named": true
           },
           {
+            "type": "enum_selector_expression",
+            "named": true
+          },
+          {
             "type": "false",
             "named": true
           },
@@ -423,6 +431,10 @@
             "named": true
           },
           {
+            "type": "enum_selector_expression",
+            "named": true
+          },
+          {
             "type": "false",
             "named": true
           },
@@ -493,100 +505,8 @@
         "required": true,
         "types": [
           {
-            "type": "!=",
-            "named": false
-          },
-          {
-            "type": "%",
-            "named": false
-          },
-          {
-            "type": "%%",
-            "named": false
-          },
-          {
-            "type": "&",
-            "named": false
-          },
-          {
-            "type": "&&",
-            "named": false
-          },
-          {
-            "type": "&~",
-            "named": false
-          },
-          {
-            "type": "*",
-            "named": false
-          },
-          {
-            "type": "+",
-            "named": false
-          },
-          {
-            "type": "-",
-            "named": false
-          },
-          {
-            "type": "..<",
-            "named": false
-          },
-          {
-            "type": "..=",
-            "named": false
-          },
-          {
-            "type": "/",
-            "named": false
-          },
-          {
-            "type": "<",
-            "named": false
-          },
-          {
-            "type": "<<",
-            "named": false
-          },
-          {
-            "type": "<=",
-            "named": false
-          },
-          {
-            "type": "==",
-            "named": false
-          },
-          {
-            "type": ">",
-            "named": false
-          },
-          {
-            "type": ">=",
-            "named": false
-          },
-          {
-            "type": ">>",
-            "named": false
-          },
-          {
-            "type": "in",
-            "named": false
-          },
-          {
-            "type": "not_in",
-            "named": false
-          },
-          {
-            "type": "|",
-            "named": false
-          },
-          {
-            "type": "||",
-            "named": false
-          },
-          {
-            "type": "~",
-            "named": false
+            "type": "operator",
+            "named": true
           }
         ]
       },
@@ -616,6 +536,10 @@
           },
           {
             "type": "dereference_expression",
+            "named": true
+          },
+          {
+            "type": "enum_selector_expression",
             "named": true
           },
           {
@@ -716,6 +640,10 @@
         },
         {
           "type": "dereference_expression",
+          "named": true
+        },
+        {
+          "type": "enum_selector_expression",
           "named": true
         },
         {
@@ -875,6 +803,10 @@
             "named": true
           },
           {
+            "type": "enum_selector_expression",
+            "named": true
+          },
+          {
             "type": "false",
             "named": true
           },
@@ -986,6 +918,10 @@
           },
           {
             "type": "dereference_expression",
+            "named": true
+          },
+          {
+            "type": "enum_selector_expression",
             "named": true
           },
           {
@@ -1182,6 +1118,32 @@
     }
   },
   {
+    "type": "enum_selector_expression",
+    "named": true,
+    "fields": {
+      "enum": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type_identifier",
+            "named": true
+          }
+        ]
+      },
+      "field": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type_identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "enum_tag",
     "named": true,
     "fields": {},
@@ -1203,6 +1165,10 @@
         },
         {
           "type": "dereference_expression",
+          "named": true
+        },
+        {
+          "type": "enum_selector_expression",
           "named": true
         },
         {
@@ -1309,6 +1275,10 @@
           "named": true
         },
         {
+          "type": "enum_selector_expression",
+          "named": true
+        },
+        {
           "type": "false",
           "named": true
         },
@@ -1405,6 +1375,10 @@
         },
         {
           "type": "dereference_expression",
+          "named": true
+        },
+        {
+          "type": "enum_selector_expression",
           "named": true
         },
         {
@@ -1560,6 +1534,10 @@
         },
         {
           "type": "dereference_expression",
+          "named": true
+        },
+        {
+          "type": "enum_selector_expression",
           "named": true
         },
         {
@@ -1861,6 +1839,10 @@
             "named": true
           },
           {
+            "type": "enum_selector_expression",
+            "named": true
+          },
+          {
             "type": "false",
             "named": true
           },
@@ -2133,6 +2115,10 @@
           "named": true
         },
         {
+          "type": "enum_selector_expression",
+          "named": true
+        },
+        {
           "type": "false",
           "named": true
         },
@@ -2248,6 +2234,10 @@
         },
         {
           "type": "dereference_expression",
+          "named": true
+        },
+        {
+          "type": "enum_selector_expression",
           "named": true
         },
         {
@@ -2566,6 +2556,10 @@
           "named": true
         },
         {
+          "type": "enum_selector_expression",
+          "named": true
+        },
+        {
           "type": "false",
           "named": true
         },
@@ -2702,6 +2696,10 @@
             "named": true
           },
           {
+            "type": "enum_selector_expression",
+            "named": true
+          },
+          {
             "type": "false",
             "named": true
           },
@@ -2799,6 +2797,10 @@
         },
         {
           "type": "dereference_expression",
+          "named": true
+        },
+        {
+          "type": "enum_selector_expression",
           "named": true
         },
         {
@@ -3008,6 +3010,10 @@
           "named": true
         },
         {
+          "type": "enum_selector_expression",
+          "named": true
+        },
+        {
           "type": "false",
           "named": true
         },
@@ -3108,6 +3114,10 @@
         },
         {
           "type": "dereference_expression",
+          "named": true
+        },
+        {
+          "type": "enum_selector_expression",
           "named": true
         },
         {
@@ -3342,6 +3352,10 @@
         },
         {
           "type": "dereference_expression",
+          "named": true
+        },
+        {
+          "type": "enum_selector_expression",
           "named": true
         },
         {
@@ -3583,6 +3597,10 @@
           "named": true
         },
         {
+          "type": "enum_selector_expression",
+          "named": true
+        },
+        {
           "type": "false",
           "named": true
         },
@@ -3784,10 +3802,6 @@
         "types": [
           {
             "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "type_identifier",
             "named": true
           }
         ]
@@ -4058,6 +4072,10 @@
         },
         {
           "type": "enum_field",
+          "named": true
+        },
+        {
+          "type": "enum_selector_expression",
           "named": true
         },
         {
@@ -4391,6 +4409,10 @@
           "named": true
         },
         {
+          "type": "enum_selector_expression",
+          "named": true
+        },
+        {
           "type": "false",
           "named": true
         },
@@ -4491,6 +4513,10 @@
         },
         {
           "type": "dereference_expression",
+          "named": true
+        },
+        {
+          "type": "enum_selector_expression",
           "named": true
         },
         {
@@ -4671,31 +4697,7 @@
     "named": false
   },
   {
-    "type": "!=",
-    "named": false
-  },
-  {
     "type": "\"",
-    "named": false
-  },
-  {
-    "type": "%",
-    "named": false
-  },
-  {
-    "type": "%%",
-    "named": false
-  },
-  {
-    "type": "&",
-    "named": false
-  },
-  {
-    "type": "&&",
-    "named": false
-  },
-  {
-    "type": "&~",
     "named": false
   },
   {
@@ -4707,35 +4709,11 @@
     "named": false
   },
   {
-    "type": "*",
-    "named": false
-  },
-  {
-    "type": "+",
-    "named": false
-  },
-  {
     "type": ",",
     "named": false
   },
   {
-    "type": "-",
-    "named": false
-  },
-  {
     "type": ".",
-    "named": false
-  },
-  {
-    "type": "..<",
-    "named": false
-  },
-  {
-    "type": "..=",
-    "named": false
-  },
-  {
-    "type": "/",
     "named": false
   },
   {
@@ -4744,34 +4722,6 @@
   },
   {
     "type": ";",
-    "named": false
-  },
-  {
-    "type": "<",
-    "named": false
-  },
-  {
-    "type": "<<",
-    "named": false
-  },
-  {
-    "type": "<=",
-    "named": false
-  },
-  {
-    "type": "==",
-    "named": false
-  },
-  {
-    "type": ">",
-    "named": false
-  },
-  {
-    "type": ">=",
-    "named": false
-  },
-  {
-    "type": ">>",
     "named": false
   },
   {
@@ -4835,10 +4785,6 @@
     "named": true
   },
   {
-    "type": "in",
-    "named": false
-  },
-  {
     "type": "int_literal",
     "named": true
   },
@@ -4853,10 +4799,6 @@
   {
     "type": "nil",
     "named": true
-  },
-  {
-    "type": "not_in",
-    "named": false
   },
   {
     "type": "operator",
@@ -4891,19 +4833,7 @@
     "named": false
   },
   {
-    "type": "|",
-    "named": false
-  },
-  {
-    "type": "||",
-    "named": false
-  },
-  {
     "type": "}",
-    "named": false
-  },
-  {
-    "type": "~",
     "named": false
   }
 ]

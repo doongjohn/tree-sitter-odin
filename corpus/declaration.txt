@@ -85,6 +85,7 @@ pointer and array
 ================================================================================
 
 a: ^int = nil
+p: ^[10]int
 a: [^]int
 a: []int
 a: [5]int
@@ -104,6 +105,15 @@ a: [dynamic][dynamic]int
     (operator)
     (expression_type_list
       (nil)))
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (type_pointer
+      (operator)
+      (type_fixed_array
+        (int_literal)
+        (type_identifier))))
   (var_declaration
     (identifier_list
       (identifier))
