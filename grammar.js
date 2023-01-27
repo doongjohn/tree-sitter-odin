@@ -213,23 +213,30 @@ module.exports = grammar({
     _statement: $ => seq(
       optional($.attribute_declaration),
       choice(
+        $.defer_statement,
         $.block_statement,
         $._declaration,
         $.assignment_statement,
         $.using_statement,
         $.return_statement,
         alias($.call_expression, $.call_statement),
+        alias('break', $.break_statement), // TODO: can break label
+        alias('continue', $.continue_statement),
+        alias('fallthrough', $.fallthrough_statement),
         // TODO: other statements
         //   - for
         //     - Basic for loop
         //     - Range-based for loop
-        //   - if
+        //   - if, when
         //   - switch
-        //   - defer
-        //   - when
-        //   - break, continue, fallthrough
         //   - proc group https://odin-lang.org/docs/overview/#explicit-procedure-overloading
       ),
+    ),
+
+    // TODO: test this
+    defer_statement: $ => seq(
+      alias('defer', $.keyword),
+      $._statement,
     ),
 
     block_statement: $ => seq(
@@ -274,8 +281,12 @@ module.exports = grammar({
     expression_type_list: $ => commaSep1(choice(
       $._expression,
       $._known_type,
-      $.distinct_expression,
+      $.distinct_type,
     )),
+    distinct_type: $ => seq(
+      alias('distinct', $.keyword),
+      $._type,
+    ),
 
     _literal: $ => choice(
       $.nil,
@@ -290,6 +301,7 @@ module.exports = grammar({
       $.slice_literal,
       $.struct_literal,
       $.initializer_literal,
+      // TODO: complex literal 1i, 2j, 3k
       // TODO: map literal https://odin-lang.org/docs/overview/#maps
     ),
 
@@ -438,7 +450,7 @@ module.exports = grammar({
       '}',
     ),
 
-    // aliased fixed array / slice / struct literal
+    // [aliased fixed array / slice / struct] literal
     /*
       Vector :: distinct [3]f32
       v := Vector{1, 2, 3}
@@ -453,7 +465,6 @@ module.exports = grammar({
       optional(','),
       '}',
     ),
-
 
     _expression: $ => choice(
       $._simple_expression,
@@ -483,10 +494,6 @@ module.exports = grammar({
       $.binary_expression,
       $.call_expression,
     ),
-    distinct_expression: $ => seq(
-      alias('distinct', $.keyword),
-      $._type,
-    ),
 
     context_variable: $ => 'context',
 
@@ -504,7 +511,7 @@ module.exports = grammar({
     )),
 
     dereference_expression: $ => seq(
-      $._identifier,
+      $._expression,
       alias('^', $.operator),
     ),
 
@@ -611,7 +618,9 @@ module.exports = grammar({
       $.type_soa_dynamic_array,
       $.type_proc,
       $._type_value,
-      // TODO: matrix, quaternion, bit_set
+      // TODO: https://odin-lang.org/docs/overview/#bit-sets
+      // TODO: https://odin-lang.org/docs/overview/#matrix-type
+      // TODO: quaternion https://github.com/odin-lang/Odin/blob/master/examples/demo/demo.odin#L1483
     ),
     _type: $ => choice(
       $._known_type,
