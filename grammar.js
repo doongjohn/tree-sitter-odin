@@ -322,7 +322,7 @@ module.exports = grammar({
     ),
 
     quaternion_literal: $ => seq(
-      'quaternion',
+      alias('quaternion', $.type_identifier),
       '(',
       commaSep1($._numeric_literal),
       ')',
@@ -360,6 +360,13 @@ module.exports = grammar({
     )),
 
     proc_literal: $ => seq(
+      optional(alias(
+        choice(
+          token('#force_inline'),
+          token('#force_no_inline'),
+        ),
+        $.directive,
+      )),
       alias('proc', $.keyword),
       optional(newline),
       optional(field('calling_convention', $._string_literal)),

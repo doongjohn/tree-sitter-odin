@@ -1793,8 +1793,13 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "quaternion"
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": "quaternion"
+          },
+          "named": true,
+          "value": "type_identifier"
         },
         {
           "type": "STRING",
@@ -1947,6 +1952,38 @@
     "proc_literal": {
       "type": "SEQ",
       "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "TOKEN",
+                    "content": {
+                      "type": "STRING",
+                      "value": "#force_inline"
+                    }
+                  },
+                  {
+                    "type": "TOKEN",
+                    "content": {
+                      "type": "STRING",
+                      "value": "#force_no_inline"
+                    }
+                  }
+                ]
+              },
+              "named": true,
+              "value": "directive"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
         {
           "type": "ALIAS",
           "content": {

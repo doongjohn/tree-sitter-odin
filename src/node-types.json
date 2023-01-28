@@ -3682,6 +3682,10 @@
         {
           "type": "int_literal",
           "named": true
+        },
+        {
+          "type": "type_identifier",
+          "named": true
         }
       ]
     }
@@ -6129,10 +6133,6 @@
   {
     "type": "package_identifier",
     "named": true
-  },
-  {
-    "type": "quaternion",
-    "named": false
   },
   {
     "type": "raw_string_literal",
