@@ -214,8 +214,6 @@ module.exports = grammar({
         alias('continue', $.continue_statement),
         alias('fallthrough', $.fallthrough_statement),
         // TODO: other statements
-        //   - or_else
-        //   - or_return
         //   - for
         //     - Basic for loop
         //     - Range-based for loop
@@ -492,20 +490,25 @@ module.exports = grammar({
       '}',
     ),
 
-    _expression: $ => choice(
-      $._simple_expression,
-      $._complex_expression,
-      // TODO: other expressions
-      //   - type assert https://odin-lang.org/docs/overview/#unions
-      //   - optional check `ident.?`
-      //   - unary expressions
-      //   - ternary expressions
-      //   - array index expression
-      //   - expressions with prefix operator
-      //     'cast',
-      //     'auto_cast',
-      //     'transmute',
-    ),
+    _expression: $ => prec.right(seq(
+      choice(
+        $._simple_expression,
+        $._complex_expression,
+        // TODO: other expressions
+        //   - type assert https://odin-lang.org/docs/overview/#unions
+        //   - optional check `ident.?`
+        //   - unary expressions
+        //   - ternary expressions
+        //   - array indexing expression
+        //   - matrix indexing expression
+        //   - map indexing expression
+        //   - expressions with prefix operator
+        //     'cast',
+        //     'auto_cast',
+        //     'transmute',
+      ),
+      optional(alias('or_return', $.keyword)),
+    )),
     _simple_expression: $ => choice(
       $._literal,
       $._identifier,
@@ -513,6 +516,7 @@ module.exports = grammar({
       $.selector_expression,
       $.enum_selector_expression,
       $.implicit_selector_expression,
+      $.or_else_expression,
       $.parenthesized_expression,
       $.type_conversion_expression,
       $.dereference_expression,
@@ -564,6 +568,12 @@ module.exports = grammar({
       field('field', alias($.type_identifier, $.enum_field)),
     ),
 
+    or_else_expression: $ => prec.left(seq(
+      $._expression,
+      alias('or_else', $.keyword),
+      $._expression,
+    )),
+
     binary_expression: $ => {
       const
         // https://odin-lang.org/docs/overview/#operator-precedence
@@ -583,7 +593,7 @@ module.exports = grammar({
       return choice(...table.map(([precedence, operator]) =>
         prec.left(precedence, seq(
           field('left', choice($._expression, $._type)),
-          field('operator', alias(operator, $.operator)), // NOTE: I may not need a node to query this
+          field('operator', alias(operator, $.operator)),
           field('right', choice($._expression, $._type)),
         )),
       ));
@@ -644,11 +654,11 @@ module.exports = grammar({
       $.type_soa_slice,
       $.type_soa_fixed_array,
       $.type_soa_dynamic_array,
+      $.type_simd,
       $.type_proc,
       $._type_value,
       // TODO: https://odin-lang.org/docs/overview/#bit-sets
       // TODO: https://odin-lang.org/docs/overview/#matrix-type
-      // TODO: quaternion https://github.com/odin-lang/Odin/blob/master/examples/demo/demo.odin#L1483
     ),
     _type: $ => seq(
       optional(field('directive', alias(token('#type'), $.directive))),
@@ -692,16 +702,21 @@ module.exports = grammar({
     ),
 
     type_soa_slice: $ => seq(
-      alias(token('#soa'), $.keyword),
+      alias(token('#soa'), $.directive),
       $.type_slice,
     ),
     type_soa_fixed_array: $ => seq(
-      alias(token('#soa'), $.keyword),
+      alias(token('#soa'), $.directive),
       $.type_fixed_array,
     ),
     type_soa_dynamic_array: $ => seq(
-      alias(token('#soa'), $.keyword),
+      alias(token('#soa'), $.directive),
       $.type_dynamic_array,
+    ),
+
+    type_simd: $ => seq(
+      alias(token('#simd'), $.directive),
+      $.type_fixed_array,
     ),
 
     directive: $ => choice(

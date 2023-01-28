@@ -315,6 +315,7 @@ q := quaternion128(c)
     (operator)
     (expression_type_list
       (quaternion_literal
+        (type_identifier)
         (int_literal)
         (int_literal)
         (int_literal)

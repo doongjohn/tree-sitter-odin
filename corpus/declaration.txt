@@ -168,7 +168,7 @@ a: #soa[dynamic]int
       (identifier))
     (operator)
     (type_soa_slice
-      (keyword)
+      (directive)
       (type_slice
         (type_identifier))))
   (var_declaration
@@ -176,7 +176,7 @@ a: #soa[dynamic]int
       (identifier))
     (operator)
     (type_soa_fixed_array
-      (keyword)
+      (directive)
       (type_fixed_array
         (int_literal)
         (type_identifier))))
@@ -185,7 +185,7 @@ a: #soa[dynamic]int
       (identifier))
     (operator)
     (type_soa_dynamic_array
-      (keyword)
+      (directive)
       (type_dynamic_array
         (keyword)
         (type_identifier)))))
