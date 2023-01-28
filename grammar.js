@@ -165,11 +165,9 @@ module.exports = grammar({
       field('attribute', alias($.identifier, $.keyword)),
       optional(seq(
         alias('=', $.operator),
-        field('value', choice(
-          $._expression,
-        )),
+        field('value', $._expression),
       )),
-      ')'
+      ')',
     ),
     _attribute_declaration_objc_type: $ => seq(
       '@(',
@@ -227,7 +225,6 @@ module.exports = grammar({
       ),
     ),
 
-    // TODO: test this
     defer_statement: $ => seq(
       alias('defer', $.keyword),
       $._statement,
@@ -296,13 +293,15 @@ module.exports = grammar({
       $.undefined_value,
       $._string_literal,
       $._numeric_literal,
+      $.complex_literal,
+      $.quaternion_literal,
+      // TODO: matrix literal https://odin-lang.org/docs/overview/#matrix
       $.proc_literal,
       $.bit_set_literal,
       $.fixed_array_literal,
       $.slice_literal,
       $.struct_literal,
       $.initializer_literal,
-      // TODO: complex literal 1i, 2j, 3k
       // TODO: map literal https://odin-lang.org/docs/overview/#maps
     ),
 
@@ -317,6 +316,17 @@ module.exports = grammar({
     ),
     int_literal: $ => token(intLiteral),
     float_literal: $ => token(floatLiteral),
+    complex_literal: $ => seq(
+      $._numeric_literal,
+      token.immediate(choice('i', 'j', 'k')),
+    ),
+
+    quaternion_literal: $ => seq(
+      'quaternion',
+      '(',
+      commaSep1($._numeric_literal),
+      ')',
+    ),
 
     _string_literal: $ => choice(
       $.raw_string_literal,

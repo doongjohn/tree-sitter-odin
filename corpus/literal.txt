@@ -297,3 +297,70 @@ Foo :: enum u32 {
           (enum_field)
           (operator)
           (int_literal))))))
+
+================================================================================
+quaternion
+================================================================================
+
+q := quaternion(1, 2, 3, 4)
+q := quaternion128(c)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_type_list
+      (quaternion_literal
+        (int_literal)
+        (int_literal)
+        (int_literal)
+        (int_literal))))
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_type_list
+      (type_conversion_expression
+        (type_identifier)
+        (identifier)))))
+
+================================================================================
+complex number
+================================================================================
+
+a := 1i
+a := 1.2j
+a := 1_2k
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_type_list
+      (complex_literal
+        (int_literal))))
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_type_list
+      (complex_literal
+        (float_literal))))
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_type_list
+      (complex_literal
+        (int_literal)))))
