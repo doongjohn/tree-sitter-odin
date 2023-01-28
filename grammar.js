@@ -1,6 +1,3 @@
-// identifier: starts with _ or lowercase letter
-// type identifier: starts with uppercase letter
-
 const
   PREC = {
     primary: 9,
