@@ -1,3 +1,6 @@
+// identifier: starts with _ or lowercase letter
+// type identifier: starts with uppercase letter
+
 const
   PREC = {
     primary: 9,
@@ -86,7 +89,7 @@ module.exports = grammar({
   name: 'odin',
 
   extras: $ => [
-    // NOTE: multiline statement similar to python
+    // multiline statement similar to python
     // https://github.com/tree-sitter/tree-sitter-python/blob/master/grammar.js#L32
     /[\s\f\uFEFF\u2060\u200B]|\\\r?\n/,
     $.line_comment,
@@ -94,7 +97,7 @@ module.exports = grammar({
   ],
 
   externals: $ => [
-    $.block_comment,
+    $.block_comment, // supports nested block comment
   ],
 
   conflicts: $ => [
@@ -105,7 +108,6 @@ module.exports = grammar({
     [$.proc_literal, $.type_proc],
     [$.block_statement, $.bit_set_literal],
     [$.type_fixed_array, $.fixed_array_literal],
-    [$.type_fixed_array, $.initializer_literal],
     [$.struct_literal, $.initializer_literal],
   ],
 
@@ -142,6 +144,7 @@ module.exports = grammar({
     ),
 
     blank_identifier: $ => '_',
+
     _package_identifier: $ => alias($.identifier, $.package_identifier),
 
     foreign_block: $ => seq(
@@ -507,7 +510,7 @@ module.exports = grammar({
         //     'auto_cast',
         //     'transmute',
       ),
-      optional(alias('or_return', $.keyword)),
+      optional(alias('or_return', $.keyword)), // NOTE: not sure this is correct...
     )),
     _simple_expression: $ => choice(
       $._literal,

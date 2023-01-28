@@ -5236,10 +5236,6 @@
       "fixed_array_literal"
     ],
     [
-      "type_fixed_array",
-      "initializer_literal"
-    ],
-    [
       "struct_literal",
       "initializer_literal"
     ]
