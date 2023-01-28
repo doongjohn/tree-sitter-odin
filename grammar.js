@@ -1,10 +1,3 @@
-// TODO:
-// - bit_set
-// - do
-// - or_else
-// - or_return
-// - directives https://odin-lang.org/docs/overview/#directives
-
 const
   PREC = {
     primary: 9,
@@ -105,11 +98,11 @@ module.exports = grammar({
   ],
 
   conflicts: $ => [
-    [$._simple_expression, $._type],
     [$._simple_expression, $.identifier_list],
-    [$._identifier, $.identifier_list],
-    [$._identifier, $.type_selector_expression],
     [$._complex_expression, $._statement],
+    [$._identifier, $.type_selector_expression],
+    [$._type, $.enum_selector_expression],
+    [$.proc_literal, $.type_proc],
     [$.block_statement, $.bit_set_literal],
     [$.type_fixed_array, $.fixed_array_literal],
     [$.type_fixed_array, $.initializer_literal],
@@ -173,7 +166,6 @@ module.exports = grammar({
       optional(seq(
         alias('=', $.operator),
         field('value', choice(
-          $._known_type,
           $._expression,
         )),
       )),
@@ -220,10 +212,12 @@ module.exports = grammar({
         $.using_statement,
         $.return_statement,
         alias($.call_expression, $.call_statement),
-        alias('break', $.break_statement), // TODO: can break label
+        alias(seq('break', optional($._identifier)), $.break_statement),
         alias('continue', $.continue_statement),
         alias('fallthrough', $.fallthrough_statement),
         // TODO: other statements
+        //   - or_else
+        //   - or_return
         //   - for
         //     - Basic for loop
         //     - Range-based for loop
@@ -240,6 +234,13 @@ module.exports = grammar({
     ),
 
     block_statement: $ => seq(
+      optional(field('directive', alias(
+        choice(
+          token('#bounds_check'),
+          token('#no_bounds_check'),
+        ),
+        $.directive,
+      ))),
       '{',
       optional(seq(
         $._statement,
@@ -252,6 +253,11 @@ module.exports = grammar({
         optional(terminator),
       )),
       '}',
+    ),
+
+    do_statement: $ => seq(
+      alias('do', $.keyword),
+      $._statement,
     ),
 
     assignment_statement: $ => seq(
@@ -275,18 +281,13 @@ module.exports = grammar({
       choice($._identifier, $.type_identifier),
     )),
 
-    expression_list: $ => commaSep1(
-      $._expression,
-    ),
+    expression_list: $ => commaSep1($._expression),
     expression_type_list: $ => commaSep1(choice(
       $._expression,
-      $._known_type,
+      $._type,
       $.distinct_type,
     )),
-    distinct_type: $ => seq(
-      alias('distinct', $.keyword),
-      $._type,
-    ),
+    distinct_type: $ => seq(alias('distinct', $.keyword), $._type),
 
     _literal: $ => choice(
       $.nil,
@@ -348,21 +349,28 @@ module.exports = grammar({
       )
     )),
 
-    proc_literal: $ => prec.right(1, seq(
+    proc_literal: $ => seq(
       alias('proc', $.keyword),
+      optional(newline),
       optional(field('calling_convention', $._string_literal)),
       field('parameters', $.parameters),
       optional(seq(
         alias('->', $.operator),
-        field('result', $.proc_result)
+        optional(newline),
+        field('result', $.proc_result),
       )),
-      // TODO: where clauses
-      // https://odin-lang.org/docs/overview/#where-clauses
+      optional(seq(
+        optional(newline),
+        alias('where', $.keyword),
+        optional(newline),
+        $.expression_list,
+      )),
+      optional(alias(token('#optional_ok'), $.directive)),
       field('body', choice(
         $.block_statement,
         $.undefined_value,
       ))
-    )),
+    ),
     parameters: $ => seq(
       '(', commaSep($.parameter_declaration), ')',
     ),
@@ -373,7 +381,8 @@ module.exports = grammar({
     ),
     _named_parameter_declaration: $ => prec.right(1, seq(
       commaSep1(seq(
-        field('using', optional(alias('using', $.keyword))),
+        optional(field('directive', $.directive)),
+        optional(field('using', alias('using', $.keyword))),
         optional(alias('$', $.operator)), // compile-time parameter
         field('name', $.identifier),
       )),
@@ -471,6 +480,7 @@ module.exports = grammar({
       $._complex_expression,
       // TODO: other expressions
       //   - type assert https://odin-lang.org/docs/overview/#unions
+      //   - optional check `ident.?`
       //   - unary expressions
       //   - ternary expressions
       //   - array index expression
@@ -520,6 +530,7 @@ module.exports = grammar({
       '.',
       field('field', $._identifier),
     ),
+
     type_selector_expression: $ => seq(
       field('operand', $.identifier),
       '.',
@@ -554,10 +565,10 @@ module.exports = grammar({
 
       return choice(...table.map(([precedence, operator]) =>
         prec.left(precedence, seq(
-          field('left', $._expression),
+          field('left', choice($._expression, $._type)),
           field('operator', alias(operator, $.operator)), // NOTE: I may not need a node to query this
-          field('right', $._expression)
-        ))
+          field('right', choice($._expression, $._type)),
+        )),
       ));
     },
 
@@ -588,7 +599,7 @@ module.exports = grammar({
     ),
     argument: $ => seq(
       field('value', choice(
-        $._known_type,
+        $._type,
         $._expression,
       ))
     ),
@@ -596,7 +607,7 @@ module.exports = grammar({
       field('name', $.identifier),
       alias('=', $.operator),
       field('value', choice(
-        $._known_type,
+        $._type,
         $._expression,
       ))
     ),
@@ -622,11 +633,15 @@ module.exports = grammar({
       // TODO: https://odin-lang.org/docs/overview/#matrix-type
       // TODO: quaternion https://github.com/odin-lang/Odin/blob/master/examples/demo/demo.odin#L1483
     ),
-    _type: $ => choice(
-      $._known_type,
-      $.type_identifier,
-      $.type_selector_expression,
+    _type: $ => seq(
+      optional(field('directive', alias(token('#type'), $.directive))),
+      choice(
+        $._known_type,
+        $.type_identifier,
+        $.type_selector_expression,
+      ),
     ),
+
     type_identifier: $ => token(seq(
       unicodeLetterUpper,
       repeat(choice(letter, unicodeDigit))
@@ -672,12 +687,23 @@ module.exports = grammar({
       $.type_dynamic_array,
     ),
 
+    directive: $ => choice(
+      alias(token(/#[^\s]+/), $.tag),
+      $._align_directive,
+    ),
+    _align_directive: $ => seq(
+      alias(token('#align'), $.tag),
+      $._simple_expression,
+    ),
+
     type_proc: $ => seq(
       alias('proc', $.keyword),
+      optional(newline),
       optional(field('calling_convention', $._string_literal)),
       field('parameters', $.parameters),
       optional(seq(
         alias('->', $.operator),
+        optional(newline),
         field('result', $.proc_result)
       )),
     ),
@@ -688,22 +714,9 @@ module.exports = grammar({
       $.type_value_enum,
     ),
 
-    // TODO: these are called directives
-    _tag: $ => choice(
-      alias(token(/#[^\s]+/), $.tag),
-      $._align_tag,
-    ),
-    _align_tag: $ => seq(
-      alias(token('#align'), $.tag),
-      $._simple_expression,
-    ),
-    _struct_tag: $ => alias($._tag, $.struct_tag),
-    _union_tag: $ => alias($._tag, $.union_tag),
-    _enum_tag: $ => alias($._tag, $.enum_tag),
-
     type_value_struct: $ => seq(
       alias('struct', $.keyword),
-      optional(field('tag', $._struct_tag)),
+      optional(field('directive', $.directive)),
       '{',
       optional(commaSep(field('field', $.type_value_struct_field))),
       optional(','),
@@ -717,7 +730,7 @@ module.exports = grammar({
 
     type_value_union: $ => seq(
       alias('union', $.keyword),
-      optional(field('tag', $._union_tag)),
+      optional(field('directive', $.directive)),
       '{',
       optional(commaSep(field('field', $.type_value_union_field))),
       optional(','),
@@ -730,7 +743,7 @@ module.exports = grammar({
     type_value_enum: $ => seq(
       alias('enum', $.keyword),
       optional(field('type', $._type)),
-      optional(field('tag', $._enum_tag)),
+      optional(field('directive', $.directive)),
       '{',
       optional(commaSep(field('field', $.type_value_enum_field))),
       optional(','),

@@ -244,3 +244,34 @@ call statement
     (call_statement
       (identifier)
       (arguments))))
+
+================================================================================
+defer statement
+================================================================================
+
+{
+  defer hello()
+  defer {
+    a := 10
+  }
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_statement
+    (defer_statement
+      (keyword)
+      (call_statement
+        (identifier)
+        (arguments)))
+    (defer_statement
+      (keyword)
+      (block_statement
+        (var_declaration
+          (identifier_list
+            (identifier))
+          (operator)
+          (operator)
+          (expression_type_list
+            (int_literal)))))))

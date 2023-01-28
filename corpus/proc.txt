@@ -239,3 +239,59 @@ p :: proc() ---
         (keyword)
         (parameters)
         (undefined_value)))))
+
+================================================================================
+where clause
+================================================================================
+
+simple_sanity_check :: proc(x: [2]int)
+	where
+    len(x) > 1,
+    type_of(x) == [2]int {
+	fmt.println(x)
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (const_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_type_list
+      (proc_literal
+        (keyword)
+        (parameters
+          (parameter_declaration
+            (identifier)
+            (operator)
+            (type_fixed_array
+              (int_literal)
+              (type_identifier))))
+        (keyword)
+        (expression_list
+          (binary_expression
+            (call_expression
+              (builtin_procedure)
+              (arguments
+                (argument
+                  (identifier))))
+            (operator)
+            (int_literal))
+          (binary_expression
+            (type_of_expression
+              (builtin_identifier)
+              (identifier))
+            (operator)
+            (type_fixed_array
+              (int_literal)
+              (type_identifier))))
+        (block_statement
+          (call_statement
+            (selector_expression
+              (identifier)
+              (identifier))
+            (arguments
+              (argument
+                (identifier)))))))))

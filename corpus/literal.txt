@@ -237,7 +237,7 @@ B :: union #no_nil {
     (expression_type_list
       (type_value_union
         (keyword)
-        (union_tag
+        (directive
           (tag))
         (type_value_union_field
           (type_identifier))))))
