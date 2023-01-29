@@ -230,3 +230,43 @@ type cast
               (enum_field)))
           (operator)
           (int_literal))))))
+
+================================================================================
+type assert
+================================================================================
+
+a := v.(string)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_type_list
+      (type_assert_expression
+        (identifier)
+        (type_identifier)))))
+
+================================================================================
+optional check
+================================================================================
+
+a := v.? or_else 123
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_type_list
+      (or_else_expression
+        (optional_check_expression
+          (identifier))
+        (keyword)
+        (int_literal)))))

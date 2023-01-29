@@ -3041,6 +3041,14 @@
       "members": [
         {
           "type": "SYMBOL",
+          "name": "type_assert_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "optional_check_expression"
+        },
+        {
+          "type": "SYMBOL",
           "name": "binary_expression"
         },
         {
@@ -3303,6 +3311,44 @@
           }
         ]
       }
+    },
+    "type_assert_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_expression"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_type"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "optional_check_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_expression"
+        },
+        {
+          "type": "STRING",
+          "value": ".?"
+        }
+      ]
     },
     "binary_expression": {
       "type": "CHOICE",

@@ -495,8 +495,6 @@ module.exports = grammar({
         $._simple_expression,
         $._complex_expression,
         // TODO: other expressions
-        //   - type assert https://odin-lang.org/docs/overview/#unions
-        //   - optional check `ident.?`
         //   - unary expressions
         //   - ternary expressions
         //   - array indexing expression
@@ -522,6 +520,8 @@ module.exports = grammar({
       $.dereference_expression,
     ),
     _complex_expression: $ => choice(
+      $.type_assert_expression,
+      $.optional_check_expression,
       $.binary_expression,
       $.call_expression,
     ),
@@ -573,6 +573,19 @@ module.exports = grammar({
       alias('or_else', $.keyword),
       $._expression,
     )),
+
+    type_assert_expression: $ => seq(
+      $._expression,
+      '.',
+      '(',
+      $._type,
+      ')',
+    ),
+
+    optional_check_expression: $ => seq(
+      $._expression,
+      '.?',
+    ),
 
     binary_expression: $ => {
       const
