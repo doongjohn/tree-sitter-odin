@@ -1,0 +1,118 @@
+================================================================================
+c like
+================================================================================
+
+{
+  a := false ? 10 : 20
+  a := some_proc() ? 10 : hey.wow
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_statement
+    (var_declaration
+      (identifier_list
+        (identifier))
+      (operator)
+      (operator)
+      (expression_type_list
+        (ternary_c_like_expression
+          (false)
+          (keyword)
+          (int_literal)
+          (keyword)
+          (int_literal))))
+    (var_declaration
+      (identifier_list
+        (identifier))
+      (operator)
+      (operator)
+      (expression_type_list
+        (ternary_c_like_expression
+          (call_expression
+            (identifier)
+            (arguments))
+          (keyword)
+          (int_literal)
+          (keyword)
+          (selector_expression
+            (identifier)
+            (identifier)))))))
+
+================================================================================
+if / when
+================================================================================
+
+{
+  a := 10 if true else 20
+  a := some_proc() if true else hi.hello()
+
+  a := 10 when true else 20
+  a := some_proc() when true else hi.hello()
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_statement
+    (var_declaration
+      (identifier_list
+        (identifier))
+      (operator)
+      (operator)
+      (expression_type_list
+        (ternary_if_expression
+          (int_literal)
+          (keyword)
+          (true)
+          (keyword)
+          (int_literal))))
+    (var_declaration
+      (identifier_list
+        (identifier))
+      (operator)
+      (operator)
+      (expression_type_list
+        (ternary_if_expression
+          (call_expression
+            (identifier)
+            (arguments))
+          (keyword)
+          (true)
+          (keyword)
+          (call_expression
+            (selector_expression
+              (identifier)
+              (identifier))
+            (arguments)))))
+    (var_declaration
+      (identifier_list
+        (identifier))
+      (operator)
+      (operator)
+      (expression_type_list
+        (ternary_when_expression
+          (int_literal)
+          (keyword)
+          (true)
+          (keyword)
+          (int_literal))))
+    (var_declaration
+      (identifier_list
+        (identifier))
+      (operator)
+      (operator)
+      (expression_type_list
+        (ternary_when_expression
+          (call_expression
+            (identifier)
+            (arguments))
+          (keyword)
+          (true)
+          (keyword)
+          (call_expression
+            (selector_expression
+              (identifier)
+              (identifier))
+            (arguments)))))))

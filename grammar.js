@@ -495,15 +495,9 @@ module.exports = grammar({
         $._simple_expression,
         $._complex_expression,
         // TODO: other expressions
-        //   - unary expressions
-        //   - ternary expressions
         //   - array indexing expression
         //   - matrix indexing expression
         //   - map indexing expression
-        //   - expressions with prefix operator
-        //     'cast',
-        //     'auto_cast',
-        //     'transmute',
       ),
       optional(alias('or_return', $.keyword)), // NOTE: not sure this is correct...
     )),
@@ -517,7 +511,12 @@ module.exports = grammar({
       $.or_else_expression,
       $.parenthesized_expression,
       $.type_conversion_expression,
+      $.auto_cast_expression,
+      $.cast_expression,
+      $.transmute_expression,
       $.dereference_expression,
+      $.unary_expression,
+      $._ternary_expression,
     ),
     _complex_expression: $ => choice(
       $.type_assert_expression,
@@ -587,6 +586,38 @@ module.exports = grammar({
       '.?',
     ),
 
+    unary_expression: $ => prec(PREC.unary, seq(
+      field('operator', choice('+', '-', '!', '~', '&')),
+      field('operand', $._expression)
+    )),
+
+    _ternary_expression: $ => choice(
+      $.ternary_c_like_expression,
+      $.ternary_if_expression,
+      $.ternary_when_expression,
+    ),
+    ternary_c_like_expression: $ => prec.right(seq(
+      field('condition', $._expression),
+      alias('?', $.keyword),
+      $._expression,
+      alias(':', $.keyword),
+      $._expression,
+    )),
+    ternary_if_expression: $ => prec.right(seq(
+      $._expression,
+      alias('if', $.keyword),
+      field('condition', $._expression),
+      alias('else', $.keyword),
+      $._expression,
+    )),
+    ternary_when_expression: $ => prec.right(seq(
+      $._expression,
+      alias('when', $.keyword),
+      field('condition', $._expression),
+      alias('else', $.keyword),
+      $._expression,
+    )),
+
     binary_expression: $ => {
       const
         // https://odin-lang.org/docs/overview/#operator-precedence
@@ -615,6 +646,34 @@ module.exports = grammar({
     parenthesized_expression: $ => seq(
       '(', $._expression, ')'
     ),
+
+    type_conversion_expression: $ => seq(
+      $._type, '(', $._expression, ')'
+    ),
+
+    // NOTE: not sure which is correct, left or right
+    auto_cast_expression: $ => prec.left(seq(
+      alias('auto_cast', $.operator),
+      $._expression,
+    )),
+
+    // NOTE: not sure which is correct, left or right
+    cast_expression: $ => prec.left(seq(
+      alias('cast', $.operator),
+      '(',
+      $._type,
+      ')',
+      $._expression,
+    )),
+
+    // NOTE: not sure which is correct, left or right
+    transmute_expression: $ => prec.left(seq(
+      alias('transmute', $.operator),
+      '(',
+      $._type,
+      ')',
+      $._expression,
+    )),
 
     call_expression: $ => choice(
       prec(1, $._builtin_call_expression),
@@ -650,10 +709,6 @@ module.exports = grammar({
         $._type,
         $._expression,
       ))
-    ),
-
-    type_conversion_expression: $ => seq(
-      $._type, '(', $._expression, ')'
     ),
 
     _known_type: $ => choice(

@@ -1,4 +1,61 @@
 ================================================================================
+builtin proc
+================================================================================
+
+a :: proc() {
+  a: type_of(10)
+  n := len(array)
+  #assert("" == "")
+  #panic("lol")
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (const_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_type_list
+      (proc_literal
+        (keyword)
+        (parameters)
+        (block_statement
+          (var_declaration
+            (identifier_list
+              (identifier))
+            (operator)
+            (type_of_expression
+              (builtin_identifier)
+              (int_literal)))
+          (var_declaration
+            (identifier_list
+              (identifier))
+            (operator)
+            (operator)
+            (expression_type_list
+              (call_expression
+                (builtin_procedure)
+                (arguments
+                  (argument
+                    (identifier))))))
+          (call_statement
+            (builtin_procedure)
+            (arguments
+              (argument
+                (binary_expression
+                  (interpreted_string_literal)
+                  (operator)
+                  (interpreted_string_literal)))))
+          (call_statement
+            (builtin_procedure)
+            (arguments
+              (argument
+                (interpreted_string_literal)))))))))
+
+
+================================================================================
 proc
 ================================================================================
 
