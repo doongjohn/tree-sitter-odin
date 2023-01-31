@@ -103,8 +103,8 @@ module.exports = grammar({
   ],
 
   conflicts: $ => [
+    [$._simple_expression, $._statement],
     [$._simple_expression, $.identifier_list],
-    [$._complex_expression, $._statement],
     [$._identifier, $.type_selector_expression],
     [$._type, $.enum_selector_expression],
     [$.type_proc, $.proc_literal],
@@ -525,10 +525,6 @@ module.exports = grammar({
       choice(
         $._simple_expression,
         $._complex_expression,
-        // TODO: other expressions
-        //   - array indexing expression
-        //   - matrix indexing expression
-        //   - map indexing expression
       ),
       optional(alias('or_return', $.keyword)), // NOTE: not sure this is correct...
     )),
@@ -536,6 +532,7 @@ module.exports = grammar({
       $._literal,
       $._identifier,
       $.context_variable,
+      $.dereference_expression,
       $.selector_expression,
       $.enum_selector_expression,
       $.implicit_selector_expression,
@@ -545,18 +542,17 @@ module.exports = grammar({
       $.auto_cast_expression,
       $.cast_expression,
       $.transmute_expression,
-      $.dereference_expression,
+      $.indexing_expression,
+      $.matrix_indexing_expression,
       $.unary_expression,
       $._ternary_expression,
+      $.call_expression,
     ),
     _complex_expression: $ => choice(
       $.type_assert_expression,
       $.optional_check_expression,
       $.binary_expression,
-      $.call_expression,
     ),
-
-    context_variable: $ => 'context',
 
     _identifier: $ => choice(
       $.identifier,
@@ -570,6 +566,8 @@ module.exports = grammar({
       letterUpper,
       repeat(choice(letterUpper, unicodeDigit))
     )),
+
+    context_variable: $ => 'context',
 
     dereference_expression: $ => seq(
       $._expression,
@@ -711,6 +709,21 @@ module.exports = grammar({
       ')',
       $._expression,
     )),
+
+    indexing_expression: $ => seq(
+      $._expression,
+      '[',
+      $._expression,
+      ']',
+    ),
+    matrix_indexing_expression: $ => seq(
+      $._expression,
+      '[',
+      $._expression,
+      ',',
+      $._expression,
+      ']',
+    ),
 
     call_expression: $ => choice(
       prec(1, $._builtin_call_expression),

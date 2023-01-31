@@ -1,0 +1,78 @@
+================================================================================
+array / map indexing
+================================================================================
+
+{
+  a[1] = 10
+  a[hi()] = 20
+  a["asd"] = 20
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_statement
+    (assignment_statement
+      (expression_list
+        (indexing_expression
+          (identifier)
+          (int_literal)))
+      (operator)
+      (expression_type_list
+        (int_literal)))
+    (assignment_statement
+      (expression_list
+        (indexing_expression
+          (identifier)
+          (call_expression
+            (identifier)
+            (arguments))))
+      (operator)
+      (expression_type_list
+        (int_literal)))
+    (assignment_statement
+      (expression_list
+        (indexing_expression
+          (identifier)
+          (interpreted_string_literal)))
+      (operator)
+      (expression_type_list
+        (int_literal)))))
+
+================================================================================
+matrix indexing
+================================================================================
+
+{
+  m[1, 2] = 10
+  m[hi(), wow.hello()] = 20
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_statement
+    (assignment_statement
+      (expression_list
+        (matrix_indexing_expression
+          (identifier)
+          (int_literal)
+          (int_literal)))
+      (operator)
+      (expression_type_list
+        (int_literal)))
+    (assignment_statement
+      (expression_list
+        (matrix_indexing_expression
+          (identifier)
+          (call_expression
+            (identifier)
+            (arguments))
+          (call_expression
+            (selector_expression
+              (identifier)
+              (identifier))
+            (arguments))))
+      (operator)
+      (expression_type_list
+        (int_literal)))))

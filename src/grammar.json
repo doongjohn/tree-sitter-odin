@@ -3412,6 +3412,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "dereference_expression"
+        },
+        {
+          "type": "SYMBOL",
           "name": "selector_expression"
         },
         {
@@ -3448,7 +3452,11 @@
         },
         {
           "type": "SYMBOL",
-          "name": "dereference_expression"
+          "name": "indexing_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "matrix_indexing_expression"
         },
         {
           "type": "SYMBOL",
@@ -3457,6 +3465,10 @@
         {
           "type": "SYMBOL",
           "name": "_ternary_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "call_expression"
         }
       ]
     },
@@ -3474,16 +3486,8 @@
         {
           "type": "SYMBOL",
           "name": "binary_expression"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "call_expression"
         }
       ]
-    },
-    "context_variable": {
-      "type": "STRING",
-      "value": "context"
     },
     "_identifier": {
       "type": "CHOICE",
@@ -3589,6 +3593,10 @@
           }
         ]
       }
+    },
+    "context_variable": {
+      "type": "STRING",
+      "value": "context"
     },
     "dereference_expression": {
       "type": "SEQ",
@@ -4513,6 +4521,56 @@
           }
         ]
       }
+    },
+    "indexing_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_expression"
+        },
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_expression"
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        }
+      ]
+    },
+    "matrix_indexing_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_expression"
+        },
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_expression"
+        },
+        {
+          "type": "STRING",
+          "value": ","
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_expression"
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        }
+      ]
     },
     "call_expression": {
       "type": "CHOICE",
@@ -6095,7 +6153,7 @@
       "identifier_list"
     ],
     [
-      "_complex_expression",
+      "_simple_expression",
       "_statement"
     ],
     [
