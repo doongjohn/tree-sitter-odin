@@ -270,10 +270,13 @@ hi := Vector{
       (key_value_literal
         (type_identifier)
         (identifier)
+        (operator)
         (int_literal)
         (identifier)
+        (operator)
         (int_literal)
         (identifier)
+        (operator)
         (int_literal)))))
 
 ================================================================================

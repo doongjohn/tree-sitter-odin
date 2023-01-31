@@ -3213,8 +3213,13 @@
                       "name": "_expression"
                     },
                     {
-                      "type": "STRING",
-                      "value": "="
+                      "type": "ALIAS",
+                      "content": {
+                        "type": "STRING",
+                        "value": "="
+                      },
+                      "named": true,
+                      "value": "operator"
                     },
                     {
                       "type": "SYMBOL",
@@ -3239,8 +3244,13 @@
                             "name": "_expression"
                           },
                           {
-                            "type": "STRING",
-                            "value": "="
+                            "type": "ALIAS",
+                            "content": {
+                              "type": "STRING",
+                              "value": "="
+                            },
+                            "named": true,
+                            "value": "operator"
                           },
                           {
                             "type": "SYMBOL",

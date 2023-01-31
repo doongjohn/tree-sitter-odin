@@ -43,6 +43,8 @@ const
   // TODO: make a custom scanner for float literal
   // https://github.com/gdamore/tree-sitter-d/blob/main/src/scanner.c#L565
   // NOTE: this does not allow lone trailing periods `0.`
+  // range_operators(..<, ..=) and float_literal are conflicting
+  // because `0.` is a valid syntax for a float
   decimalFloatLiteral = choice(
     seq(decimalDigits, '.', decimalDigits, decimalExponent),
     seq(decimalDigits, '.', choice(decimalDigits, decimalExponent)),
@@ -502,7 +504,11 @@ module.exports = grammar({
     key_value_literal: $ => seq(
       optional($._type),
       '{',
-      commaSep(seq($._expression, '=', $._expression)),
+      commaSep(seq(
+        $._expression,
+        alias('=', $.operator),
+        $._expression
+      )),
       optional(','),
       '}',
     ),
@@ -644,8 +650,6 @@ module.exports = grammar({
       $._expression,
     )),
 
-    // NOTE: range_operators and float_literal are conflicting
-    // because `0.` is a valid syntax for a float
     range_expression: $ => prec.right(PREC.range, seq(
       $._expression,
       token(choice('..<', '..=')),

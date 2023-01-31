@@ -241,8 +241,10 @@ m: map[string]int = {
           (type_identifier)
           (type_identifier))
         (interpreted_string_literal)
+        (operator)
         (int_literal)
         (interpreted_string_literal)
+        (operator)
         (int_literal))))
   (var_declaration
     (identifier_list
@@ -256,8 +258,10 @@ m: map[string]int = {
     (expression_type_list
       (key_value_literal
         (interpreted_string_literal)
+        (operator)
         (int_literal)
         (interpreted_string_literal)
+        (operator)
         (int_literal)))))
 
 ================================================================================

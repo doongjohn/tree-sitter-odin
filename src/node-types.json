@@ -4469,6 +4469,10 @@
           "named": true
         },
         {
+          "type": "operator",
+          "named": true
+        },
+        {
           "type": "optional_check_expression",
           "named": true
         },
@@ -11017,10 +11021,6 @@
   },
   {
     "type": ";",
-    "named": false
-  },
-  {
-    "type": "=",
     "named": false
   },
   {
