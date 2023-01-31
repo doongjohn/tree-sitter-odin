@@ -261,6 +261,338 @@
     }
   },
   {
+    "type": "assignment_operation_statement",
+    "named": true,
+    "fields": {
+      "left": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "auto_cast_expression",
+            "named": true
+          },
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "bit_set_literal",
+            "named": true
+          },
+          {
+            "type": "call_expression",
+            "named": true
+          },
+          {
+            "type": "cast_expression",
+            "named": true
+          },
+          {
+            "type": "complex_literal",
+            "named": true
+          },
+          {
+            "type": "const_identifier",
+            "named": true
+          },
+          {
+            "type": "context_variable",
+            "named": true
+          },
+          {
+            "type": "dereference_expression",
+            "named": true
+          },
+          {
+            "type": "enum_selector_expression",
+            "named": true
+          },
+          {
+            "type": "false",
+            "named": true
+          },
+          {
+            "type": "fixed_array_literal",
+            "named": true
+          },
+          {
+            "type": "float_literal",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "implicit_selector_expression",
+            "named": true
+          },
+          {
+            "type": "initializer_literal",
+            "named": true
+          },
+          {
+            "type": "int_literal",
+            "named": true
+          },
+          {
+            "type": "interpreted_string_literal",
+            "named": true
+          },
+          {
+            "type": "keyword",
+            "named": true
+          },
+          {
+            "type": "nil",
+            "named": true
+          },
+          {
+            "type": "optional_check_expression",
+            "named": true
+          },
+          {
+            "type": "or_else_expression",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "proc_literal",
+            "named": true
+          },
+          {
+            "type": "quaternion_literal",
+            "named": true
+          },
+          {
+            "type": "raw_string_literal",
+            "named": true
+          },
+          {
+            "type": "selector_expression",
+            "named": true
+          },
+          {
+            "type": "slice_literal",
+            "named": true
+          },
+          {
+            "type": "struct_literal",
+            "named": true
+          },
+          {
+            "type": "ternary_c_like_expression",
+            "named": true
+          },
+          {
+            "type": "ternary_if_expression",
+            "named": true
+          },
+          {
+            "type": "ternary_when_expression",
+            "named": true
+          },
+          {
+            "type": "transmute_expression",
+            "named": true
+          },
+          {
+            "type": "true",
+            "named": true
+          },
+          {
+            "type": "type_assert_expression",
+            "named": true
+          },
+          {
+            "type": "type_conversion_expression",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          },
+          {
+            "type": "undefined_value",
+            "named": true
+          }
+        ]
+      },
+      "right": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "auto_cast_expression",
+            "named": true
+          },
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "bit_set_literal",
+            "named": true
+          },
+          {
+            "type": "call_expression",
+            "named": true
+          },
+          {
+            "type": "cast_expression",
+            "named": true
+          },
+          {
+            "type": "complex_literal",
+            "named": true
+          },
+          {
+            "type": "const_identifier",
+            "named": true
+          },
+          {
+            "type": "context_variable",
+            "named": true
+          },
+          {
+            "type": "dereference_expression",
+            "named": true
+          },
+          {
+            "type": "enum_selector_expression",
+            "named": true
+          },
+          {
+            "type": "false",
+            "named": true
+          },
+          {
+            "type": "fixed_array_literal",
+            "named": true
+          },
+          {
+            "type": "float_literal",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "implicit_selector_expression",
+            "named": true
+          },
+          {
+            "type": "initializer_literal",
+            "named": true
+          },
+          {
+            "type": "int_literal",
+            "named": true
+          },
+          {
+            "type": "interpreted_string_literal",
+            "named": true
+          },
+          {
+            "type": "keyword",
+            "named": true
+          },
+          {
+            "type": "nil",
+            "named": true
+          },
+          {
+            "type": "optional_check_expression",
+            "named": true
+          },
+          {
+            "type": "or_else_expression",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "proc_literal",
+            "named": true
+          },
+          {
+            "type": "quaternion_literal",
+            "named": true
+          },
+          {
+            "type": "raw_string_literal",
+            "named": true
+          },
+          {
+            "type": "selector_expression",
+            "named": true
+          },
+          {
+            "type": "slice_literal",
+            "named": true
+          },
+          {
+            "type": "struct_literal",
+            "named": true
+          },
+          {
+            "type": "ternary_c_like_expression",
+            "named": true
+          },
+          {
+            "type": "ternary_if_expression",
+            "named": true
+          },
+          {
+            "type": "ternary_when_expression",
+            "named": true
+          },
+          {
+            "type": "transmute_expression",
+            "named": true
+          },
+          {
+            "type": "true",
+            "named": true
+          },
+          {
+            "type": "type_assert_expression",
+            "named": true
+          },
+          {
+            "type": "type_conversion_expression",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          },
+          {
+            "type": "undefined_value",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "operator",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "assignment_statement",
     "named": true,
     "fields": {
@@ -1386,6 +1718,10 @@
       "required": false,
       "types": [
         {
+          "type": "assignment_operation_statement",
+          "named": true
+        },
+        {
           "type": "assignment_statement",
           "named": true
         },
@@ -1419,6 +1755,10 @@
         },
         {
           "type": "fallthrough_statement",
+          "named": true
+        },
+        {
+          "type": "for_statement",
           "named": true
         },
         {
@@ -2201,6 +2541,10 @@
       "required": true,
       "types": [
         {
+          "type": "assignment_operation_statement",
+          "named": true
+        },
+        {
           "type": "assignment_statement",
           "named": true
         },
@@ -2234,6 +2578,10 @@
         },
         {
           "type": "fallthrough_statement",
+          "named": true
+        },
+        {
+          "type": "for_statement",
           "named": true
         },
         {
@@ -2654,6 +3002,77 @@
         },
         {
           "type": "type_value_union",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "do_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "assignment_operation_statement",
+          "named": true
+        },
+        {
+          "type": "assignment_statement",
+          "named": true
+        },
+        {
+          "type": "attribute_declaration",
+          "named": true
+        },
+        {
+          "type": "block_statement",
+          "named": true
+        },
+        {
+          "type": "break_statement",
+          "named": true
+        },
+        {
+          "type": "call_statement",
+          "named": true
+        },
+        {
+          "type": "const_declaration",
+          "named": true
+        },
+        {
+          "type": "continue_statement",
+          "named": true
+        },
+        {
+          "type": "defer_statement",
+          "named": true
+        },
+        {
+          "type": "fallthrough_statement",
+          "named": true
+        },
+        {
+          "type": "for_statement",
+          "named": true
+        },
+        {
+          "type": "keyword",
+          "named": true
+        },
+        {
+          "type": "return_statement",
+          "named": true
+        },
+        {
+          "type": "using_statement",
+          "named": true
+        },
+        {
+          "type": "var_declaration",
           "named": true
         }
       ]
@@ -3315,6 +3734,380 @@
         },
         {
           "type": "type_value_union",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "undefined_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "for_statement",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "auto_cast_expression",
+            "named": true
+          },
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "bit_set_literal",
+            "named": true
+          },
+          {
+            "type": "call_expression",
+            "named": true
+          },
+          {
+            "type": "cast_expression",
+            "named": true
+          },
+          {
+            "type": "complex_literal",
+            "named": true
+          },
+          {
+            "type": "const_identifier",
+            "named": true
+          },
+          {
+            "type": "context_variable",
+            "named": true
+          },
+          {
+            "type": "dereference_expression",
+            "named": true
+          },
+          {
+            "type": "enum_selector_expression",
+            "named": true
+          },
+          {
+            "type": "false",
+            "named": true
+          },
+          {
+            "type": "fixed_array_literal",
+            "named": true
+          },
+          {
+            "type": "float_literal",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "implicit_selector_expression",
+            "named": true
+          },
+          {
+            "type": "initializer_literal",
+            "named": true
+          },
+          {
+            "type": "int_literal",
+            "named": true
+          },
+          {
+            "type": "interpreted_string_literal",
+            "named": true
+          },
+          {
+            "type": "keyword",
+            "named": true
+          },
+          {
+            "type": "nil",
+            "named": true
+          },
+          {
+            "type": "optional_check_expression",
+            "named": true
+          },
+          {
+            "type": "or_else_expression",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "proc_literal",
+            "named": true
+          },
+          {
+            "type": "quaternion_literal",
+            "named": true
+          },
+          {
+            "type": "raw_string_literal",
+            "named": true
+          },
+          {
+            "type": "selector_expression",
+            "named": true
+          },
+          {
+            "type": "slice_literal",
+            "named": true
+          },
+          {
+            "type": "struct_literal",
+            "named": true
+          },
+          {
+            "type": "ternary_c_like_expression",
+            "named": true
+          },
+          {
+            "type": "ternary_if_expression",
+            "named": true
+          },
+          {
+            "type": "ternary_when_expression",
+            "named": true
+          },
+          {
+            "type": "transmute_expression",
+            "named": true
+          },
+          {
+            "type": "true",
+            "named": true
+          },
+          {
+            "type": "type_assert_expression",
+            "named": true
+          },
+          {
+            "type": "type_conversion_expression",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          },
+          {
+            "type": "undefined_value",
+            "named": true
+          }
+        ]
+      },
+      "initial": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ";",
+            "named": false
+          },
+          {
+            "type": "attribute_declaration",
+            "named": true
+          },
+          {
+            "type": "const_declaration",
+            "named": true
+          },
+          {
+            "type": "var_declaration",
+            "named": true
+          }
+        ]
+      },
+      "post": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ";",
+            "named": false
+          },
+          {
+            "type": "assignment_operation_statement",
+            "named": true
+          },
+          {
+            "type": "block_statement",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "auto_cast_expression",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "bit_set_literal",
+          "named": true
+        },
+        {
+          "type": "block_statement",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "cast_expression",
+          "named": true
+        },
+        {
+          "type": "complex_literal",
+          "named": true
+        },
+        {
+          "type": "const_identifier",
+          "named": true
+        },
+        {
+          "type": "context_variable",
+          "named": true
+        },
+        {
+          "type": "dereference_expression",
+          "named": true
+        },
+        {
+          "type": "do_statement",
+          "named": true
+        },
+        {
+          "type": "enum_selector_expression",
+          "named": true
+        },
+        {
+          "type": "false",
+          "named": true
+        },
+        {
+          "type": "fixed_array_literal",
+          "named": true
+        },
+        {
+          "type": "float_literal",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "implicit_selector_expression",
+          "named": true
+        },
+        {
+          "type": "initializer_literal",
+          "named": true
+        },
+        {
+          "type": "int_literal",
+          "named": true
+        },
+        {
+          "type": "interpreted_string_literal",
+          "named": true
+        },
+        {
+          "type": "keyword",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "optional_check_expression",
+          "named": true
+        },
+        {
+          "type": "or_else_expression",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "proc_literal",
+          "named": true
+        },
+        {
+          "type": "quaternion_literal",
+          "named": true
+        },
+        {
+          "type": "range_expression",
+          "named": true
+        },
+        {
+          "type": "raw_string_literal",
+          "named": true
+        },
+        {
+          "type": "selector_expression",
+          "named": true
+        },
+        {
+          "type": "slice_literal",
+          "named": true
+        },
+        {
+          "type": "struct_literal",
+          "named": true
+        },
+        {
+          "type": "ternary_c_like_expression",
+          "named": true
+        },
+        {
+          "type": "ternary_if_expression",
+          "named": true
+        },
+        {
+          "type": "ternary_when_expression",
+          "named": true
+        },
+        {
+          "type": "transmute_expression",
+          "named": true
+        },
+        {
+          "type": "true",
+          "named": true
+        },
+        {
+          "type": "type_assert_expression",
+          "named": true
+        },
+        {
+          "type": "type_conversion_expression",
           "named": true
         },
         {
@@ -5210,6 +6003,169 @@
     }
   },
   {
+    "type": "range_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "auto_cast_expression",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "bit_set_literal",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "cast_expression",
+          "named": true
+        },
+        {
+          "type": "complex_literal",
+          "named": true
+        },
+        {
+          "type": "const_identifier",
+          "named": true
+        },
+        {
+          "type": "context_variable",
+          "named": true
+        },
+        {
+          "type": "dereference_expression",
+          "named": true
+        },
+        {
+          "type": "enum_selector_expression",
+          "named": true
+        },
+        {
+          "type": "false",
+          "named": true
+        },
+        {
+          "type": "fixed_array_literal",
+          "named": true
+        },
+        {
+          "type": "float_literal",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "implicit_selector_expression",
+          "named": true
+        },
+        {
+          "type": "initializer_literal",
+          "named": true
+        },
+        {
+          "type": "int_literal",
+          "named": true
+        },
+        {
+          "type": "interpreted_string_literal",
+          "named": true
+        },
+        {
+          "type": "keyword",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "optional_check_expression",
+          "named": true
+        },
+        {
+          "type": "or_else_expression",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "proc_literal",
+          "named": true
+        },
+        {
+          "type": "quaternion_literal",
+          "named": true
+        },
+        {
+          "type": "raw_string_literal",
+          "named": true
+        },
+        {
+          "type": "selector_expression",
+          "named": true
+        },
+        {
+          "type": "slice_literal",
+          "named": true
+        },
+        {
+          "type": "struct_literal",
+          "named": true
+        },
+        {
+          "type": "ternary_c_like_expression",
+          "named": true
+        },
+        {
+          "type": "ternary_if_expression",
+          "named": true
+        },
+        {
+          "type": "ternary_when_expression",
+          "named": true
+        },
+        {
+          "type": "transmute_expression",
+          "named": true
+        },
+        {
+          "type": "true",
+          "named": true
+        },
+        {
+          "type": "type_assert_expression",
+          "named": true
+        },
+        {
+          "type": "type_conversion_expression",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "undefined_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "return_statement",
     "named": true,
     "fields": {},
@@ -5653,6 +6609,10 @@
       "required": false,
       "types": [
         {
+          "type": "assignment_operation_statement",
+          "named": true
+        },
+        {
           "type": "assignment_statement",
           "named": true
         },
@@ -5686,6 +6646,10 @@
         },
         {
           "type": "fallthrough_statement",
+          "named": true
+        },
+        {
+          "type": "for_statement",
           "named": true
         },
         {
@@ -9617,10 +10581,6 @@
     "named": false
   },
   {
-    "type": ".?",
-    "named": false
-  },
-  {
     "type": ":",
     "named": false
   },
@@ -9630,6 +10590,10 @@
   },
   {
     "type": "=",
+    "named": false
+  },
+  {
+    "type": "?",
     "named": false
   },
   {

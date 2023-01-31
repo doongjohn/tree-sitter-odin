@@ -40,10 +40,16 @@ const
   intLiteral = choice(binaryLiteral, decimalLiteral, octalLiteral, hexLiteral),
 
   decimalExponent = seq(choice('e', 'E'), optional(choice('+', '-')), decimalDigits),
+  // TODO: make a custom scanner for float literal
+  // https://github.com/gdamore/tree-sitter-d/blob/main/src/scanner.c#L565
+  // NOTE: this does not allow lone trailing periods `0.`
   decimalFloatLiteral = choice(
-    seq(decimalDigits, '.', optional(decimalDigits), optional(decimalExponent)),
+    seq(decimalDigits, '.', decimalDigits, decimalExponent),
+    seq(decimalDigits, '.', decimalDigits),
+    seq(decimalDigits, '.', decimalExponent),
     seq(decimalDigits, decimalExponent),
-    seq('.', decimalDigits, optional(decimalExponent)),
+    seq('.', decimalDigits, decimalExponent),
+    seq('.', decimalDigits),
   ),
   floatLiteral = decimalFloatLiteral,
 
@@ -94,7 +100,7 @@ module.exports = grammar({
   ],
 
   externals: $ => [
-    $.block_comment, // supports nested block comment
+    $.block_comment, // this supports nested block comment
   ],
 
   conflicts: $ => [
@@ -196,27 +202,26 @@ module.exports = grammar({
           optional(field('type', $._type)),
           alias('=', $.operator),
           field('right', $.expression_type_list)
-        )
-      )
+        ),
+      ),
     ),
 
     _statement: $ => seq(
       optional($.attribute_declaration),
       choice(
-        $.defer_statement,
-        $.block_statement,
         $._declaration,
         $.assignment_statement,
+        $.assignment_operation_statement,
+        $.block_statement,
+        $.defer_statement,
         $.using_statement,
         $.return_statement,
+        $.for_statement,
         alias($.call_expression, $.call_statement),
         alias(seq('break', optional($._identifier)), $.break_statement),
         alias('continue', $.continue_statement),
         alias('fallthrough', $.fallthrough_statement),
         // TODO: other statements
-        //   - for
-        //     - Basic for loop
-        //     - Range-based for loop
         //   - if, when
         //   - switch
         //   - proc group https://odin-lang.org/docs/overview/#explicit-procedure-overloading
@@ -261,6 +266,15 @@ module.exports = grammar({
       field('right', $.expression_type_list),
     ),
 
+    assignment_operation_statement: $ => seq(
+      field('left', $._expression),
+      alias(
+        choice('+=', '-=', '*=', '/=', '%=', '<<=', '>>=', '|=', '~=', '&=', '&~='),
+        $.operator
+      ),
+      field('right', $._expression),
+    ),
+
     using_statement: $ => seq(
       alias('using', $.keyword),
       $._expression,
@@ -270,6 +284,36 @@ module.exports = grammar({
       alias('return', $.keyword),
       optional($.expression_type_list),
     ),
+
+    for_statement: $ => choice(
+      $._for_basic_statement,
+      $._for_ranged_statement,
+    ),
+    _for_basic_statement: $ => seq(
+      alias('for', $.keyword),
+      optional(seq(
+        field('initial', optional(seq(optional($._declaration), ';'))),
+        field('condition', $._expression),
+        field('post', optional(seq(';', optional(choice(
+          $.assignment_operation_statement,
+          $.block_statement,
+        ))))),
+      )),
+      choice(
+        $.block_statement,
+        $.do_statement,
+      ),
+    ),
+    _for_ranged_statement: $ => prec.right(1, seq(
+      alias('for', $.keyword),
+      $._expression,
+      alias('in', $.keyword),
+      $.range_expression,
+      choice(
+        $.block_statement,
+        $.do_statement,
+      ),
+    )),
 
     identifier_list: $ => commaSep1(seq(
       optional(alias('using', $.keyword)),
@@ -583,12 +627,13 @@ module.exports = grammar({
 
     optional_check_expression: $ => seq(
       $._expression,
-      '.?',
+      '.',
+      '?',
     ),
 
     unary_expression: $ => prec(PREC.unary, seq(
       field('operator', choice('+', '-', '!', '~', '&')),
-      field('operand', $._expression)
+      field('operand', $._expression),
     )),
 
     _ternary_expression: $ => choice(
@@ -618,12 +663,21 @@ module.exports = grammar({
       $._expression,
     )),
 
+    range_expression: $ => prec.right(PREC.range, seq(
+      $._expression,
+      token(choice('..<', '..=')),
+      $._expression,
+    )),
+
     binary_expression: $ => {
       const
         // https://odin-lang.org/docs/overview/#operator-precedence
         multiplicative_operators = ['*', '/', '%', '%%', '&', '&~', '<<', '>>'],
         additive_operators = ['+', '-', '|', '~', 'in', 'not_in'],
-        comparative_operators = ['==', '!=', '<', '>', '<=', '>=']
+        comparative_operators = ['==', '!=', '<', '>', '<=', '>='],
+        range_operators = ['..=', '..<']
+      // NOTE: range_operators and float_literal are conflicting
+      // because `0.` is a valid syntax for a float
 
       const table = [
         [PREC.multiplicative, choice(...multiplicative_operators)],
@@ -631,13 +685,13 @@ module.exports = grammar({
         [PREC.comparative, choice(...comparative_operators)],
         [PREC.and, '&&'],
         [PREC.or, '||'],
-        [PREC.range, choice('..=', '..<')],
+        // [PREC.range, choice(...range_operators)],
       ];
 
       return choice(...table.map(([precedence, operator]) =>
-        prec.left(precedence, seq(
+        prec.right(precedence, seq(
           field('left', choice($._expression, $._type)),
-          field('operator', alias(operator, $.operator)),
+          field('operator', alias(token(operator), $.operator)),
           field('right', choice($._expression, $._type)),
         )),
       ));
@@ -652,13 +706,13 @@ module.exports = grammar({
     ),
 
     // NOTE: not sure which is correct, left or right
-    auto_cast_expression: $ => prec.left(seq(
+    auto_cast_expression: $ => prec.right(seq(
       alias('auto_cast', $.operator),
       $._expression,
     )),
 
     // NOTE: not sure which is correct, left or right
-    cast_expression: $ => prec.left(seq(
+    cast_expression: $ => prec.right(seq(
       alias('cast', $.operator),
       '(',
       $._type,
@@ -667,7 +721,7 @@ module.exports = grammar({
     )),
 
     // NOTE: not sure which is correct, left or right
-    transmute_expression: $ => prec.left(seq(
+    transmute_expression: $ => prec.right(seq(
       alias('transmute', $.operator),
       '(',
       $._type,
@@ -747,10 +801,10 @@ module.exports = grammar({
       '(', $._expression, ')',
     ),
 
-    type_pointer: $ => seq(
+    type_pointer: $ => prec(PREC.unary, seq(
       alias('^', $.operator),
       $._type,
-    ),
+    )),
     type_multi_pointer: $ => seq(
       '[', alias('^', $.operator), ']',
       $._type,

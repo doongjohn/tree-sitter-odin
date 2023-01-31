@@ -275,3 +275,117 @@ defer statement
           (operator)
           (expression_type_list
             (int_literal)))))))
+
+================================================================================
+for basic
+================================================================================
+
+{
+  for i := 0; i < 10; i += 1 { }
+  for i := 0; i < 10; i += 1 do single_statement()
+  for i, j := 0, 0; b(); { b(); i += 1; j += 1 } { }
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_statement
+    (for_statement
+      (keyword)
+      (var_declaration
+        (identifier_list
+          (identifier))
+        (operator)
+        (operator)
+        (expression_type_list
+          (int_literal)))
+      (binary_expression
+        (identifier)
+        (operator)
+        (int_literal))
+      (assignment_operation_statement
+        (identifier)
+        (operator)
+        (int_literal))
+      (block_statement))
+    (for_statement
+      (keyword)
+      (var_declaration
+        (identifier_list
+          (identifier))
+        (operator)
+        (operator)
+        (expression_type_list
+          (int_literal)))
+      (binary_expression
+        (identifier)
+        (operator)
+        (int_literal))
+      (assignment_operation_statement
+        (identifier)
+        (operator)
+        (int_literal))
+      (do_statement
+        (keyword)
+        (call_statement
+          (identifier)
+          (arguments))))
+    (for_statement
+      (keyword)
+      (var_declaration
+        (identifier_list
+          (identifier)
+          (identifier))
+        (operator)
+        (operator)
+        (expression_type_list
+          (int_literal)
+          (int_literal)))
+      (call_expression
+        (identifier)
+        (arguments))
+      (block_statement
+        (call_statement
+          (identifier)
+          (arguments))
+        (assignment_operation_statement
+          (identifier)
+          (operator)
+          (int_literal))
+        (assignment_operation_statement
+          (identifier)
+          (operator)
+          (int_literal)))
+      (block_statement))))
+
+================================================================================
+for ranged
+================================================================================
+
+{
+  for i in 0..<10 { }
+  for i in 0..=9 { }
+  /* for character in some_string { } */
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_statement
+    (for_statement
+      (keyword)
+      (identifier)
+      (keyword)
+      (range_expression
+        (int_literal)
+        (int_literal))
+      (block_statement))
+    (for_statement
+      (keyword)
+      (identifier)
+      (keyword)
+      (range_expression
+        (int_literal)
+        (int_literal))
+      (block_statement))
+    (block_comment)))

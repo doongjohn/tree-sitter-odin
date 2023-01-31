@@ -1,4 +1,79 @@
 ================================================================================
+number
+================================================================================
+
+a := 10
+a := 10.0
+a := .0
+/* a := 10. // this needs custom scanner... */
+a := 1.23e2
+a := 123E2
+a := 123.E+2
+a := 1e-1
+a := 0010e-2
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_type_list
+      (int_literal)))
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_type_list
+      (float_literal)))
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_type_list
+      (float_literal)))
+  (block_comment)
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_type_list
+      (float_literal)))
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_type_list
+      (float_literal)))
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_type_list
+      (float_literal)))
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_type_list
+      (float_literal)))
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_type_list
+      (float_literal))))
+
+================================================================================
 string
 ================================================================================
 
