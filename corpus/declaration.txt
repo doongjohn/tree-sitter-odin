@@ -82,6 +82,185 @@ e: io.Error
       (type_identifier))))
 
 ================================================================================
+bit set
+================================================================================
+
+a: bit_set[Foo]
+a: bit_set[0..<10]
+a := bit_set[0..<10]{.A, .B}
+a := {.A, .B}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (type_bit_set
+      (type_identifier)
+      (type_identifier)))
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (type_bit_set
+      (type_identifier)
+      (range_expression
+        (int_literal)
+        (int_literal))))
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_type_list
+      (initializer_literal
+        (type_bit_set
+          (type_identifier)
+          (range_expression
+            (int_literal)
+            (int_literal)))
+        (implicit_selector_expression
+          (enum_field))
+        (implicit_selector_expression
+          (enum_field)))))
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_type_list
+      (initializer_literal
+        (implicit_selector_expression
+          (enum_field))
+        (implicit_selector_expression
+          (enum_field))))))
+
+================================================================================
+matrix
+================================================================================
+
+m: matrix[2, 3]f32
+m := matrix[2, 3]f32{
+  1, 9, -13,
+  20, 5, -6,
+}
+m: matrix[2, 3]f32 = {
+  1, 9, -13,
+  20, 5, -6,
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (type_matrix
+      (type_identifier)
+      (int_literal)
+      (int_literal)
+      (type_identifier)))
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_type_list
+      (initializer_literal
+        (type_matrix
+          (type_identifier)
+          (int_literal)
+          (int_literal)
+          (type_identifier))
+        (int_literal)
+        (int_literal)
+        (unary_expression
+          (int_literal))
+        (int_literal)
+        (int_literal)
+        (unary_expression
+          (int_literal)))))
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (type_matrix
+      (type_identifier)
+      (int_literal)
+      (int_literal)
+      (type_identifier))
+    (operator)
+    (expression_type_list
+      (initializer_literal
+        (int_literal)
+        (int_literal)
+        (unary_expression
+          (int_literal))
+        (int_literal)
+        (int_literal)
+        (unary_expression
+          (int_literal))))))
+
+================================================================================
+map
+================================================================================
+
+m: map[string]int
+m := map[string]int{
+	"Bob" = 2,
+	"Chloe" = 5,
+}
+m: map[string]int = {
+	"Bob" = 2,
+	"Chloe" = 5,
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (type_map
+      (type_identifier)
+      (type_identifier)
+      (type_identifier)))
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (operator)
+    (expression_type_list
+      (key_value_literal
+        (type_map
+          (type_identifier)
+          (type_identifier)
+          (type_identifier))
+        (interpreted_string_literal)
+        (int_literal)
+        (interpreted_string_literal)
+        (int_literal))))
+  (var_declaration
+    (identifier_list
+      (identifier))
+    (operator)
+    (type_map
+      (type_identifier)
+      (type_identifier)
+      (type_identifier))
+    (operator)
+    (expression_type_list
+      (key_value_literal
+        (interpreted_string_literal)
+        (int_literal)
+        (interpreted_string_literal)
+        (int_literal)))))
+
+================================================================================
 pointer and array
 ================================================================================
 

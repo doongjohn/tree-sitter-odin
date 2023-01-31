@@ -267,7 +267,7 @@ hi := Vector{
     (operator)
     (operator)
     (expression_type_list
-      (struct_literal
+      (key_value_literal
         (type_identifier)
         (identifier)
         (int_literal)
@@ -313,7 +313,7 @@ B :: union #no_nil {
       (type_value_union
         (keyword)
         (directive
-          (tag))
+          (directive))
         (type_value_union_field
           (type_identifier))))))
 

@@ -26,10 +26,6 @@
             "named": true
           },
           {
-            "type": "bit_set_literal",
-            "named": true
-          },
-          {
             "type": "call_expression",
             "named": true
           },
@@ -94,6 +90,10 @@
             "named": true
           },
           {
+            "type": "key_value_literal",
+            "named": true
+          },
+          {
             "type": "keyword",
             "named": true
           },
@@ -134,10 +134,6 @@
             "named": true
           },
           {
-            "type": "struct_literal",
-            "named": true
-          },
-          {
             "type": "ternary_c_like_expression",
             "named": true
           },
@@ -162,6 +158,10 @@
             "named": true
           },
           {
+            "type": "type_bit_set",
+            "named": true
+          },
+          {
             "type": "type_conversion_expression",
             "named": true
           },
@@ -175,6 +175,14 @@
           },
           {
             "type": "type_identifier",
+            "named": true
+          },
+          {
+            "type": "type_map",
+            "named": true
+          },
+          {
+            "type": "type_matrix",
             "named": true
           },
           {
@@ -277,10 +285,6 @@
             "named": true
           },
           {
-            "type": "bit_set_literal",
-            "named": true
-          },
-          {
             "type": "call_expression",
             "named": true
           },
@@ -341,6 +345,10 @@
             "named": true
           },
           {
+            "type": "key_value_literal",
+            "named": true
+          },
+          {
             "type": "keyword",
             "named": true
           },
@@ -378,10 +386,6 @@
           },
           {
             "type": "slice_literal",
-            "named": true
-          },
-          {
-            "type": "struct_literal",
             "named": true
           },
           {
@@ -435,10 +439,6 @@
             "named": true
           },
           {
-            "type": "bit_set_literal",
-            "named": true
-          },
-          {
             "type": "call_expression",
             "named": true
           },
@@ -499,6 +499,10 @@
             "named": true
           },
           {
+            "type": "key_value_literal",
+            "named": true
+          },
+          {
             "type": "keyword",
             "named": true
           },
@@ -536,10 +540,6 @@
           },
           {
             "type": "slice_literal",
-            "named": true
-          },
-          {
-            "type": "struct_literal",
             "named": true
           },
           {
@@ -665,10 +665,6 @@
             "named": true
           },
           {
-            "type": "bit_set_literal",
-            "named": true
-          },
-          {
             "type": "call_expression",
             "named": true
           },
@@ -733,6 +729,10 @@
             "named": true
           },
           {
+            "type": "key_value_literal",
+            "named": true
+          },
+          {
             "type": "keyword",
             "named": true
           },
@@ -773,10 +773,6 @@
             "named": true
           },
           {
-            "type": "struct_literal",
-            "named": true
-          },
-          {
             "type": "ternary_c_like_expression",
             "named": true
           },
@@ -801,6 +797,10 @@
             "named": true
           },
           {
+            "type": "type_bit_set",
+            "named": true
+          },
+          {
             "type": "type_conversion_expression",
             "named": true
           },
@@ -814,6 +814,14 @@
           },
           {
             "type": "type_identifier",
+            "named": true
+          },
+          {
+            "type": "type_map",
+            "named": true
+          },
+          {
+            "type": "type_matrix",
             "named": true
           },
           {
@@ -907,10 +915,6 @@
           "named": true
         },
         {
-          "type": "bit_set_literal",
-          "named": true
-        },
-        {
           "type": "call_expression",
           "named": true
         },
@@ -971,6 +975,10 @@
           "named": true
         },
         {
+          "type": "key_value_literal",
+          "named": true
+        },
+        {
           "type": "keyword",
           "named": true
         },
@@ -1012,10 +1020,6 @@
         },
         {
           "type": "slice_literal",
-          "named": true
-        },
-        {
-          "type": "struct_literal",
           "named": true
         },
         {
@@ -1084,10 +1088,6 @@
             "named": true
           },
           {
-            "type": "bit_set_literal",
-            "named": true
-          },
-          {
             "type": "call_expression",
             "named": true
           },
@@ -1152,6 +1152,10 @@
             "named": true
           },
           {
+            "type": "key_value_literal",
+            "named": true
+          },
+          {
             "type": "keyword",
             "named": true
           },
@@ -1192,10 +1196,6 @@
             "named": true
           },
           {
-            "type": "struct_literal",
-            "named": true
-          },
-          {
             "type": "ternary_c_like_expression",
             "named": true
           },
@@ -1220,6 +1220,10 @@
             "named": true
           },
           {
+            "type": "type_bit_set",
+            "named": true
+          },
+          {
             "type": "type_conversion_expression",
             "named": true
           },
@@ -1233,6 +1237,14 @@
           },
           {
             "type": "type_identifier",
+            "named": true
+          },
+          {
+            "type": "type_map",
+            "named": true
+          },
+          {
+            "type": "type_matrix",
             "named": true
           },
           {
@@ -1320,10 +1332,6 @@
             "named": true
           },
           {
-            "type": "bit_set_literal",
-            "named": true
-          },
-          {
             "type": "call_expression",
             "named": true
           },
@@ -1388,6 +1396,10 @@
             "named": true
           },
           {
+            "type": "key_value_literal",
+            "named": true
+          },
+          {
             "type": "keyword",
             "named": true
           },
@@ -1428,10 +1440,6 @@
             "named": true
           },
           {
-            "type": "struct_literal",
-            "named": true
-          },
-          {
             "type": "ternary_c_like_expression",
             "named": true
           },
@@ -1456,6 +1464,10 @@
             "named": true
           },
           {
+            "type": "type_bit_set",
+            "named": true
+          },
+          {
             "type": "type_conversion_expression",
             "named": true
           },
@@ -1469,6 +1481,14 @@
           },
           {
             "type": "type_identifier",
+            "named": true
+          },
+          {
+            "type": "type_map",
+            "named": true
+          },
+          {
+            "type": "type_matrix",
             "named": true
           },
           {
@@ -1533,169 +1553,6 @@
           }
         ]
       }
-    }
-  },
-  {
-    "type": "bit_set_literal",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "auto_cast_expression",
-          "named": true
-        },
-        {
-          "type": "binary_expression",
-          "named": true
-        },
-        {
-          "type": "bit_set_literal",
-          "named": true
-        },
-        {
-          "type": "call_expression",
-          "named": true
-        },
-        {
-          "type": "cast_expression",
-          "named": true
-        },
-        {
-          "type": "complex_literal",
-          "named": true
-        },
-        {
-          "type": "const_identifier",
-          "named": true
-        },
-        {
-          "type": "context_variable",
-          "named": true
-        },
-        {
-          "type": "dereference_expression",
-          "named": true
-        },
-        {
-          "type": "enum_selector_expression",
-          "named": true
-        },
-        {
-          "type": "false",
-          "named": true
-        },
-        {
-          "type": "fixed_array_literal",
-          "named": true
-        },
-        {
-          "type": "float_literal",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "implicit_selector_expression",
-          "named": true
-        },
-        {
-          "type": "initializer_literal",
-          "named": true
-        },
-        {
-          "type": "int_literal",
-          "named": true
-        },
-        {
-          "type": "interpreted_string_literal",
-          "named": true
-        },
-        {
-          "type": "keyword",
-          "named": true
-        },
-        {
-          "type": "nil",
-          "named": true
-        },
-        {
-          "type": "optional_check_expression",
-          "named": true
-        },
-        {
-          "type": "or_else_expression",
-          "named": true
-        },
-        {
-          "type": "parenthesized_expression",
-          "named": true
-        },
-        {
-          "type": "proc_literal",
-          "named": true
-        },
-        {
-          "type": "quaternion_literal",
-          "named": true
-        },
-        {
-          "type": "raw_string_literal",
-          "named": true
-        },
-        {
-          "type": "selector_expression",
-          "named": true
-        },
-        {
-          "type": "slice_literal",
-          "named": true
-        },
-        {
-          "type": "struct_literal",
-          "named": true
-        },
-        {
-          "type": "ternary_c_like_expression",
-          "named": true
-        },
-        {
-          "type": "ternary_if_expression",
-          "named": true
-        },
-        {
-          "type": "ternary_when_expression",
-          "named": true
-        },
-        {
-          "type": "transmute_expression",
-          "named": true
-        },
-        {
-          "type": "true",
-          "named": true
-        },
-        {
-          "type": "type_assert_expression",
-          "named": true
-        },
-        {
-          "type": "type_conversion_expression",
-          "named": true
-        },
-        {
-          "type": "unary_expression",
-          "named": true
-        },
-        {
-          "type": "undefined_value",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -1822,10 +1679,6 @@
             "named": true
           },
           {
-            "type": "bit_set_literal",
-            "named": true
-          },
-          {
             "type": "builtin_procedure",
             "named": true
           },
@@ -1890,6 +1743,10 @@
             "named": true
           },
           {
+            "type": "key_value_literal",
+            "named": true
+          },
+          {
             "type": "keyword",
             "named": true
           },
@@ -1927,10 +1784,6 @@
           },
           {
             "type": "slice_literal",
-            "named": true
-          },
-          {
-            "type": "struct_literal",
             "named": true
           },
           {
@@ -2000,10 +1853,6 @@
             "named": true
           },
           {
-            "type": "bit_set_literal",
-            "named": true
-          },
-          {
             "type": "builtin_procedure",
             "named": true
           },
@@ -2068,6 +1917,10 @@
             "named": true
           },
           {
+            "type": "key_value_literal",
+            "named": true
+          },
+          {
             "type": "keyword",
             "named": true
           },
@@ -2105,10 +1958,6 @@
           },
           {
             "type": "slice_literal",
-            "named": true
-          },
-          {
-            "type": "struct_literal",
             "named": true
           },
           {
@@ -2179,10 +2028,6 @@
           "named": true
         },
         {
-          "type": "bit_set_literal",
-          "named": true
-        },
-        {
           "type": "call_expression",
           "named": true
         },
@@ -2243,6 +2088,10 @@
           "named": true
         },
         {
+          "type": "key_value_literal",
+          "named": true
+        },
+        {
           "type": "keyword",
           "named": true
         },
@@ -2287,10 +2136,6 @@
           "named": true
         },
         {
-          "type": "struct_literal",
-          "named": true
-        },
-        {
           "type": "ternary_c_like_expression",
           "named": true
         },
@@ -2315,6 +2160,10 @@
           "named": true
         },
         {
+          "type": "type_bit_set",
+          "named": true
+        },
+        {
           "type": "type_conversion_expression",
           "named": true
         },
@@ -2328,6 +2177,14 @@
         },
         {
           "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_map",
+          "named": true
+        },
+        {
+          "type": "type_matrix",
           "named": true
         },
         {
@@ -2455,6 +2312,10 @@
             "named": true
           },
           {
+            "type": "type_bit_set",
+            "named": true
+          },
+          {
             "type": "type_dynamic_array",
             "named": true
           },
@@ -2464,6 +2325,14 @@
           },
           {
             "type": "type_identifier",
+            "named": true
+          },
+          {
+            "type": "type_map",
+            "named": true
+          },
+          {
+            "type": "type_matrix",
             "named": true
           },
           {
@@ -2620,10 +2489,6 @@
           "named": true
         },
         {
-          "type": "bit_set_literal",
-          "named": true
-        },
-        {
           "type": "call_expression",
           "named": true
         },
@@ -2684,6 +2549,10 @@
           "named": true
         },
         {
+          "type": "key_value_literal",
+          "named": true
+        },
+        {
           "type": "keyword",
           "named": true
         },
@@ -2725,10 +2594,6 @@
         },
         {
           "type": "slice_literal",
-          "named": true
-        },
-        {
-          "type": "struct_literal",
           "named": true
         },
         {
@@ -2783,10 +2648,6 @@
           "named": true
         },
         {
-          "type": "bit_set_literal",
-          "named": true
-        },
-        {
           "type": "cast_expression",
           "named": true
         },
@@ -2804,6 +2665,10 @@
         },
         {
           "type": "dereference_expression",
+          "named": true
+        },
+        {
+          "type": "directive",
           "named": true
         },
         {
@@ -2843,6 +2708,10 @@
           "named": true
         },
         {
+          "type": "key_value_literal",
+          "named": true
+        },
+        {
           "type": "nil",
           "named": true
         },
@@ -2872,14 +2741,6 @@
         },
         {
           "type": "slice_literal",
-          "named": true
-        },
-        {
-          "type": "struct_literal",
-          "named": true
-        },
-        {
-          "type": "tag",
           "named": true
         },
         {
@@ -2941,6 +2802,10 @@
           "named": true
         },
         {
+          "type": "type_bit_set",
+          "named": true
+        },
+        {
           "type": "type_dynamic_array",
           "named": true
         },
@@ -2950,6 +2815,14 @@
         },
         {
           "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_map",
+          "named": true
+        },
+        {
+          "type": "type_matrix",
           "named": true
         },
         {
@@ -3121,10 +2994,6 @@
           "named": true
         },
         {
-          "type": "bit_set_literal",
-          "named": true
-        },
-        {
           "type": "call_expression",
           "named": true
         },
@@ -3185,6 +3054,10 @@
           "named": true
         },
         {
+          "type": "key_value_literal",
+          "named": true
+        },
+        {
           "type": "keyword",
           "named": true
         },
@@ -3222,10 +3095,6 @@
         },
         {
           "type": "slice_literal",
-          "named": true
-        },
-        {
-          "type": "struct_literal",
           "named": true
         },
         {
@@ -3295,10 +3164,6 @@
           "named": true
         },
         {
-          "type": "bit_set_literal",
-          "named": true
-        },
-        {
           "type": "call_expression",
           "named": true
         },
@@ -3363,6 +3228,10 @@
           "named": true
         },
         {
+          "type": "key_value_literal",
+          "named": true
+        },
+        {
           "type": "keyword",
           "named": true
         },
@@ -3403,10 +3272,6 @@
           "named": true
         },
         {
-          "type": "struct_literal",
-          "named": true
-        },
-        {
           "type": "ternary_c_like_expression",
           "named": true
         },
@@ -3431,6 +3296,10 @@
           "named": true
         },
         {
+          "type": "type_bit_set",
+          "named": true
+        },
+        {
           "type": "type_conversion_expression",
           "named": true
         },
@@ -3444,6 +3313,14 @@
         },
         {
           "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_map",
+          "named": true
+        },
+        {
+          "type": "type_matrix",
           "named": true
         },
         {
@@ -3537,10 +3414,6 @@
           "named": true
         },
         {
-          "type": "bit_set_literal",
-          "named": true
-        },
-        {
           "type": "call_expression",
           "named": true
         },
@@ -3601,6 +3474,10 @@
           "named": true
         },
         {
+          "type": "key_value_literal",
+          "named": true
+        },
+        {
           "type": "keyword",
           "named": true
         },
@@ -3641,10 +3518,6 @@
           "named": true
         },
         {
-          "type": "struct_literal",
-          "named": true
-        },
-        {
           "type": "ternary_c_like_expression",
           "named": true
         },
@@ -3669,6 +3542,10 @@
           "named": true
         },
         {
+          "type": "type_bit_set",
+          "named": true
+        },
+        {
           "type": "type_conversion_expression",
           "named": true
         },
@@ -3682,6 +3559,14 @@
         },
         {
           "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_map",
+          "named": true
+        },
+        {
+          "type": "type_matrix",
           "named": true
         },
         {
@@ -3764,10 +3649,6 @@
             "named": true
           },
           {
-            "type": "bit_set_literal",
-            "named": true
-          },
-          {
             "type": "call_expression",
             "named": true
           },
@@ -3828,6 +3709,10 @@
             "named": true
           },
           {
+            "type": "key_value_literal",
+            "named": true
+          },
+          {
             "type": "keyword",
             "named": true
           },
@@ -3865,10 +3750,6 @@
           },
           {
             "type": "slice_literal",
-            "named": true
-          },
-          {
-            "type": "struct_literal",
             "named": true
           },
           {
@@ -3963,10 +3844,6 @@
           "named": true
         },
         {
-          "type": "bit_set_literal",
-          "named": true
-        },
-        {
           "type": "block_statement",
           "named": true
         },
@@ -4035,6 +3912,10 @@
           "named": true
         },
         {
+          "type": "key_value_literal",
+          "named": true
+        },
+        {
           "type": "keyword",
           "named": true
         },
@@ -4076,10 +3957,6 @@
         },
         {
           "type": "slice_literal",
-          "named": true
-        },
-        {
-          "type": "struct_literal",
           "named": true
         },
         {
@@ -4248,7 +4125,7 @@
     },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "auto_cast_expression",
@@ -4256,10 +4133,6 @@
         },
         {
           "type": "binary_expression",
-          "named": true
-        },
-        {
-          "type": "bit_set_literal",
           "named": true
         },
         {
@@ -4323,6 +4196,10 @@
           "named": true
         },
         {
+          "type": "key_value_literal",
+          "named": true
+        },
+        {
           "type": "keyword",
           "named": true
         },
@@ -4363,10 +4240,6 @@
           "named": true
         },
         {
-          "type": "struct_literal",
-          "named": true
-        },
-        {
           "type": "ternary_c_like_expression",
           "named": true
         },
@@ -4391,6 +4264,10 @@
           "named": true
         },
         {
+          "type": "type_bit_set",
+          "named": true
+        },
+        {
           "type": "type_conversion_expression",
           "named": true
         },
@@ -4404,6 +4281,14 @@
         },
         {
           "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_map",
+          "named": true
+        },
+        {
+          "type": "type_matrix",
           "named": true
         },
         {
@@ -4485,6 +4370,252 @@
     }
   },
   {
+    "type": "key_value_literal",
+    "named": true,
+    "fields": {
+      "directive": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "directive",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "auto_cast_expression",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "cast_expression",
+          "named": true
+        },
+        {
+          "type": "complex_literal",
+          "named": true
+        },
+        {
+          "type": "const_identifier",
+          "named": true
+        },
+        {
+          "type": "context_variable",
+          "named": true
+        },
+        {
+          "type": "dereference_expression",
+          "named": true
+        },
+        {
+          "type": "enum_selector_expression",
+          "named": true
+        },
+        {
+          "type": "false",
+          "named": true
+        },
+        {
+          "type": "fixed_array_literal",
+          "named": true
+        },
+        {
+          "type": "float_literal",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "implicit_selector_expression",
+          "named": true
+        },
+        {
+          "type": "initializer_literal",
+          "named": true
+        },
+        {
+          "type": "int_literal",
+          "named": true
+        },
+        {
+          "type": "interpreted_string_literal",
+          "named": true
+        },
+        {
+          "type": "key_value_literal",
+          "named": true
+        },
+        {
+          "type": "keyword",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "optional_check_expression",
+          "named": true
+        },
+        {
+          "type": "or_else_expression",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "proc_literal",
+          "named": true
+        },
+        {
+          "type": "quaternion_literal",
+          "named": true
+        },
+        {
+          "type": "raw_string_literal",
+          "named": true
+        },
+        {
+          "type": "selector_expression",
+          "named": true
+        },
+        {
+          "type": "slice_literal",
+          "named": true
+        },
+        {
+          "type": "ternary_c_like_expression",
+          "named": true
+        },
+        {
+          "type": "ternary_if_expression",
+          "named": true
+        },
+        {
+          "type": "ternary_when_expression",
+          "named": true
+        },
+        {
+          "type": "transmute_expression",
+          "named": true
+        },
+        {
+          "type": "true",
+          "named": true
+        },
+        {
+          "type": "type_assert_expression",
+          "named": true
+        },
+        {
+          "type": "type_bit_set",
+          "named": true
+        },
+        {
+          "type": "type_conversion_expression",
+          "named": true
+        },
+        {
+          "type": "type_dynamic_array",
+          "named": true
+        },
+        {
+          "type": "type_fixed_array",
+          "named": true
+        },
+        {
+          "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_map",
+          "named": true
+        },
+        {
+          "type": "type_matrix",
+          "named": true
+        },
+        {
+          "type": "type_multi_pointer",
+          "named": true
+        },
+        {
+          "type": "type_of_expression",
+          "named": true
+        },
+        {
+          "type": "type_pointer",
+          "named": true
+        },
+        {
+          "type": "type_proc",
+          "named": true
+        },
+        {
+          "type": "type_selector_expression",
+          "named": true
+        },
+        {
+          "type": "type_simd",
+          "named": true
+        },
+        {
+          "type": "type_slice",
+          "named": true
+        },
+        {
+          "type": "type_soa_dynamic_array",
+          "named": true
+        },
+        {
+          "type": "type_soa_fixed_array",
+          "named": true
+        },
+        {
+          "type": "type_soa_slice",
+          "named": true
+        },
+        {
+          "type": "type_value_enum",
+          "named": true
+        },
+        {
+          "type": "type_value_struct",
+          "named": true
+        },
+        {
+          "type": "type_value_union",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "undefined_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "named_argument",
     "named": true,
     "fields": {
@@ -4518,10 +4649,6 @@
           },
           {
             "type": "binary_expression",
-            "named": true
-          },
-          {
-            "type": "bit_set_literal",
             "named": true
           },
           {
@@ -4589,6 +4716,10 @@
             "named": true
           },
           {
+            "type": "key_value_literal",
+            "named": true
+          },
+          {
             "type": "keyword",
             "named": true
           },
@@ -4629,10 +4760,6 @@
             "named": true
           },
           {
-            "type": "struct_literal",
-            "named": true
-          },
-          {
             "type": "ternary_c_like_expression",
             "named": true
           },
@@ -4657,6 +4784,10 @@
             "named": true
           },
           {
+            "type": "type_bit_set",
+            "named": true
+          },
+          {
             "type": "type_conversion_expression",
             "named": true
           },
@@ -4670,6 +4801,14 @@
           },
           {
             "type": "type_identifier",
+            "named": true
+          },
+          {
+            "type": "type_map",
+            "named": true
+          },
+          {
+            "type": "type_matrix",
             "named": true
           },
           {
@@ -4763,10 +4902,6 @@
           "named": true
         },
         {
-          "type": "bit_set_literal",
-          "named": true
-        },
-        {
           "type": "call_expression",
           "named": true
         },
@@ -4827,6 +4962,10 @@
           "named": true
         },
         {
+          "type": "key_value_literal",
+          "named": true
+        },
+        {
           "type": "keyword",
           "named": true
         },
@@ -4864,10 +5003,6 @@
         },
         {
           "type": "slice_literal",
-          "named": true
-        },
-        {
-          "type": "struct_literal",
           "named": true
         },
         {
@@ -4926,10 +5061,6 @@
           "named": true
         },
         {
-          "type": "bit_set_literal",
-          "named": true
-        },
-        {
           "type": "call_expression",
           "named": true
         },
@@ -4990,6 +5121,10 @@
           "named": true
         },
         {
+          "type": "key_value_literal",
+          "named": true
+        },
+        {
           "type": "keyword",
           "named": true
         },
@@ -5027,10 +5162,6 @@
         },
         {
           "type": "slice_literal",
-          "named": true
-        },
-        {
-          "type": "struct_literal",
           "named": true
         },
         {
@@ -5124,6 +5255,10 @@
             "named": true
           },
           {
+            "type": "type_bit_set",
+            "named": true
+          },
+          {
             "type": "type_dynamic_array",
             "named": true
           },
@@ -5133,6 +5268,14 @@
           },
           {
             "type": "type_identifier",
+            "named": true
+          },
+          {
+            "type": "type_map",
+            "named": true
+          },
+          {
+            "type": "type_matrix",
             "named": true
           },
           {
@@ -5213,10 +5356,6 @@
           "named": true
         },
         {
-          "type": "bit_set_literal",
-          "named": true
-        },
-        {
           "type": "call_expression",
           "named": true
         },
@@ -5277,6 +5416,10 @@
           "named": true
         },
         {
+          "type": "key_value_literal",
+          "named": true
+        },
+        {
           "type": "keyword",
           "named": true
         },
@@ -5318,10 +5461,6 @@
         },
         {
           "type": "slice_literal",
-          "named": true
-        },
-        {
-          "type": "struct_literal",
           "named": true
         },
         {
@@ -5395,10 +5534,6 @@
           "named": true
         },
         {
-          "type": "bit_set_literal",
-          "named": true
-        },
-        {
           "type": "call_expression",
           "named": true
         },
@@ -5459,6 +5594,10 @@
           "named": true
         },
         {
+          "type": "key_value_literal",
+          "named": true
+        },
+        {
           "type": "keyword",
           "named": true
         },
@@ -5496,10 +5635,6 @@
         },
         {
           "type": "slice_literal",
-          "named": true
-        },
-        {
-          "type": "struct_literal",
           "named": true
         },
         {
@@ -5641,6 +5776,10 @@
           "named": true
         },
         {
+          "type": "type_bit_set",
+          "named": true
+        },
+        {
           "type": "type_dynamic_array",
           "named": true
         },
@@ -5650,6 +5789,14 @@
         },
         {
           "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_map",
+          "named": true
+        },
+        {
+          "type": "type_matrix",
           "named": true
         },
         {
@@ -5740,6 +5887,10 @@
             "named": true
           },
           {
+            "type": "type_bit_set",
+            "named": true
+          },
+          {
             "type": "type_dynamic_array",
             "named": true
           },
@@ -5749,6 +5900,14 @@
           },
           {
             "type": "type_identifier",
+            "named": true
+          },
+          {
+            "type": "type_map",
+            "named": true
+          },
+          {
+            "type": "type_matrix",
             "named": true
           },
           {
@@ -5829,10 +5988,6 @@
           "named": true
         },
         {
-          "type": "bit_set_literal",
-          "named": true
-        },
-        {
           "type": "call_expression",
           "named": true
         },
@@ -5893,6 +6048,10 @@
           "named": true
         },
         {
+          "type": "key_value_literal",
+          "named": true
+        },
+        {
           "type": "keyword",
           "named": true
         },
@@ -5934,10 +6093,6 @@
         },
         {
           "type": "slice_literal",
-          "named": true
-        },
-        {
-          "type": "struct_literal",
           "named": true
         },
         {
@@ -6019,10 +6174,6 @@
           "named": true
         },
         {
-          "type": "bit_set_literal",
-          "named": true
-        },
-        {
           "type": "call_expression",
           "named": true
         },
@@ -6083,6 +6234,10 @@
           "named": true
         },
         {
+          "type": "key_value_literal",
+          "named": true
+        },
+        {
           "type": "keyword",
           "named": true
         },
@@ -6120,10 +6275,6 @@
         },
         {
           "type": "slice_literal",
-          "named": true
-        },
-        {
-          "type": "struct_literal",
           "named": true
         },
         {
@@ -6215,10 +6366,6 @@
             "named": true
           },
           {
-            "type": "bit_set_literal",
-            "named": true
-          },
-          {
             "type": "call_expression",
             "named": true
           },
@@ -6279,6 +6426,10 @@
             "named": true
           },
           {
+            "type": "key_value_literal",
+            "named": true
+          },
+          {
             "type": "keyword",
             "named": true
           },
@@ -6316,10 +6467,6 @@
           },
           {
             "type": "slice_literal",
-            "named": true
-          },
-          {
-            "type": "struct_literal",
             "named": true
           },
           {
@@ -6390,10 +6537,6 @@
           "named": true
         },
         {
-          "type": "bit_set_literal",
-          "named": true
-        },
-        {
           "type": "call_expression",
           "named": true
         },
@@ -6454,6 +6597,10 @@
           "named": true
         },
         {
+          "type": "key_value_literal",
+          "named": true
+        },
+        {
           "type": "keyword",
           "named": true
         },
@@ -6494,10 +6641,6 @@
           "named": true
         },
         {
-          "type": "struct_literal",
-          "named": true
-        },
-        {
           "type": "ternary_c_like_expression",
           "named": true
         },
@@ -6522,6 +6665,10 @@
           "named": true
         },
         {
+          "type": "type_bit_set",
+          "named": true
+        },
+        {
           "type": "type_conversion_expression",
           "named": true
         },
@@ -6535,6 +6682,14 @@
         },
         {
           "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_map",
+          "named": true
+        },
+        {
+          "type": "type_matrix",
           "named": true
         },
         {
@@ -6680,244 +6835,6 @@
     }
   },
   {
-    "type": "struct_literal",
-    "named": true,
-    "fields": {
-      "directive": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "directive",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "auto_cast_expression",
-          "named": true
-        },
-        {
-          "type": "binary_expression",
-          "named": true
-        },
-        {
-          "type": "bit_set_literal",
-          "named": true
-        },
-        {
-          "type": "call_expression",
-          "named": true
-        },
-        {
-          "type": "cast_expression",
-          "named": true
-        },
-        {
-          "type": "complex_literal",
-          "named": true
-        },
-        {
-          "type": "const_identifier",
-          "named": true
-        },
-        {
-          "type": "context_variable",
-          "named": true
-        },
-        {
-          "type": "dereference_expression",
-          "named": true
-        },
-        {
-          "type": "enum_selector_expression",
-          "named": true
-        },
-        {
-          "type": "false",
-          "named": true
-        },
-        {
-          "type": "fixed_array_literal",
-          "named": true
-        },
-        {
-          "type": "float_literal",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "implicit_selector_expression",
-          "named": true
-        },
-        {
-          "type": "initializer_literal",
-          "named": true
-        },
-        {
-          "type": "int_literal",
-          "named": true
-        },
-        {
-          "type": "interpreted_string_literal",
-          "named": true
-        },
-        {
-          "type": "keyword",
-          "named": true
-        },
-        {
-          "type": "nil",
-          "named": true
-        },
-        {
-          "type": "optional_check_expression",
-          "named": true
-        },
-        {
-          "type": "or_else_expression",
-          "named": true
-        },
-        {
-          "type": "parenthesized_expression",
-          "named": true
-        },
-        {
-          "type": "proc_literal",
-          "named": true
-        },
-        {
-          "type": "quaternion_literal",
-          "named": true
-        },
-        {
-          "type": "raw_string_literal",
-          "named": true
-        },
-        {
-          "type": "selector_expression",
-          "named": true
-        },
-        {
-          "type": "slice_literal",
-          "named": true
-        },
-        {
-          "type": "struct_literal",
-          "named": true
-        },
-        {
-          "type": "ternary_c_like_expression",
-          "named": true
-        },
-        {
-          "type": "ternary_if_expression",
-          "named": true
-        },
-        {
-          "type": "ternary_when_expression",
-          "named": true
-        },
-        {
-          "type": "transmute_expression",
-          "named": true
-        },
-        {
-          "type": "true",
-          "named": true
-        },
-        {
-          "type": "type_assert_expression",
-          "named": true
-        },
-        {
-          "type": "type_conversion_expression",
-          "named": true
-        },
-        {
-          "type": "type_dynamic_array",
-          "named": true
-        },
-        {
-          "type": "type_fixed_array",
-          "named": true
-        },
-        {
-          "type": "type_identifier",
-          "named": true
-        },
-        {
-          "type": "type_multi_pointer",
-          "named": true
-        },
-        {
-          "type": "type_of_expression",
-          "named": true
-        },
-        {
-          "type": "type_pointer",
-          "named": true
-        },
-        {
-          "type": "type_proc",
-          "named": true
-        },
-        {
-          "type": "type_selector_expression",
-          "named": true
-        },
-        {
-          "type": "type_simd",
-          "named": true
-        },
-        {
-          "type": "type_slice",
-          "named": true
-        },
-        {
-          "type": "type_soa_dynamic_array",
-          "named": true
-        },
-        {
-          "type": "type_soa_fixed_array",
-          "named": true
-        },
-        {
-          "type": "type_soa_slice",
-          "named": true
-        },
-        {
-          "type": "type_value_enum",
-          "named": true
-        },
-        {
-          "type": "type_value_struct",
-          "named": true
-        },
-        {
-          "type": "type_value_union",
-          "named": true
-        },
-        {
-          "type": "unary_expression",
-          "named": true
-        },
-        {
-          "type": "undefined_value",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "ternary_c_like_expression",
     "named": true,
     "fields": {
@@ -6931,10 +6848,6 @@
           },
           {
             "type": "binary_expression",
-            "named": true
-          },
-          {
-            "type": "bit_set_literal",
             "named": true
           },
           {
@@ -6998,6 +6911,10 @@
             "named": true
           },
           {
+            "type": "key_value_literal",
+            "named": true
+          },
+          {
             "type": "keyword",
             "named": true
           },
@@ -7035,10 +6952,6 @@
           },
           {
             "type": "slice_literal",
-            "named": true
-          },
-          {
-            "type": "struct_literal",
             "named": true
           },
           {
@@ -7090,10 +7003,6 @@
         },
         {
           "type": "binary_expression",
-          "named": true
-        },
-        {
-          "type": "bit_set_literal",
           "named": true
         },
         {
@@ -7157,6 +7066,10 @@
           "named": true
         },
         {
+          "type": "key_value_literal",
+          "named": true
+        },
+        {
           "type": "keyword",
           "named": true
         },
@@ -7194,10 +7107,6 @@
         },
         {
           "type": "slice_literal",
-          "named": true
-        },
-        {
-          "type": "struct_literal",
           "named": true
         },
         {
@@ -7256,10 +7165,6 @@
             "named": true
           },
           {
-            "type": "bit_set_literal",
-            "named": true
-          },
-          {
             "type": "call_expression",
             "named": true
           },
@@ -7320,6 +7225,10 @@
             "named": true
           },
           {
+            "type": "key_value_literal",
+            "named": true
+          },
+          {
             "type": "keyword",
             "named": true
           },
@@ -7357,10 +7266,6 @@
           },
           {
             "type": "slice_literal",
-            "named": true
-          },
-          {
-            "type": "struct_literal",
             "named": true
           },
           {
@@ -7412,10 +7317,6 @@
         },
         {
           "type": "binary_expression",
-          "named": true
-        },
-        {
-          "type": "bit_set_literal",
           "named": true
         },
         {
@@ -7479,6 +7380,10 @@
           "named": true
         },
         {
+          "type": "key_value_literal",
+          "named": true
+        },
+        {
           "type": "keyword",
           "named": true
         },
@@ -7516,10 +7421,6 @@
         },
         {
           "type": "slice_literal",
-          "named": true
-        },
-        {
-          "type": "struct_literal",
           "named": true
         },
         {
@@ -7578,10 +7479,6 @@
             "named": true
           },
           {
-            "type": "bit_set_literal",
-            "named": true
-          },
-          {
             "type": "call_expression",
             "named": true
           },
@@ -7642,6 +7539,10 @@
             "named": true
           },
           {
+            "type": "key_value_literal",
+            "named": true
+          },
+          {
             "type": "keyword",
             "named": true
           },
@@ -7679,10 +7580,6 @@
           },
           {
             "type": "slice_literal",
-            "named": true
-          },
-          {
-            "type": "struct_literal",
             "named": true
           },
           {
@@ -7734,10 +7631,6 @@
         },
         {
           "type": "binary_expression",
-          "named": true
-        },
-        {
-          "type": "bit_set_literal",
           "named": true
         },
         {
@@ -7801,6 +7694,10 @@
           "named": true
         },
         {
+          "type": "key_value_literal",
+          "named": true
+        },
+        {
           "type": "keyword",
           "named": true
         },
@@ -7838,10 +7735,6 @@
         },
         {
           "type": "slice_literal",
-          "named": true
-        },
-        {
-          "type": "struct_literal",
           "named": true
         },
         {
@@ -7911,10 +7804,6 @@
           "named": true
         },
         {
-          "type": "bit_set_literal",
-          "named": true
-        },
-        {
           "type": "call_expression",
           "named": true
         },
@@ -7975,6 +7864,10 @@
           "named": true
         },
         {
+          "type": "key_value_literal",
+          "named": true
+        },
+        {
           "type": "keyword",
           "named": true
         },
@@ -8019,10 +7912,6 @@
           "named": true
         },
         {
-          "type": "struct_literal",
-          "named": true
-        },
-        {
           "type": "ternary_c_like_expression",
           "named": true
         },
@@ -8047,6 +7936,10 @@
           "named": true
         },
         {
+          "type": "type_bit_set",
+          "named": true
+        },
+        {
           "type": "type_conversion_expression",
           "named": true
         },
@@ -8060,6 +7953,14 @@
         },
         {
           "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_map",
+          "named": true
+        },
+        {
+          "type": "type_matrix",
           "named": true
         },
         {
@@ -8153,10 +8054,6 @@
           "named": true
         },
         {
-          "type": "bit_set_literal",
-          "named": true
-        },
-        {
           "type": "call_expression",
           "named": true
         },
@@ -8217,6 +8114,10 @@
           "named": true
         },
         {
+          "type": "key_value_literal",
+          "named": true
+        },
+        {
           "type": "keyword",
           "named": true
         },
@@ -8257,10 +8158,6 @@
           "named": true
         },
         {
-          "type": "struct_literal",
-          "named": true
-        },
-        {
           "type": "ternary_c_like_expression",
           "named": true
         },
@@ -8285,6 +8182,10 @@
           "named": true
         },
         {
+          "type": "type_bit_set",
+          "named": true
+        },
+        {
           "type": "type_conversion_expression",
           "named": true
         },
@@ -8298,6 +8199,14 @@
         },
         {
           "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_map",
+          "named": true
+        },
+        {
+          "type": "type_matrix",
           "named": true
         },
         {
@@ -8364,6 +8273,108 @@
     }
   },
   {
+    "type": "type_bit_set",
+    "named": true,
+    "fields": {
+      "directive": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "directive",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "range_expression",
+          "named": true
+        },
+        {
+          "type": "type_bit_set",
+          "named": true
+        },
+        {
+          "type": "type_dynamic_array",
+          "named": true
+        },
+        {
+          "type": "type_fixed_array",
+          "named": true
+        },
+        {
+          "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_map",
+          "named": true
+        },
+        {
+          "type": "type_matrix",
+          "named": true
+        },
+        {
+          "type": "type_multi_pointer",
+          "named": true
+        },
+        {
+          "type": "type_of_expression",
+          "named": true
+        },
+        {
+          "type": "type_pointer",
+          "named": true
+        },
+        {
+          "type": "type_proc",
+          "named": true
+        },
+        {
+          "type": "type_selector_expression",
+          "named": true
+        },
+        {
+          "type": "type_simd",
+          "named": true
+        },
+        {
+          "type": "type_slice",
+          "named": true
+        },
+        {
+          "type": "type_soa_dynamic_array",
+          "named": true
+        },
+        {
+          "type": "type_soa_fixed_array",
+          "named": true
+        },
+        {
+          "type": "type_soa_slice",
+          "named": true
+        },
+        {
+          "type": "type_value_enum",
+          "named": true
+        },
+        {
+          "type": "type_value_struct",
+          "named": true
+        },
+        {
+          "type": "type_value_union",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "type_conversion_expression",
     "named": true,
     "fields": {
@@ -8388,10 +8399,6 @@
         },
         {
           "type": "binary_expression",
-          "named": true
-        },
-        {
-          "type": "bit_set_literal",
           "named": true
         },
         {
@@ -8455,6 +8462,10 @@
           "named": true
         },
         {
+          "type": "key_value_literal",
+          "named": true
+        },
+        {
           "type": "keyword",
           "named": true
         },
@@ -8495,10 +8506,6 @@
           "named": true
         },
         {
-          "type": "struct_literal",
-          "named": true
-        },
-        {
           "type": "ternary_c_like_expression",
           "named": true
         },
@@ -8523,6 +8530,10 @@
           "named": true
         },
         {
+          "type": "type_bit_set",
+          "named": true
+        },
+        {
           "type": "type_conversion_expression",
           "named": true
         },
@@ -8536,6 +8547,14 @@
         },
         {
           "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_map",
+          "named": true
+        },
+        {
+          "type": "type_matrix",
           "named": true
         },
         {
@@ -8625,6 +8644,10 @@
           "named": true
         },
         {
+          "type": "type_bit_set",
+          "named": true
+        },
+        {
           "type": "type_dynamic_array",
           "named": true
         },
@@ -8634,6 +8657,14 @@
         },
         {
           "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_map",
+          "named": true
+        },
+        {
+          "type": "type_matrix",
           "named": true
         },
         {
@@ -8719,10 +8750,6 @@
           "named": true
         },
         {
-          "type": "bit_set_literal",
-          "named": true
-        },
-        {
           "type": "call_expression",
           "named": true
         },
@@ -8783,6 +8810,10 @@
           "named": true
         },
         {
+          "type": "key_value_literal",
+          "named": true
+        },
+        {
           "type": "keyword",
           "named": true
         },
@@ -8823,10 +8854,6 @@
           "named": true
         },
         {
-          "type": "struct_literal",
-          "named": true
-        },
-        {
           "type": "ternary_c_like_expression",
           "named": true
         },
@@ -8851,6 +8878,10 @@
           "named": true
         },
         {
+          "type": "type_bit_set",
+          "named": true
+        },
+        {
           "type": "type_conversion_expression",
           "named": true
         },
@@ -8864,6 +8895,338 @@
         },
         {
           "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_map",
+          "named": true
+        },
+        {
+          "type": "type_matrix",
+          "named": true
+        },
+        {
+          "type": "type_multi_pointer",
+          "named": true
+        },
+        {
+          "type": "type_of_expression",
+          "named": true
+        },
+        {
+          "type": "type_pointer",
+          "named": true
+        },
+        {
+          "type": "type_proc",
+          "named": true
+        },
+        {
+          "type": "type_selector_expression",
+          "named": true
+        },
+        {
+          "type": "type_simd",
+          "named": true
+        },
+        {
+          "type": "type_slice",
+          "named": true
+        },
+        {
+          "type": "type_soa_dynamic_array",
+          "named": true
+        },
+        {
+          "type": "type_soa_fixed_array",
+          "named": true
+        },
+        {
+          "type": "type_soa_slice",
+          "named": true
+        },
+        {
+          "type": "type_value_enum",
+          "named": true
+        },
+        {
+          "type": "type_value_struct",
+          "named": true
+        },
+        {
+          "type": "type_value_union",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "undefined_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_map",
+    "named": true,
+    "fields": {
+      "directive": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "directive",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "type_bit_set",
+          "named": true
+        },
+        {
+          "type": "type_dynamic_array",
+          "named": true
+        },
+        {
+          "type": "type_fixed_array",
+          "named": true
+        },
+        {
+          "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_map",
+          "named": true
+        },
+        {
+          "type": "type_matrix",
+          "named": true
+        },
+        {
+          "type": "type_multi_pointer",
+          "named": true
+        },
+        {
+          "type": "type_of_expression",
+          "named": true
+        },
+        {
+          "type": "type_pointer",
+          "named": true
+        },
+        {
+          "type": "type_proc",
+          "named": true
+        },
+        {
+          "type": "type_selector_expression",
+          "named": true
+        },
+        {
+          "type": "type_simd",
+          "named": true
+        },
+        {
+          "type": "type_slice",
+          "named": true
+        },
+        {
+          "type": "type_soa_dynamic_array",
+          "named": true
+        },
+        {
+          "type": "type_soa_fixed_array",
+          "named": true
+        },
+        {
+          "type": "type_soa_slice",
+          "named": true
+        },
+        {
+          "type": "type_value_enum",
+          "named": true
+        },
+        {
+          "type": "type_value_struct",
+          "named": true
+        },
+        {
+          "type": "type_value_union",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_matrix",
+    "named": true,
+    "fields": {
+      "directive": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "directive",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "auto_cast_expression",
+          "named": true
+        },
+        {
+          "type": "cast_expression",
+          "named": true
+        },
+        {
+          "type": "complex_literal",
+          "named": true
+        },
+        {
+          "type": "const_identifier",
+          "named": true
+        },
+        {
+          "type": "context_variable",
+          "named": true
+        },
+        {
+          "type": "dereference_expression",
+          "named": true
+        },
+        {
+          "type": "enum_selector_expression",
+          "named": true
+        },
+        {
+          "type": "false",
+          "named": true
+        },
+        {
+          "type": "fixed_array_literal",
+          "named": true
+        },
+        {
+          "type": "float_literal",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "implicit_selector_expression",
+          "named": true
+        },
+        {
+          "type": "initializer_literal",
+          "named": true
+        },
+        {
+          "type": "int_literal",
+          "named": true
+        },
+        {
+          "type": "interpreted_string_literal",
+          "named": true
+        },
+        {
+          "type": "key_value_literal",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "or_else_expression",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "proc_literal",
+          "named": true
+        },
+        {
+          "type": "quaternion_literal",
+          "named": true
+        },
+        {
+          "type": "raw_string_literal",
+          "named": true
+        },
+        {
+          "type": "selector_expression",
+          "named": true
+        },
+        {
+          "type": "slice_literal",
+          "named": true
+        },
+        {
+          "type": "ternary_c_like_expression",
+          "named": true
+        },
+        {
+          "type": "ternary_if_expression",
+          "named": true
+        },
+        {
+          "type": "ternary_when_expression",
+          "named": true
+        },
+        {
+          "type": "transmute_expression",
+          "named": true
+        },
+        {
+          "type": "true",
+          "named": true
+        },
+        {
+          "type": "type_bit_set",
+          "named": true
+        },
+        {
+          "type": "type_conversion_expression",
+          "named": true
+        },
+        {
+          "type": "type_dynamic_array",
+          "named": true
+        },
+        {
+          "type": "type_fixed_array",
+          "named": true
+        },
+        {
+          "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_map",
+          "named": true
+        },
+        {
+          "type": "type_matrix",
           "named": true
         },
         {
@@ -8953,6 +9316,10 @@
           "named": true
         },
         {
+          "type": "type_bit_set",
+          "named": true
+        },
+        {
           "type": "type_dynamic_array",
           "named": true
         },
@@ -8962,6 +9329,14 @@
         },
         {
           "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_map",
+          "named": true
+        },
+        {
+          "type": "type_matrix",
           "named": true
         },
         {
@@ -9036,10 +9411,6 @@
           "named": true
         },
         {
-          "type": "bit_set_literal",
-          "named": true
-        },
-        {
           "type": "builtin_identifier",
           "named": true
         },
@@ -9104,6 +9475,10 @@
           "named": true
         },
         {
+          "type": "key_value_literal",
+          "named": true
+        },
+        {
           "type": "keyword",
           "named": true
         },
@@ -9141,10 +9516,6 @@
         },
         {
           "type": "slice_literal",
-          "named": true
-        },
-        {
-          "type": "struct_literal",
           "named": true
         },
         {
@@ -9210,6 +9581,10 @@
           "named": true
         },
         {
+          "type": "type_bit_set",
+          "named": true
+        },
+        {
           "type": "type_dynamic_array",
           "named": true
         },
@@ -9219,6 +9594,14 @@
         },
         {
           "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_map",
+          "named": true
+        },
+        {
+          "type": "type_matrix",
           "named": true
         },
         {
@@ -9395,6 +9778,10 @@
       "required": true,
       "types": [
         {
+          "type": "type_bit_set",
+          "named": true
+        },
+        {
           "type": "type_dynamic_array",
           "named": true
         },
@@ -9404,6 +9791,14 @@
         },
         {
           "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_map",
+          "named": true
+        },
+        {
+          "type": "type_matrix",
           "named": true
         },
         {
@@ -9551,6 +9946,10 @@
             "named": true
           },
           {
+            "type": "type_bit_set",
+            "named": true
+          },
+          {
             "type": "type_dynamic_array",
             "named": true
           },
@@ -9560,6 +9959,14 @@
           },
           {
             "type": "type_identifier",
+            "named": true
+          },
+          {
+            "type": "type_map",
+            "named": true
+          },
+          {
+            "type": "type_matrix",
             "named": true
           },
           {
@@ -9645,10 +10052,6 @@
           "named": true
         },
         {
-          "type": "bit_set_literal",
-          "named": true
-        },
-        {
           "type": "call_expression",
           "named": true
         },
@@ -9713,6 +10116,10 @@
           "named": true
         },
         {
+          "type": "key_value_literal",
+          "named": true
+        },
+        {
           "type": "keyword",
           "named": true
         },
@@ -9754,10 +10161,6 @@
         },
         {
           "type": "slice_literal",
-          "named": true
-        },
-        {
-          "type": "struct_literal",
           "named": true
         },
         {
@@ -9868,6 +10271,10 @@
             "named": true
           },
           {
+            "type": "type_bit_set",
+            "named": true
+          },
+          {
             "type": "type_dynamic_array",
             "named": true
           },
@@ -9877,6 +10284,14 @@
           },
           {
             "type": "type_identifier",
+            "named": true
+          },
+          {
+            "type": "type_map",
+            "named": true
+          },
+          {
+            "type": "type_matrix",
             "named": true
           },
           {
@@ -10001,6 +10416,10 @@
       "required": true,
       "types": [
         {
+          "type": "type_bit_set",
+          "named": true
+        },
+        {
           "type": "type_dynamic_array",
           "named": true
         },
@@ -10010,6 +10429,14 @@
         },
         {
           "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_map",
+          "named": true
+        },
+        {
+          "type": "type_matrix",
           "named": true
         },
         {
@@ -10084,10 +10511,6 @@
             "named": true
           },
           {
-            "type": "bit_set_literal",
-            "named": true
-          },
-          {
             "type": "call_expression",
             "named": true
           },
@@ -10148,6 +10571,10 @@
             "named": true
           },
           {
+            "type": "key_value_literal",
+            "named": true
+          },
+          {
             "type": "keyword",
             "named": true
           },
@@ -10185,10 +10612,6 @@
           },
           {
             "type": "slice_literal",
-            "named": true
-          },
-          {
-            "type": "struct_literal",
             "named": true
           },
           {
@@ -10274,10 +10697,6 @@
           "named": true
         },
         {
-          "type": "bit_set_literal",
-          "named": true
-        },
-        {
           "type": "call_expression",
           "named": true
         },
@@ -10338,6 +10757,10 @@
           "named": true
         },
         {
+          "type": "key_value_literal",
+          "named": true
+        },
+        {
           "type": "keyword",
           "named": true
         },
@@ -10375,10 +10798,6 @@
         },
         {
           "type": "slice_literal",
-          "named": true
-        },
-        {
-          "type": "struct_literal",
           "named": true
         },
         {
@@ -10463,6 +10882,10 @@
             "named": true
           },
           {
+            "type": "type_bit_set",
+            "named": true
+          },
+          {
             "type": "type_dynamic_array",
             "named": true
           },
@@ -10472,6 +10895,14 @@
           },
           {
             "type": "type_identifier",
+            "named": true
+          },
+          {
+            "type": "type_map",
+            "named": true
+          },
+          {
+            "type": "type_matrix",
             "named": true
           },
           {
@@ -10690,10 +11121,6 @@
   },
   {
     "type": "raw_string_literal",
-    "named": true
-  },
-  {
-    "type": "tag",
     "named": true
   },
   {

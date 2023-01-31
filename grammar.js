@@ -45,8 +45,7 @@ const
   // NOTE: this does not allow lone trailing periods `0.`
   decimalFloatLiteral = choice(
     seq(decimalDigits, '.', decimalDigits, decimalExponent),
-    seq(decimalDigits, '.', decimalDigits),
-    seq(decimalDigits, '.', decimalExponent),
+    seq(decimalDigits, '.', choice(decimalDigits, decimalExponent)),
     seq(decimalDigits, decimalExponent),
     seq('.', decimalDigits, decimalExponent),
     seq('.', decimalDigits),
@@ -70,8 +69,6 @@ const
     'uint', 'int',
     'uintptr', 'rawptr',
     'string', 'cstring', 'rune',
-    'map',
-    'matrix',
     'complex32', 'complex64', 'complex128',
     'quaternion64', 'quaternion128', 'quaternion256',
   ],
@@ -108,10 +105,12 @@ module.exports = grammar({
     [$._complex_expression, $._statement],
     [$._identifier, $.type_selector_expression],
     [$._type, $.enum_selector_expression],
-    [$.proc_literal, $.type_proc],
-    [$.block_statement, $.bit_set_literal],
+    [$.type_proc, $.proc_literal],
     [$.type_fixed_array, $.fixed_array_literal],
-    [$.struct_literal, $.initializer_literal],
+    [$.block_statement, $.initializer_literal],
+    [$.key_value_literal, $.expression_list],
+    [$.key_value_literal, $.initializer_literal],
+    [$.block_statement, $.key_value_literal, $.initializer_literal],
   ],
 
   rules: {
@@ -177,7 +176,7 @@ module.exports = grammar({
     ),
     _attribute_declaration_objc_type: $ => seq(
       '@(',
-      field('attribute', alias('objc_type', $.keyword)),
+      field('attribute', alias(token('objc_type'), $.keyword)),
       seq(
         alias('=', $.operator),
         field('value', $._type),
@@ -337,14 +336,11 @@ module.exports = grammar({
       $._numeric_literal,
       $.complex_literal,
       $.quaternion_literal,
-      // TODO: matrix literal https://odin-lang.org/docs/overview/#matrix
-      $.proc_literal,
-      $.bit_set_literal,
       $.fixed_array_literal,
       $.slice_literal,
-      $.struct_literal,
+      $.proc_literal,
+      $.key_value_literal,
       $.initializer_literal,
-      // TODO: map literal https://odin-lang.org/docs/overview/#maps
     ),
 
     nil: $ => 'nil',
@@ -400,6 +396,41 @@ module.exports = grammar({
         /U[0-9a-fA-F]{8}/
       )
     )),
+
+    fixed_array_literal: $ => seq(
+      '[',
+      choice(
+        $._expression,
+        alias('?', $.keyword),
+      ),
+      ']',
+      $._type,
+      '{',
+      commaSep($._expression),
+      optional(','),
+      '}',
+    ),
+
+    slice_literal: $ => choice(
+      $._slice_literal,
+      $._slice_literal_array,
+    ),
+    _slice_literal: $ => seq(
+      $._expression,
+      '[',
+      optional($._expression),
+      ':',
+      optional($._expression),
+      ']',
+    ),
+    _slice_literal_array: $ => seq(
+      '[', ']',
+      $._type,
+      '{',
+      commaSep($._expression),
+      optional(','),
+      '}',
+    ),
 
     proc_literal: $ => seq(
       optional(alias(
@@ -468,66 +499,16 @@ module.exports = grammar({
       seq('(', commaSep($.proc_result_declaration), ')')
     ),
 
-    bit_set_literal: $ => seq(
+    key_value_literal: $ => seq(
+      optional($._type),
       '{',
-      commaSep($._expression),
+      commaSep(seq($._expression, '=', $._expression)),
       optional(','),
       '}',
     ),
 
-    fixed_array_literal: $ => seq(
-      '[',
-      choice(
-        $._expression,
-        alias('?', $.keyword),
-      ),
-      ']',
-      $._type,
-      '{',
-      commaSep($._expression),
-      optional(','),
-      '}',
-    ),
-
-    slice_literal: $ => choice(
-      $._slice_literal,
-      $._slice_literal_array,
-    ),
-    _slice_literal: $ => seq(
-      $._expression,
-      '[',
-      optional($._expression),
-      ':',
-      optional($._expression),
-      ']',
-    ),
-    _slice_literal_array: $ => seq(
-      '[', ']',
-      $._type,
-      '{',
-      commaSep($._expression),
-      optional(','),
-      '}',
-    ),
-
-    struct_literal: $ => seq(
-      $._type,
-      '{',
-      commaSep(seq($.identifier, '=', $._expression)),
-      optional(','),
-      '}',
-    ),
-
-    // [aliased fixed array / slice / struct] literal
-    /*
-      Vector :: distinct [3]f32
-      v := Vector{1, 2, 3}
-
-      Vector :: struct { x, y, z: f32 }
-      v := Vector{1, 2, 3}
-    */
     initializer_literal: $ => seq(
-      $._type,
+      optional($._type),
       '{',
       commaSep($._expression),
       optional(','),
@@ -663,6 +644,8 @@ module.exports = grammar({
       $._expression,
     )),
 
+    // NOTE: range_operators and float_literal are conflicting
+    // because `0.` is a valid syntax for a float
     range_expression: $ => prec.right(PREC.range, seq(
       $._expression,
       token(choice('..<', '..=')),
@@ -674,10 +657,7 @@ module.exports = grammar({
         // https://odin-lang.org/docs/overview/#operator-precedence
         multiplicative_operators = ['*', '/', '%', '%%', '&', '&~', '<<', '>>'],
         additive_operators = ['+', '-', '|', '~', 'in', 'not_in'],
-        comparative_operators = ['==', '!=', '<', '>', '<=', '>='],
-        range_operators = ['..=', '..<']
-      // NOTE: range_operators and float_literal are conflicting
-      // because `0.` is a valid syntax for a float
+        comparative_operators = ['==', '!=', '<', '>', '<=', '>=']
 
       const table = [
         [PREC.multiplicative, choice(...multiplicative_operators)],
@@ -685,7 +665,6 @@ module.exports = grammar({
         [PREC.comparative, choice(...comparative_operators)],
         [PREC.and, '&&'],
         [PREC.or, '||'],
-        // [PREC.range, choice(...range_operators)],
       ];
 
       return choice(...table.map(([precedence, operator]) =>
@@ -776,11 +755,12 @@ module.exports = grammar({
       $.type_soa_slice,
       $.type_soa_fixed_array,
       $.type_soa_dynamic_array,
+      $.type_bit_set,
+      $.type_matrix,
+      $.type_map,
       $.type_simd,
       $.type_proc,
       $._type_value,
-      // TODO: https://odin-lang.org/docs/overview/#bit-sets
-      // TODO: https://odin-lang.org/docs/overview/#matrix-type
     ),
     _type: $ => seq(
       optional(field('directive', alias(token('#type'), $.directive))),
@@ -797,7 +777,7 @@ module.exports = grammar({
     )),
 
     type_of_expression: $ => seq(
-      alias('type_of', $.builtin_identifier),
+      alias(token('type_of'), $.builtin_identifier),
       '(', $._expression, ')',
     ),
 
@@ -836,17 +816,49 @@ module.exports = grammar({
       $.type_dynamic_array,
     ),
 
+    type_bit_set: $ => seq(
+      alias(token('bit_set'), $.type_identifier),
+      '[',
+      choice(
+        $._type,
+        $.range_expression,
+      ),
+      optional(seq(
+        ';',
+        $._type,
+      )),
+      ']',
+    ),
+
+    type_matrix: $ => seq(
+      alias(token('matrix'), $.type_identifier),
+      '[',
+      $._simple_expression,
+      ',',
+      $._simple_expression,
+      ']',
+      $._type,
+    ),
+
+    type_map: $ => seq(
+      alias(token('map'), $.type_identifier),
+      '[',
+      $._type,
+      ']',
+      $._type,
+    ),
+
     type_simd: $ => seq(
       alias(token('#simd'), $.directive),
       $.type_fixed_array,
     ),
 
     directive: $ => choice(
-      alias(token(/#[^\s]+/), $.tag),
+      alias(token(/#[^\s]+/), $.directive),
       $._align_directive,
     ),
     _align_directive: $ => seq(
-      alias(token('#align'), $.tag),
+      alias(token('#align'), $.directive),
       $._simple_expression,
     ),
 
