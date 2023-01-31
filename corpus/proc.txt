@@ -3,8 +3,6 @@ builtin proc
 ================================================================================
 
 a :: proc() {
-  a: type_of(10)
-  n := len(array)
   #assert("" == "")
   #panic("lol")
 }
@@ -22,24 +20,6 @@ a :: proc() {
         (keyword)
         (parameters)
         (block_statement
-          (var_declaration
-            (identifier_list
-              (identifier))
-            (operator)
-            (type_of_expression
-              (builtin_identifier)
-              (int_literal)))
-          (var_declaration
-            (identifier_list
-              (identifier))
-            (operator)
-            (operator)
-            (expression_type_list
-              (call_expression
-                (builtin_procedure)
-                (arguments
-                  (argument
-                    (identifier))))))
           (call_statement
             (builtin_procedure)
             (arguments
@@ -53,7 +33,6 @@ a :: proc() {
             (arguments
               (argument
                 (interpreted_string_literal)))))))))
-
 
 ================================================================================
 proc
@@ -330,7 +309,7 @@ simple_sanity_check :: proc(x: [2]int)
         (expression_list
           (binary_expression
             (call_expression
-              (builtin_procedure)
+              (identifier)
               (arguments
                 (argument
                   (identifier))))

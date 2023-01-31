@@ -4602,80 +4602,11 @@
           "content": {
             "type": "ALIAS",
             "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "len"
-                },
-                {
-                  "type": "STRING",
-                  "value": "swizzle"
-                },
-                {
-                  "type": "STRING",
-                  "value": "alloc"
-                },
-                {
-                  "type": "STRING",
-                  "value": "realloc"
-                },
-                {
-                  "type": "STRING",
-                  "value": "new"
-                },
-                {
-                  "type": "STRING",
-                  "value": "new_clone"
-                },
-                {
-                  "type": "STRING",
-                  "value": "make"
-                },
-                {
-                  "type": "STRING",
-                  "value": "delete"
-                },
-                {
-                  "type": "STRING",
-                  "value": "free"
-                },
-                {
-                  "type": "STRING",
-                  "value": "free_all"
-                },
-                {
-                  "type": "STRING",
-                  "value": "size_of"
-                },
-                {
-                  "type": "STRING",
-                  "value": "align_of"
-                },
-                {
-                  "type": "STRING",
-                  "value": "soa_zip"
-                },
-                {
-                  "type": "STRING",
-                  "value": "soa_unzip"
-                },
-                {
-                  "type": "STRING",
-                  "value": "typeid_of"
-                },
-                {
-                  "type": "STRING",
-                  "value": "type_info_of"
-                },
-                {
-                  "type": "TOKEN",
-                  "content": {
-                    "type": "PATTERN",
-                    "value": "#[^\\s\\(]+"
-                  }
-                }
-              ]
+              "type": "TOKEN",
+              "content": {
+                "type": "PATTERN",
+                "value": "#[^\\s\\(]+"
+              }
             },
             "named": true,
             "value": "builtin_procedure"
@@ -6150,11 +6081,11 @@
   "conflicts": [
     [
       "_simple_expression",
-      "identifier_list"
+      "_statement"
     ],
     [
       "_simple_expression",
-      "_statement"
+      "identifier_list"
     ],
     [
       "_identifier",

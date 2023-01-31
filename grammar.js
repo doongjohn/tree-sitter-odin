@@ -73,18 +73,6 @@ const
     'string', 'cstring', 'rune',
     'complex32', 'complex64', 'complex128',
     'quaternion64', 'quaternion128', 'quaternion256',
-  ],
-
-  builtin_procs = [
-    'len',
-    'swizzle',
-    'alloc', 'realloc',
-    'new', 'new_clone',
-    'make', 'delete',
-    'free', 'free_all',
-    'size_of', 'align_of',
-    'soa_zip', 'soa_unzip',
-    'typeid_of', 'type_info_of',
   ]
 
 module.exports = grammar({
@@ -732,7 +720,7 @@ module.exports = grammar({
     _builtin_call_expression: $ => seq(
       field(
         'function_call',
-        alias(choice(...builtin_procs, token(/#[^\s\(]+/)), $.builtin_procedure),
+        alias(token(/#[^\s\(]+/), $.builtin_procedure),
       ),
       field('arguments', $.arguments),
     ),
